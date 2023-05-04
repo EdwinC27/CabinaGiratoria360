@@ -3,11 +3,48 @@
     text-align: center;
     margin-bottom: 20px;
 }
-  
-.imagen {
-    display: block;
-    max-width: 300px;
-    margin: 0 auto;
+
+.img-qr {
+  display: block;
+  max-width: 300px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+.video {
+	width: 90%;
+	height: 300px;
+	margin-top: 10px;
+	margin-left: 5%;
+}
+
+@media screen and (min-width: 1115px) {
+	.img-qr {
+		width: 70%;
+		margin-left: 50px;
+    margin-right: 50px;
+		margin-top: 50px;
+	}
+
+	.video {
+		width: 90%;
+		height: 165%;
+		margin-top: 10px;
+	}
+
+	.juntos {
+		display: flex;
+		width: 100%;
+    margin-top: 150px;
+	}
+
+	.col1 {
+    width: 70%;
+	}
+
+  .col2 {
+    width: 30%;
+	}
 }
 
 .animated-bg {
@@ -20,7 +57,7 @@
     background-size: 400% 400%;
     animation: gradient 10s ease infinite;
 }
-  
+
 @keyframes gradient {
     0% {
         background-position: 0% 50%;
@@ -32,4 +69,3 @@
         background-position: 0% 50%;
     }
 }
-  
