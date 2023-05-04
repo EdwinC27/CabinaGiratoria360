@@ -1,0 +1,4 @@
+<input placeholder="Número de la fiesta..." [(ngModel)]="inputText" (input)="botonHabilitado = inputText.trim().length > 0" #ciudadInput>
+    
+<button id="search-button" [disabled]="!botonHabilitado" (click)="buscarQR()">Enviar</button>
+  

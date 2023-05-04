@@ -1,0 +1,63 @@
+label {
+    font-size: 1.5rem;
+    margin-right: 20px;
+    color: #fff;
+}
+  
+input {
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid #47e2e2;
+    width: 300px;
+    background: transparent;
+    transition: width 0.2s ease-in-out;
+    color: rgb(0, 0, 0);
+}
+  
+input:focus {
+    width: 500px;
+}
+  
+button {
+    padding: 10px;
+    background-color:rgb(139, 228, 131);
+    color: #000000;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    margin-left: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+  
+button:hover {
+    transform: scale(1.2);
+}
+
+
+@media screen and (max-width: 840px) {
+    input:focus {
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 570px) {
+    input {
+        width: 200px;
+    }
+
+    input:focus {
+        width: 200px;
+    }
+}
+
+@media screen and (max-width: 445px) {
+    input {
+        width: 100px;
+    }
+
+    input:focus {
+        width: 100px;
+    }
+}
