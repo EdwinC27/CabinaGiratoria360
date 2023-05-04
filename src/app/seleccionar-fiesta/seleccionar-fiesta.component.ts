@@ -9,13 +9,31 @@ import { Router } from '@angular/router';
 export class SeleccionarFiestaComponent {
   inputText: string = '';
   botonHabilitado: boolean = false;
+  id:any;
   
   constructor(private router: Router) {}
 
   buscarQR() {
     if(parseInt(this.inputText) <= 4 && parseInt(this.inputText) >= 1) {
-      this.router.navigate(['/ruta-del-otro-componente']);
-      alert(this.inputText)
+      switch(parseInt(this.inputText)) {
+        case 1:
+          this.id = 1;
+          break;
+
+        case 2:
+          this.id = 2;
+          break;
+
+        case 3:
+          this.id = 3;
+          break;
+
+        case 4:
+          this.id = 4;
+          break;
+      }
+
+      this.router.navigate(['/qr', this.id]);
     } else {
       alert("Número de fiesta inválido");
     }
