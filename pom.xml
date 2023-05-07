@@ -45,6 +45,12 @@
 			<artifactId>json-smart</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.dropbox.core</groupId>
+			<artifactId>dropbox-core-sdk</artifactId>
+			<version>4.0.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
