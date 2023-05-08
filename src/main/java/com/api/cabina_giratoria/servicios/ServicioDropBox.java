@@ -42,9 +42,9 @@ public class ServicioDropBox {
 
             return getMp4FilesUrls(client, carpetaFiesta);
         } else if(accion.equals("Upload")) {
-            String nombreArchivo =  archivo.encontrarArchivoNuevo();
+            String nombreArchivo =  archivo.encontrarArchivoNuevo(numeroFiesta);
             String carpetaFiesta = "/fiesta" + numeroFiesta + "/" + nombreArchivo;
-            String rutaFile = folderPath + "/" + nombreArchivo;
+            String rutaFile = folderPath + numeroFiesta +  "/" + nombreArchivo;
 
             return uploadFile(client, rutaFile, carpetaFiesta);
         }

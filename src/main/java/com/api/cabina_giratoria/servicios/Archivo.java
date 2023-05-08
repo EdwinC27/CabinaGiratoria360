@@ -9,13 +9,15 @@ import java.util.Comparator;
 
 @Service
 public class Archivo {
-    // Ruta a la carpeta que se desea revisar
     @Value("${direccionComputadora}")
     private String folderPath;
 
-    public String encontrarArchivoNuevo() {
+    public String encontrarArchivoNuevo(int numeroFiesta) {
+        // Ruta a la carpeta que se desea revisar
+        String rutaFile = folderPath + numeroFiesta;
+
         // Obtener una lista de los archivos en la carpeta, ordenados por fecha de modificación descendente
-        File[] files = new File(folderPath).listFiles();
+        File[] files = new File(rutaFile).listFiles();
         Arrays.sort(files, Comparator.comparing(File::lastModified).reversed());
 
         // Buscar el primer archivo con la extensión ".mp4"
