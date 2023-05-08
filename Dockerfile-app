@@ -1,0 +1,12 @@
+# app
+FROM eclipse-temurin:17
+
+RUN mkdir /opt/app
+
+COPY target/cabina_giratoria-0.0.1-SNAPSHOT.jar /opt/app/cabina.jar
+
+ENV spring.datasource.url=
+ENV spring.datasource.username=
+ENV spring.datasource.password=
+
+CMD ["java", "-jar", "/opt/app/cabina.jar", "--spring.profiles.active=docker"]
