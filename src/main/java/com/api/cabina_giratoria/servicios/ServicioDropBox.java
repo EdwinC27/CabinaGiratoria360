@@ -10,6 +10,7 @@ import com.dropbox.core.v2.sharing.*;
 import net.minidev.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,12 @@ public class ServicioDropBox {
     @Value("${tokenDropBox}")
     private String ACCESS_TOKEN;
 
+    @Autowired
+    Archivo archivo;
+
+    @Value("${direccionComputadora}")
+    private String folderPath;
+
     public JSONObject getPeticionURL(String accion, int numeroFiesta) {
         // Create Dropbox client
         DbxRequestConfig config = DbxRequestConfig.newBuilder("CabinaGiratoria").build();
@@ -35,8 +42,9 @@ public class ServicioDropBox {
 
             return getMp4FilesUrls(client, carpetaFiesta);
         } else if(accion.equals("Upload")) {
-            String carpetaFiesta = "/fiesta" + numeroFiesta + "/nombre2.mp4";
-            String rutaFile = "C:/Users/edwin/Desktop/videoBenja3.mp4";
+            String nombreArchivo =  archivo.encontrarArchivoNuevo();
+            String carpetaFiesta = "/fiesta" + numeroFiesta + "/" + nombreArchivo;
+            String rutaFile = folderPath + "/" + nombreArchivo;
 
             return uploadFile(client, rutaFile, carpetaFiesta);
         }
