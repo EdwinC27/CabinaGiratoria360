@@ -3,6 +3,7 @@ package com.api.cabina_giratoria.servicios;
 import com.dropbox.core.DbxException;
 import com.dropbox.core.DbxRequestConfig;
 import com.dropbox.core.v2.DbxClientV2;
+import com.dropbox.core.v2.files.FileMetadata;
 import com.dropbox.core.v2.files.ListFolderResult;
 import com.dropbox.core.v2.files.Metadata;
 import com.dropbox.core.v2.sharing.*;
@@ -12,13 +13,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 @Service
 public class ServicioDropBox {
     private static final Logger LOGGER = LoggerFactory.getLogger(ServicioDropBox.class);
     @Value("${tokenDropBox}")
     private String ACCESS_TOKEN;
 
-    public JSONObject getPeticion(String accion, int numeroFiesta) {
+    public JSONObject getPeticionURL(String accion, int numeroFiesta) {
         // Create Dropbox client
         DbxRequestConfig config = DbxRequestConfig.newBuilder("CabinaGiratoria").build();
         DbxClientV2 client = new DbxClientV2(config, ACCESS_TOKEN);
@@ -28,11 +34,15 @@ public class ServicioDropBox {
             LOGGER.debug(carpetaFiesta);
 
             return getMp4FilesUrls(client, carpetaFiesta);
-        } else {
-            return null;
-        }
-    }
+        } else if(accion.equals("Upload")) {
+            String carpetaFiesta = "/fiesta" + numeroFiesta + "/nombre2.mp4";
+            String rutaFile = "C:/Users/edwin/Desktop/videoBenja3.mp4";
 
+            return uploadFile(client, rutaFile, carpetaFiesta);
+        }
+
+        return null;
+    }
 
     // Get Mp4 Files Urls
     public JSONObject getMp4FilesUrls(DbxClientV2 client, String carpetaFiesta) {
@@ -111,5 +121,24 @@ public class ServicioDropBox {
                 .withRequestedVisibility(RequestedVisibility.PUBLIC)
                 .build());
         return sharedLinkMetadata.getUrl();
+    }
+
+
+    // Upload file to Dropbox
+    public JSONObject uploadFile(DbxClientV2 client, String direccionfile, String direccionfinalDropBox) {
+        JSONObject jsonObject = new JSONObject();
+        File file = new File(direccionfile);
+        try (InputStream in = new FileInputStream(file)) {
+            // Subir el archivo a la cuenta de Dropbox del usuario
+            FileMetadata metadata = client.files().uploadBuilder(direccionfinalDropBox)
+                    .uploadAndFinish(in);
+            // El archivo se subió correctamente
+            jsonObject.put("Archivo subido correctamente", metadata.getPathLower());
+        } catch (IOException | DbxException e) {
+            // Ocurrió un error al subir el archivo
+            jsonObject.put("Error al subir el archivo: ", e.getMessage());
+        }
+
+        return jsonObject;
     }
 }
