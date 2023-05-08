@@ -6,17 +6,21 @@ import { AppComponent } from './app.component';
 import { SeleccionarFiestaComponent } from './seleccionar-fiesta/seleccionar-fiesta.component';
 import { FormsModule } from '@angular/forms';
 import { QrFiestaComponent } from './qr-fiesta/qr-fiesta.component';
+import { MostrarFiestaComponent } from './mostrar-fiesta/mostrar-fiesta.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     SeleccionarFiestaComponent,
-    QrFiestaComponent
+    QrFiestaComponent,
+    MostrarFiestaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
