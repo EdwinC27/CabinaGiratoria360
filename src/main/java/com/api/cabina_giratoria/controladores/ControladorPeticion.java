@@ -19,9 +19,9 @@ public class ControladorPeticion {
     ServicioDropBox servicioDropBox;
 
     @GetMapping("/archivos")
-    public JSONObject query(@RequestParam(value = "accion") String accion) throws IOException, DbxException {
+    public JSONObject query(@RequestParam(value = "accion") String accion, @RequestParam(value = "fiesta") int numeroFiesta) {
 
-        return servicioDropBox.getPeticion(accion);
+        return servicioDropBox.getPeticion(accion, numeroFiesta);
     }
 
 }

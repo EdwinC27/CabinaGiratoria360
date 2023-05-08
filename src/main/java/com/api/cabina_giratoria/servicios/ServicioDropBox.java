@@ -18,13 +18,16 @@ public class ServicioDropBox {
     @Value("${tokenDropBox}")
     private String ACCESS_TOKEN;
 
-    public JSONObject getPeticion(String accion) {
+    public JSONObject getPeticion(String accion, int numeroFiesta) {
         // Create Dropbox client
         DbxRequestConfig config = DbxRequestConfig.newBuilder("CabinaGiratoria").build();
         DbxClientV2 client = new DbxClientV2(config, ACCESS_TOKEN);
 
         if (accion.equals("GetUrl")) {
-            return getMp4FilesUrls(client);
+            String carpetaFiesta = "/fiesta" + numeroFiesta;
+            LOGGER.debug(carpetaFiesta);
+
+            return getMp4FilesUrls(client, carpetaFiesta);
         } else {
             return null;
         }
@@ -32,7 +35,7 @@ public class ServicioDropBox {
 
 
     // Get Mp4 Files Urls
-    public JSONObject getMp4FilesUrls(DbxClientV2 client) {
+    public JSONObject getMp4FilesUrls(DbxClientV2 client, String carpetaFiesta) {
         JSONObject jsonObject = new JSONObject();
 
         // Get files and folder metadata from Dropbox root directory
@@ -40,7 +43,7 @@ public class ServicioDropBox {
 
         try {
             // listar los archivos y carpetas del directorio raíz de Dropbox
-            result = client.files().listFolder("");
+            result = client.files().listFolder(carpetaFiesta);
 
             while (true) {
                 for (Metadata metadata : result.getEntries()) {
