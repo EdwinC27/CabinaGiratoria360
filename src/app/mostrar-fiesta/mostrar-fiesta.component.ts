@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MostrarFiestaService } from './mostrar-fiesta.service';
 
@@ -9,10 +9,10 @@ import { MostrarFiestaService } from './mostrar-fiesta.service';
 })
 export class MostrarFiestaComponent implements OnInit{
   url: any;
-  id:any;  
+  id:any;
   videoUrls: string[] | undefined;
 
-  constructor(private router: ActivatedRoute, private mostrarFiestaService: MostrarFiestaService, private elementRef: ElementRef) { }
+  constructor(private router: ActivatedRoute, private mostrarFiestaService: MostrarFiestaService) { }
 
   ngOnInit(): void {
     this.id = this.router.snapshot.paramMap.get("id");
@@ -28,7 +28,7 @@ export class MostrarFiestaComponent implements OnInit{
     );
   }
 
-  mostrarVideos(): void { 
+  mostrarVideos(): void {
     this.videoUrls = Object.values(this.url);
     this.videoUrls = this.videoUrls.map(videoUrl => videoUrl.replace('?dl=0', '') + '?raw=1');
   }
