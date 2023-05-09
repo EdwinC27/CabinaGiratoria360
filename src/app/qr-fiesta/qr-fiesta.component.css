@@ -2,6 +2,7 @@
     font-size: 24px;
     text-align: center;
     margin-bottom: 20px;
+    color: rgb(255, 255, 255);
 }
 
 .img-qr {
@@ -46,7 +47,7 @@
     width: 30%;
 	}
 }
-
+/*
 .animated-bg {
     position: fixed;
     top: 0;
@@ -69,3 +70,4 @@
         background-position: 0% 50%;
     }
 }
+*/

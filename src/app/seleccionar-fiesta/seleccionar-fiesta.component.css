@@ -11,7 +11,7 @@ input {
     width: 300px;
     background: transparent;
     transition: width 0.2s ease-in-out;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
 }
   
 input:focus {
