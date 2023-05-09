@@ -1,3 +1,6 @@
-<p>mostrar-fiesta works!</p>
-
-<div id="videos"></div>
+<div class="video">
+    <video *ngFor="let videoUrl of videoUrls" controls>
+      <source [src]="videoUrl" type="video/mp4">
+    </video>
+</div>
+  

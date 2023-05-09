@@ -9,7 +9,8 @@ import { MostrarFiestaService } from './mostrar-fiesta.service';
 })
 export class MostrarFiestaComponent implements OnInit{
   url: any;
-  id:any;
+  id:any;  
+  videoUrls: string[] | undefined;
 
   constructor(private router: ActivatedRoute, private mostrarFiestaService: MostrarFiestaService, private elementRef: ElementRef) { }
 
@@ -27,19 +28,8 @@ export class MostrarFiestaComponent implements OnInit{
     );
   }
 
-  mostrarVideos(): void {
-    const videosDiv = this.elementRef.nativeElement.querySelector('#videos');
-    let html = '';
-    for (const key in this.url) {
-      if (this.url.hasOwnProperty(key)) {
-        let videoUrl = this.url[key];
-        const safe = videoUrl.replace('?dl=0', '') + "?raw=1"
-
-        html += `<video width="320" height="240" controls>
-          <source src="${safe}" type="video/mp4">
-        </video>`;
-      }
-    }
-    videosDiv.innerHTML = html;
+  mostrarVideos(): void { 
+    this.videoUrls = Object.values(this.url);
+    this.videoUrls = this.videoUrls.map(videoUrl => videoUrl.replace('?dl=0', '') + '?raw=1');
   }
 }
