@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FraseService } from '../frase.service';
+import { EliminarFiestaService } from './eliminar-fiesta.service';
 
 @Component({
   selector: 'app-seleccionar-fiesta',
@@ -13,7 +14,7 @@ export class SeleccionarFiestaComponent {
   botonHabilitado: boolean = false;
   id: any;
 
-  constructor(private router: Router, private fraseService: FraseService) { }
+  constructor(private router: Router, private fraseService: FraseService, private eliminarFiestaService: EliminarFiestaService) { }
 
   buscarQR() {
     if (parseInt(this.inputText) <= 4 && parseInt(this.inputText) >= 1) {
@@ -39,6 +40,29 @@ export class SeleccionarFiestaComponent {
       this.fraseService.establecerFraseCompartida(this.inputMensage);
 
       this.router.navigate(['/qr', this.id]);
+    } else {
+      alert("Número de fiesta inválido");
+    }
+  }
+
+  eliminarArchivos() {
+    if (parseInt(this.inputText) <= 4 && parseInt(this.inputText) >= 1) {
+      this.eliminarFiestaService.getInfo(this.inputText).subscribe(
+        data => {
+          let miCadenaDeTexto = JSON.stringify(data);
+
+          let partes = miCadenaDeTexto.split(":");
+
+          partes[1] = partes[1].replace('"}', '');
+          partes[1] = partes[1].replace('"', '');
+
+
+          alert(partes[1]); 
+        },
+        error => {
+          console.error(error);
+        }
+      )
     } else {
       alert("Número de fiesta inválido");
     }

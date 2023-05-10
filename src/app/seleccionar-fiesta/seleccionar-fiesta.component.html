@@ -1,4 +1,5 @@
 <input placeholder="Número de la fiesta..." [(ngModel)]="inputText" (input)="botonHabilitado = inputText.trim().length > 0">
 <button id="search-button" [disabled]="!botonHabilitado" (click)="buscarQR()">Enviar</button><br>
+<button id="search-button" (click)="eliminarArchivos()">Eliminar</button><br>
 
 <textarea placeholder="Mensage..." [(ngModel)]="inputMensage" class="frase"> </textarea>
