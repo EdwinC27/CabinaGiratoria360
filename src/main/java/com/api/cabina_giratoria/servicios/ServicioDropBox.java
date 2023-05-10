@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 @Service
 public class ServicioDropBox {
@@ -47,6 +48,11 @@ public class ServicioDropBox {
             String rutaFile = folderPath + numeroFiesta +  "/" + nombreArchivo;
 
             return uploadFile(client, rutaFile, carpetaFiesta);
+        }  else if(accion.equals("Delete")) {
+            String carpetaFiesta = "/fiesta" + numeroFiesta ;
+            LOGGER.debug(carpetaFiesta);
+
+            return deleteFolder(client, carpetaFiesta);
         }
 
         return null;
@@ -145,6 +151,37 @@ public class ServicioDropBox {
         } catch (IOException | DbxException e) {
             // Ocurrió un error al subir el archivo
             jsonObject.put("Error al subir el archivo: ", e.getMessage());
+        }
+
+        return jsonObject;
+    }
+
+    // Delete files to Dropbox
+    public JSONObject deleteFolder(DbxClientV2 client, String folderPath) {
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            ListFolderResult result = client.files().listFolder(folderPath);
+            List<Metadata> entries = result.getEntries();
+            if (entries.size() > 0) {
+                for (Metadata metadata : entries) {
+                    if (metadata instanceof FileMetadata) {
+                        client.files().deleteV2(metadata.getPathLower());
+                        LOGGER.debug("Archivo eliminado exitosamente: {}", metadata.getName());
+                    }
+                }
+                LOGGER.debug("Todos los archivos de la carpeta se han eliminado exitosamente.");
+
+                jsonObject.put("Todos los archivos de la carpeta se han eliminado exitosamente.", "Eliminados");
+            } else {
+                LOGGER.debug("La carpeta está vacía, no hay archivos para eliminar.");
+
+                jsonObject.put("La carpeta está vacía", "No hay archivos para eliminar");
+            }
+        } catch (Exception e) {
+            LOGGER.debug("Error al eliminar los archivos de la carpeta: {}", e.getMessage());
+
+            jsonObject.put("Error al eliminar los archivos de la carpeta: {}", e.getMessage());
         }
 
         return jsonObject;
