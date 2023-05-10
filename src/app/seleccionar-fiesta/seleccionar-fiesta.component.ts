@@ -11,7 +11,6 @@ import { EliminarFiestaService } from './eliminar-fiesta.service';
 export class SeleccionarFiestaComponent {
   inputText: string = '';
   inputMensage: string = '';
-  botonHabilitado: boolean = false;
   id: any;
 
   constructor(private router: Router, private fraseService: FraseService, private eliminarFiestaService: EliminarFiestaService) { }
