@@ -167,21 +167,21 @@ public class ServicioDropBox {
                 for (Metadata metadata : entries) {
                     if (metadata instanceof FileMetadata) {
                         client.files().deleteV2(metadata.getPathLower());
-                        LOGGER.debug("Archivo eliminado exitosamente: {}", metadata.getName());
+                        LOGGER.debug(metadata.getName(), "Archivo eliminado exitosamente");
                     }
                 }
                 LOGGER.debug("Todos los archivos de la carpeta se han eliminado exitosamente.");
 
-                jsonObject.put("Todos los archivos de la carpeta se han eliminado exitosamente.", "Eliminados");
+                jsonObject.put("Eliminados", "Todos los archivos de la carpeta se han eliminado exitosamente");
             } else {
                 LOGGER.debug("La carpeta está vacía, no hay archivos para eliminar.");
 
-                jsonObject.put("La carpeta está vacía", "No hay archivos para eliminar");
+                jsonObject.put("Carpeta Vacía", "La carpeta está vacía no hay archivos para eliminar");
             }
         } catch (Exception e) {
             LOGGER.debug("Error al eliminar los archivos de la carpeta: {}", e.getMessage());
 
-            jsonObject.put("Error al eliminar los archivos de la carpeta: {}", e.getMessage());
+            jsonObject.put(e.getMessage(), "Error al eliminar los archivos de la carpeta");
         }
 
         return jsonObject;
