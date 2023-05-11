@@ -7,6 +7,8 @@ import com.dropbox.core.v2.files.FileMetadata;
 import com.dropbox.core.v2.files.ListFolderResult;
 import com.dropbox.core.v2.files.Metadata;
 import com.dropbox.core.v2.sharing.*;
+import com.dropbox.core.v2.files.*;
+
 import net.minidev.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -53,6 +57,10 @@ public class ServicioDropBox {
             LOGGER.debug(carpetaFiesta);
 
             return deleteFolder(client, carpetaFiesta);
+        } else if(accion.equals("GetLastMp4")) {
+            String carpetaFiesta = "/fiesta" + numeroFiesta ;
+
+            return getLastMp4FileUrl(client, carpetaFiesta);
         }
 
         return null;
@@ -186,4 +194,53 @@ public class ServicioDropBox {
 
         return jsonObject;
     }
+
+    // Get Last Mp4 File Url
+    public JSONObject getLastMp4FileUrl(DbxClientV2 client, String carpetaFiesta) {
+        JSONObject jsonObject = new JSONObject();
+
+        // Obtener archivos y metadatos de la carpeta Dropbox
+        ListFolderResult result = null;
+
+        try {
+            // Listar los archivos y carpetas del directorio raíz de Dropbox
+            result = client.files().listFolder(carpetaFiesta);
+
+            List<FileMetadata> mp4Files = new ArrayList<>();
+
+            while (true) {
+                for (Metadata metadata : result.getEntries()) {
+                    // Si el archivo es un video ".mp4"
+                    if (metadata instanceof FileMetadata && metadata.getPathLower().endsWith(".mp4")) {
+                        mp4Files.add((FileMetadata) metadata);
+                    }
+                }
+
+                // Si no hay más resultados, se rompe el bucle
+                if (!result.getHasMore()) {
+                    break;
+                }
+
+                // Si hay más resultados, se llama al método listFolderContinue() para obtener la siguiente página de resultados
+                result = client.files().listFolderContinue(result.getCursor());
+            }
+
+            // Ordenar la lista de archivos por fecha de modificación (de más reciente a más antiguo)
+            mp4Files.sort(Comparator.comparing(FileMetadata::getClientModified).reversed());
+
+            if (!mp4Files.isEmpty()) {
+                // Obtener la URL del último archivo de vídeo agregado a la carpeta
+                LOGGER.debug(mp4Files.get(0).getPathLower());
+
+                jsonObject.put(mp4Files.get(0).getPathLower(), getMp4FileUrl(client, mp4Files.get(0).getPathLower()));
+            } else {
+                jsonObject.put("Error", "No se encontraron archivos de vídeo en la carpeta especificada.");
+            }
+
+        } catch (DbxException e) {
+            jsonObject.put("Error", e.getMessage());
+        }
+        return jsonObject;
+    }
+
 }
