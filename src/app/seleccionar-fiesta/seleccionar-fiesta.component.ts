@@ -44,6 +44,14 @@ export class SeleccionarFiestaComponent {
     }
   }
 
+  confirmarEliminacion() {
+    if (confirm("¿Está seguro de que desea eliminar los archivos de la fiesta " + this.inputText + "?")) {
+      this.eliminarArchivos();
+    } else {
+      alert("Operación cancelada")
+    }
+  }
+
   eliminarArchivos() {
     if (parseInt(this.inputText) <= 4 && parseInt(this.inputText) >= 1) {
       this.eliminarFiestaService.getInfo(this.inputText).subscribe(
@@ -56,7 +64,7 @@ export class SeleccionarFiestaComponent {
           partes[1] = partes[1].replace('"', '');
 
 
-          alert(partes[1]); 
+          alert(partes[1]);
         },
         error => {
           console.error(error);
