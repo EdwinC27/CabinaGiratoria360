@@ -3,3 +3,13 @@
 <button id="delete-button" (click)="confirmarEliminacion()">Eliminar</button><br>
 
 <textarea placeholder="Mensaje..." [(ngModel)]="inputMensage" class="frase"> </textarea>
+
+<!-- Subida de archivos -->
+<form (submit)="subirArchivo()">
+  <br><br><label>Selecciona un archivo:</label><br>
+  <input type="file" (change)="seleccionarArchivo($event)">
+  <button type="submit">Subir archivo</button>
+</form>
+
+<!-- Previsualización -->
+<br><img [src]="resultado" *ngIf="resultado" width="60%">

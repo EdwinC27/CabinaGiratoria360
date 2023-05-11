@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { FraseService } from '../frase.service';
 import { EliminarFiestaService } from './eliminar-fiesta.service';
@@ -12,8 +13,9 @@ export class SeleccionarFiestaComponent {
   inputText: string = '';
   inputMensage: string = '';
   id: any;
+  resultado: any;
 
-  constructor(private router: Router, private fraseService: FraseService, private eliminarFiestaService: EliminarFiestaService) { }
+  constructor(private router: Router, private fraseService: FraseService, private eliminarFiestaService: EliminarFiestaService, private sanitizer: DomSanitizer) { }
 
   buscarQR() {
     if (parseInt(this.inputText) <= 4 && parseInt(this.inputText) >= 1) {
@@ -72,6 +74,32 @@ export class SeleccionarFiestaComponent {
       )
     } else {
       alert("Número de fiesta inválido");
+    }
+  }
+
+  async seleccionarArchivo(event: any) {
+    const imagen = event.target.files[0];
+    const resultado = await this.convertirImagenABase64(imagen);
+    this.resultado = resultado.base64
+  }
+
+  subirArchivo() {
+
+  }
+
+  // función que convierte una imagen a base64
+  public async convertirImagenABase64(imagen: File): Promise<{base64: string | null}> {
+    try {
+      const reader = new FileReader();
+      reader.readAsDataURL(imagen);
+      const result = await new Promise<string | null>((resolve, reject) => {
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = error => resolve(null);
+      });
+      return { base64: result };
+    } catch (error) {
+      console.error('Error al convertir imagen a base64:', error);
+      return { base64: null };
     }
   }
 }
