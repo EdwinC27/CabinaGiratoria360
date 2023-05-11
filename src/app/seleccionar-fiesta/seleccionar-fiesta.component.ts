@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { FileService } from '../file.service';
 import { FraseService } from '../frase.service';
 import { EliminarFiestaService } from './eliminar-fiesta.service';
 
@@ -15,7 +15,7 @@ export class SeleccionarFiestaComponent {
   id: any;
   resultado: any;
 
-  constructor(private router: Router, private fraseService: FraseService, private eliminarFiestaService: EliminarFiestaService, private sanitizer: DomSanitizer) { }
+  constructor(private router: Router, private fraseService: FraseService, private eliminarFiestaService: EliminarFiestaService, private fileService: FileService) { }
 
   buscarQR() {
     if (parseInt(this.inputText) <= 4 && parseInt(this.inputText) >= 1) {
@@ -84,7 +84,8 @@ export class SeleccionarFiestaComponent {
   }
 
   subirArchivo() {
-
+    this.fileService.establecerFileCompartida(this.resultado);
+    alert("Archivo subido exitosamente")
   }
 
   // función que convierte una imagen a base64

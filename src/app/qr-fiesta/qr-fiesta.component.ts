@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { FileService } from '../file.service';
 import { FraseService } from '../frase.service';
 import { LastFileAdd } from './lastFile-fiesta.service';
 
@@ -16,10 +17,10 @@ export class QrFiestaComponent implements OnInit {
   safeSrc: SafeResourceUrl | undefined;
   videoUrl: any;
   safeVideoUrl: SafeResourceUrl | undefined;
-
+  logo: any;
   url: any;
 
-  constructor (private router: ActivatedRoute, private fraseService: FraseService,private lastFileAdd: LastFileAdd){}
+  constructor (private router: ActivatedRoute, private fraseService: FraseService,private lastFileAdd: LastFileAdd, private fileService: FileService){}
 
   ngOnInit(): void {
     this.id = this.router.snapshot.paramMap.get("id");
@@ -30,6 +31,7 @@ export class QrFiestaComponent implements OnInit {
       () => {
         this.url = this.lastFileAdd.respuesta;
         this.mostrarVideos();
+        this.logo = this.fileService.obtenerFileCompartida()
       },
       (error) => {
         console.log(error);
