@@ -40,8 +40,12 @@ export class QrFiestaComponent implements OnInit {
 
   mostrarVideos(): void {
     this.videoUrl = Object.values(this.url);
-    this.videoUrl = this.videoUrl.map((videoUrls: string) => videoUrls.replace('?dl=0', '') + '?raw=1');
-  }
 
-  
+    if(this.videoUrl != "No se encontraron archivos de vídeo en la carpeta especificada.") {
+      this.videoUrl = this.videoUrl.map((videoUrls: string) => videoUrls.replace('?dl=0', '') + '?raw=1');
+    }
+    else {
+      alert(this.videoUrl)
+    }
+  }
 }
