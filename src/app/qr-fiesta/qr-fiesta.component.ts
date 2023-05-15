@@ -21,6 +21,7 @@ export class QrFiestaComponent implements OnInit {
   url: any;
   interval: any;
   imagenUrls: string[] | undefined;
+  videoActual: number = 0;
 
   constructor (private router: ActivatedRoute, private fraseService: FraseService,private lastFileAdd: LastFileAdd, private fileService: FileService){}
 
@@ -54,5 +55,9 @@ export class QrFiestaComponent implements OnInit {
     this.videoUrls = Object.values(this.url);
     this.videoUrls = this.videoUrls.map(videoUrl => videoUrl.replace('?dl=0', '') + '?raw=1');
     this.imagenUrls = this.videoUrls;
+  }
+
+  setActiveIndex(indice: number): void {
+    this.videoActual = indice;
   }
 }

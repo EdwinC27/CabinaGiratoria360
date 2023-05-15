@@ -21,7 +21,11 @@
       </div>
 
       <div class="conteCarrouselController" >
-          <a href="#itemCarrousel-{{ i }}" *ngFor="let url of imagenUrls; let i = index">•</a>
+        <a href="#itemCarrousel-{{ i }}" *ngFor="let url of imagenUrls; let i = index"
+           [ngClass]="{'punto-activo': i === videoActual}" (click)="setActiveIndex(i)">
+
+           <div class="circle"></div>
+        </a>
       </div>
     </div>
 
