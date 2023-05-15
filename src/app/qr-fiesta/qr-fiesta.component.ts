@@ -15,12 +15,12 @@ export class QrFiestaComponent implements OnInit {
   imgQR: any;
   frase: string = " ";
   safeSrc: SafeResourceUrl | undefined;
-  videoUrl: any;
+  videoUrls: string[] | undefined;
   safeVideoUrl: SafeResourceUrl | undefined;
   logo: any;
   url: any;
   interval: any;
-  imagenUrls: string[] = ["../../assets/videos/1.mp4", "../../assets/videos/1.mp4", "../../assets/videos/2.mp4", "../../assets/videos/edwibn.mp4"];
+  imagenUrls: string[] | undefined;
 
   constructor (private router: ActivatedRoute, private fraseService: FraseService,private lastFileAdd: LastFileAdd, private fileService: FileService){}
 
@@ -47,19 +47,12 @@ export class QrFiestaComponent implements OnInit {
         console.log(error);
       }
     )
-    this.videoUrl = null;
   }
 
 
   mostrarVideos(): void {
-    this.videoUrl = Object.values(this.url);
-
-    if(this.videoUrl != "No se encontraron archivos de vídeo en la carpeta especificada.") {
-      this.videoUrl = this.videoUrl.map((videoUrls: string) => videoUrls.replace('?dl=0', '') + '?raw=1');
-      console.log(this.videoUrl)
-    }
-    else {
-      alert(this.videoUrl)
-    }
+    this.videoUrls = Object.values(this.url);
+    this.videoUrls = this.videoUrls.map(videoUrl => videoUrl.replace('?dl=0', '') + '?raw=1');
+    this.imagenUrls = this.videoUrls;
   }
 }
