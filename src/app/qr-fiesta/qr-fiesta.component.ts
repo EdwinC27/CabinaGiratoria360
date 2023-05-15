@@ -20,6 +20,7 @@ export class QrFiestaComponent implements OnInit {
   logo: any;
   url: any;
   interval: any;
+  imagenUrls: string[] = ["../../assets/videos/1.mp4", "../../assets/videos/1.mp4", "../../assets/videos/2.mp4", "../../assets/videos/edwibn.mp4"];
 
   constructor (private router: ActivatedRoute, private fraseService: FraseService,private lastFileAdd: LastFileAdd, private fileService: FileService){}
 
@@ -27,6 +28,7 @@ export class QrFiestaComponent implements OnInit {
     this.id = this.router.snapshot.paramMap.get("id");
     this.frase = this.fraseService.obtenerFraseCompartida();
     this.imgQR = "../../assets/QRs/fiesta" + this.id + ".png";
+    this.logo = this.fileService.obtenerFileCompartida()
 
     this.miMetodo()
 
@@ -40,14 +42,13 @@ export class QrFiestaComponent implements OnInit {
       () => {
         this.url = this.lastFileAdd.respuesta;
         this.mostrarVideos();
-        this.logo = this.fileService.obtenerFileCompartida()
       },
       (error) => {
         console.log(error);
       }
     )
     this.videoUrl = null;
-  }  
+  }
 
 
   mostrarVideos(): void {
