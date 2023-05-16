@@ -53,8 +53,17 @@ export class QrFiestaComponent implements OnInit {
 
   mostrarVideos(): void {
     this.videoUrls = Object.values(this.url);
-    this.videoUrls = this.videoUrls.map(videoUrl => videoUrl.replace('?dl=0', '') + '?raw=1');
-    this.imagenUrls = this.videoUrls;
+    let urls;
+
+    for (let i = 0; i < this.videoUrls.length; i++) {
+      const jsonString = JSON.stringify(this.videoUrls[i]); 
+      urls = jsonString.replace(/[\[\]\\"]/g, "").split(",");
+      for (let j = 0; j < urls.length; j++) {
+        urls[j] = urls[j].replace('?dl=0', '?raw=1');
+      }
+      console.log(urls);
+    }
+    this.imagenUrls = urls;
   }
 
   setActiveIndex(indice: number): void {
