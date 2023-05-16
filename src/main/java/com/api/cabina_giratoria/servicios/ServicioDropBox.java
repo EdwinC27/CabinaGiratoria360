@@ -45,7 +45,7 @@ public class ServicioDropBox {
             String carpetaFiesta = "/fiesta" + numeroFiesta;
             LOGGER.debug(carpetaFiesta);
 
-            return getMp4FilesUrls(client, carpetaFiesta);
+            return getMP4FilesMessyURLs(client, carpetaFiesta);
         } else if(accion.equals("Upload")) {
             String nombreArchivo =  archivo.encontrarArchivoNuevo(numeroFiesta);
             String carpetaFiesta = "/fiesta" + numeroFiesta + "/" + nombreArchivo;
@@ -60,14 +60,14 @@ public class ServicioDropBox {
         } else if(accion.equals("GetLastMp4")) {
             String carpetaFiesta = "/fiesta" + numeroFiesta ;
 
-            return getLastMp4FileUrl(client, carpetaFiesta);
+            return getMP4FilesSortedURLs(client, carpetaFiesta);
         }
 
         return null;
     }
 
     // Get Mp4 Files Urls
-    public JSONObject getMp4FilesUrls(DbxClientV2 client, String carpetaFiesta) {
+    public JSONObject getMP4FilesMessyURLs(DbxClientV2 client, String carpetaFiesta) {
         JSONObject jsonObject = new JSONObject();
 
         // Get files and folder metadata from Dropbox root directory
@@ -196,7 +196,7 @@ public class ServicioDropBox {
     }
 
     // Get Last Mp4 File Url
-    public JSONObject getLastMp4FileUrl(DbxClientV2 client, String carpetaFiesta) {
+    public JSONObject getMP4FilesSortedURLs(DbxClientV2 client, String carpetaFiesta) {
         JSONObject jsonObject = new JSONObject();
 
         // Obtener archivos y metadatos de la carpeta Dropbox
