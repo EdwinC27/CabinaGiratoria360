@@ -7,9 +7,9 @@ import com.dropbox.core.v2.files.FileMetadata;
 import com.dropbox.core.v2.files.ListFolderResult;
 import com.dropbox.core.v2.files.Metadata;
 import com.dropbox.core.v2.sharing.*;
-import com.dropbox.core.v2.files.*;
 
 import net.minidev.json.JSONObject;
+import net.minidev.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -229,10 +229,13 @@ public class ServicioDropBox {
             mp4Files.sort(Comparator.comparing(FileMetadata::getClientModified).reversed());
 
             if (!mp4Files.isEmpty()) {
-                // Obtener la URL del último archivo de vídeo agregado a la carpeta
-                LOGGER.debug(mp4Files.get(0).getPathLower());
+                JSONArray jsonArray = new JSONArray();
+                // Obtener la URL de cada archivo de vídeo y agregarla al JSONArray
+                for (FileMetadata mp4File : mp4Files) {
+                    jsonArray.add(getMp4FileUrl(client, mp4File.getPathLower()));
+                }
 
-                jsonObject.put(mp4Files.get(0).getPathLower(), getMp4FileUrl(client, mp4Files.get(0).getPathLower()));
+                jsonObject.put("videos", jsonArray);
             } else {
                 jsonObject.put("Error", "No se encontraron archivos de vídeo en la carpeta especificada.");
             }
