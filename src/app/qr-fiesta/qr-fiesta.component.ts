@@ -31,14 +31,14 @@ export class QrFiestaComponent implements OnInit {
     this.imgQR = "../../assets/QRs/fiesta" + this.id + ".png";
     this.logo = this.fileService.obtenerFileCompartida()
 
-    this.miMetodo()
+    this.peticion()
 
     this.interval = setInterval(() => {
-      this.miMetodo();
+      this.peticion();
     }, 90_000); // tiempo en segundos (1 minuto y 30 segundos)
   }
 
-  miMetodo(): void {
+  peticion(): void {
     this.mostrarVideosService.getInfo(this.id).subscribe(
       () => {
         this.url = this.mostrarVideosService.respuesta;
@@ -56,7 +56,7 @@ export class QrFiestaComponent implements OnInit {
     let urls;
 
     for (let i = 0; i < this.videoUrls.length; i++) {
-      const jsonString = JSON.stringify(this.videoUrls[i]); 
+      const jsonString = JSON.stringify(this.videoUrls[i]);
       urls = jsonString.replace(/[\[\]\\"]/g, "").split(",");
       for (let j = 0; j < urls.length; j++) {
         urls[j] = urls[j].replace('?dl=0', '?raw=1');
