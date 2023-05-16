@@ -10,12 +10,20 @@
 		<div class="carrousel">
       <div class="conteCarrousel">
         <div *ngFor="let url of imagenUrls; let i = index">
-          <span *ngIf="i < 5">
+          <span *ngIf="i <= 5">
             <div class="itemCarrousel" id="itemCarrousel-{{ i }}">
                 <div class="itemCarrouselTarjeta">
-                  <video controls class="video">
-                    <source [src]="url" type="video/mp4">
-                  </video>
+                  <span *ngIf="i == videoActual">
+                    <video controls class="video" autoplay>
+                      <source [src]="url" type="video/mp4">
+                    </video>
+                  </span>
+
+                  <span *ngIf="i != videoActual">
+                    <video controls class="video">
+                      <source [src]="url" type="video/mp4">
+                    </video>
+                  </span>
                 </div>
             </div>
           </span>
