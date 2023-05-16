@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MostrarFiestaService } from './mostrar-fiesta.service';
+import { MostrarVideosService } from '../videos-fiesta.service';
 
 @Component({
   selector: 'app-mostrar-fiesta',
@@ -12,14 +12,14 @@ export class MostrarFiestaComponent implements OnInit{
   id:any;
   videoUrls: string[] | undefined;
 
-  constructor(private router: ActivatedRoute, private mostrarFiestaService: MostrarFiestaService) { }
+  constructor(private router: ActivatedRoute, private mostrarVideosService: MostrarVideosService) { }
 
   ngOnInit(): void {
     this.id = this.router.snapshot.paramMap.get("id");
 
-    this.mostrarFiestaService.getInfo(this.id).subscribe(
+    this.mostrarVideosService.getInfo(this.id).subscribe(
       () => {
-        this.url = this.mostrarFiestaService.respuesta;
+        this.url = this.mostrarVideosService.respuesta;
         this.mostrarVideos();
       },
       (error) => {

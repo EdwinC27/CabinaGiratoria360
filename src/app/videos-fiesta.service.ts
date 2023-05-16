@@ -5,7 +5,7 @@ import { map } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class LastFileAdd {
+export class MostrarVideosService {
   constructor(private http: HttpClient) { }
 
   respuesta: any;

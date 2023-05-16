@@ -3,7 +3,7 @@ import { SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { FileService } from '../file.service';
 import { FraseService } from '../frase.service';
-import { LastFileAdd } from './lastFile-fiesta.service';
+import { MostrarVideosService } from '../videos-fiesta.service';
 
 @Component({
   selector: 'app-qr-fiesta',
@@ -23,7 +23,7 @@ export class QrFiestaComponent implements OnInit {
   imagenUrls: string[] | undefined;
   videoActual: number = 0;
 
-  constructor (private router: ActivatedRoute, private fraseService: FraseService,private lastFileAdd: LastFileAdd, private fileService: FileService){}
+  constructor (private router: ActivatedRoute, private fraseService: FraseService,private mostrarVideosService: MostrarVideosService, private fileService: FileService){}
 
   ngOnInit(): void {
     this.id = this.router.snapshot.paramMap.get("id");
@@ -39,9 +39,9 @@ export class QrFiestaComponent implements OnInit {
   }
 
   miMetodo(): void {
-    this.lastFileAdd.getInfo(this.id).subscribe(
+    this.mostrarVideosService.getInfo(this.id).subscribe(
       () => {
-        this.url = this.lastFileAdd.respuesta;
+        this.url = this.mostrarVideosService.respuesta;
         this.mostrarVideos();
       },
       (error) => {
