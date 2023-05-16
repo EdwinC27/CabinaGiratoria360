@@ -9,7 +9,7 @@ export class MostrarFiestaService {
   constructor(private http: HttpClient) { }
 
   respuesta: any;
-  urlBase = "http://localhost:8080/api/archivos?accion=GetUrl&fiesta=";
+  urlBase = "http://localhost:8080/api/archivos?accion=GetLastMp4&fiesta=";
 
 
   getPeticionVideos(fiesta: string) {
