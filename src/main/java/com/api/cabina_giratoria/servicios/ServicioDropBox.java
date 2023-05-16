@@ -41,7 +41,7 @@ public class ServicioDropBox {
         DbxRequestConfig config = DbxRequestConfig.newBuilder("CabinaGiratoria").build();
         DbxClientV2 client = new DbxClientV2(config, ACCESS_TOKEN);
 
-        if (accion.equals("GetUrl")) {
+        if (accion.equals("GetMessyURLs")) {
             String carpetaFiesta = "/fiesta" + numeroFiesta;
             LOGGER.debug(carpetaFiesta);
 
@@ -57,7 +57,7 @@ public class ServicioDropBox {
             LOGGER.debug(carpetaFiesta);
 
             return deleteFolder(client, carpetaFiesta);
-        } else if(accion.equals("GetLastMp4")) {
+        } else if(accion.equals("GetSortedURLs")) {
             String carpetaFiesta = "/fiesta" + numeroFiesta ;
 
             return getMP4FilesSortedURLs(client, carpetaFiesta);
