@@ -1,21 +1,5 @@
-<div class="carrousel">
-  <div class="conteCarrousel">
-    <div *ngFor="let videoUrl of videoUrls; let i = index">
-      <div class="itemCarrousel" id="itemCarrousel-{{ i }}">
-          <div class="itemCarrouselTarjeta">
-            <video controls class="video">
-              <source [src]="videoUrl" type="video/mp4">
-            </video>
-          </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="conteCarrouselController" >
-    <a href="#itemCarrousel-{{ i }}" *ngFor="let videoUrl of videoUrls; let i = index"
-       [ngClass]="{'punto-activo': i === videoActual}" (click)="setActiveIndex(i)">
-
-       <div class="circle"></div>
-    </a>
-  </div>
+<div class="video">
+  <video *ngFor="let videoUrl of videoUrls" controls>
+    <source [src]="videoUrl" type="video/mp4">
+  </video>
 </div>
