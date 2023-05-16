@@ -26,12 +26,18 @@
                   </span>
                 </div>
             </div>
+
+            <!-- Flechas para moverse hacia la izquierda y la derecha -->
+            <div class="itemCarrouselArrows">
+              <a href="#itemCarrousel-{{ videoActual }}"><div class="arrow left-arrow" (click)="previousVideo()"><i class="arrow-right"></i></div></a>
+              <a href="#itemCarrousel-{{ videoActual }}"><div class="arrow right-arrow" (click)="nextVideo()"><i class="arrow-right"></i></div></a>
+            </div>
           </span>
         </div>
       </div>
 
       <div class="conteCarrouselController" >
-        <a href="#itemCarrousel-{{ i }}" *ngFor="let url of imagenUrls; let i = index"
+        <a href="#itemCarrousel-{{ i }}" *ngFor="let url of vueltas; let i = index"
            [ngClass]="{'punto-activo': i === videoActual}" (click)="setActiveIndex(i)">
            <span *ngIf="i < 5">
               <div class="circle"></div>

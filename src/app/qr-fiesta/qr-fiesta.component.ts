@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { FileService } from '../file.service';
 import { FraseService } from '../frase.service';
 import { MostrarVideosService } from '../videos-fiesta.service';
@@ -22,8 +22,8 @@ export class QrFiestaComponent implements OnInit {
   interval: any;
   imagenUrls: string[] | undefined;
   videoActual: number = 0;
-
-  constructor (private router: ActivatedRoute, private fraseService: FraseService,private mostrarVideosService: MostrarVideosService, private fileService: FileService){}
+  vueltas: any = [1, 2, 3, 4, 5, 6, 7]
+  constructor (private router: ActivatedRoute, private fraseService: FraseService,private mostrarVideosService: MostrarVideosService, private fileService: FileService, private router2: Router){}
 
   ngOnInit(): void {
     this.id = this.router.snapshot.paramMap.get("id");
@@ -68,5 +68,23 @@ export class QrFiestaComponent implements OnInit {
 
   setActiveIndex(indice: number): void {
     this.videoActual = indice;
+  }
+
+  previousVideo(): void {
+    if(this.videoActual - 1  < 0){
+      this.videoActual = 4;
+    } else {
+      this.videoActual--;
+    }
+    console.log("Previos: " +this.videoActual)
+  }
+
+  nextVideo(): void {
+    if(this.videoActual + 1  > 4){
+      this.videoActual = 0;
+    } else {
+      this.videoActual++;
+    }
+    console.log("Next: "+this.videoActual)
   }
 }
