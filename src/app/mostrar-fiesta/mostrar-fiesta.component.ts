@@ -11,6 +11,7 @@ export class MostrarFiestaComponent implements OnInit{
   url: any;
   id:any;
   videoUrls: string[] | undefined;
+  videoActual: number = 0;
 
   constructor(private router: ActivatedRoute, private mostrarVideosService: MostrarVideosService) { }
 
@@ -33,7 +34,7 @@ export class MostrarFiestaComponent implements OnInit{
     let urls;
 
     for (let i = 0; i < this.videoUrls.length; i++) {
-      const jsonString = JSON.stringify(this.videoUrls[i]); 
+      const jsonString = JSON.stringify(this.videoUrls[i]);
       urls = jsonString.replace(/[\[\]\\"]/g, "").split(",");
       for (let j = 0; j < urls.length; j++) {
         urls[j] = urls[j].replace('?dl=0', '?raw=1');
@@ -41,5 +42,9 @@ export class MostrarFiestaComponent implements OnInit{
       console.log(urls);
     }
     this.videoUrls = urls;
+  }
+
+  setActiveIndex(indice: number): void {
+    this.videoActual = indice;
   }
 }
