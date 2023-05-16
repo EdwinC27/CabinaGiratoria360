@@ -12,12 +12,21 @@ export class MostrarFiestaComponent implements OnInit{
   id:any;
   videoUrls: string[] | undefined;
   videoActual: number = 0;
+  interval: any;
 
   constructor(private router: ActivatedRoute, private mostrarVideosService: MostrarVideosService) { }
 
   ngOnInit(): void {
     this.id = this.router.snapshot.paramMap.get("id");
 
+    this.peticion()
+
+    this.interval = setInterval(() => {
+      this.peticion();
+    }, 90_000); // tiempo en segundos (1 minuto y 30 segundos)
+  }
+
+  peticion(): void {
     this.mostrarVideosService.getInfo(this.id).subscribe(
       () => {
         this.url = this.mostrarVideosService.respuesta;
@@ -26,7 +35,7 @@ export class MostrarFiestaComponent implements OnInit{
       (error) => {
         console.log(error);
       }
-    );
+    )
   }
 
   mostrarVideos(): void {
@@ -44,7 +53,4 @@ export class MostrarFiestaComponent implements OnInit{
     this.videoUrls = urls;
   }
 
-  setActiveIndex(indice: number): void {
-    this.videoActual = indice;
-  }
 }
