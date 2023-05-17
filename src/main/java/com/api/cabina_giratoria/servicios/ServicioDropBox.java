@@ -63,7 +63,10 @@ public class ServicioDropBox {
             return getMP4FilesSortedURLs(client, carpetaFiesta);
         }
 
-        return null;
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(accion, "Ruta no encontrada");
+
+        return jsonObject;
     }
 
     // Get Mp4 Files Urls
