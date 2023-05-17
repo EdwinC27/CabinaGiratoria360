@@ -21,7 +21,7 @@ public class ControladorPeticion {
     @GetMapping("/archivos")
     public JSONObject query(@RequestParam(value = "accion") String accion, @RequestParam(value = "fiesta") String numeroFiesta) {
 
-        return servicioDropBox.getPeticionURL(accion, Integer.parseInt(numeroFiesta));
+        return servicioDropBox.getPeticionURL(accion, numeroFiesta);
     }
 
 }
