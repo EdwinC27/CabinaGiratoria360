@@ -36,34 +36,42 @@ public class ServicioDropBox {
     @Value("${direccionComputadora}")
     private String folderPath;
 
-    public JSONObject getPeticionURL(String accion, int numeroFiesta) {
+    public JSONObject getPeticionURL(String accion, String numeroFiesta) {
         // Create Dropbox client
         DbxRequestConfig config = DbxRequestConfig.newBuilder("CabinaGiratoria").build();
         DbxClientV2 client = new DbxClientV2(config, ACCESS_TOKEN);
 
+        JSONObject jsonObject = new JSONObject();
+
+        if(accion.isEmpty()) jsonObject.put("La accion esta vacia", "Error");
+        if(numeroFiesta.isEmpty()) jsonObject.put("El numero de fiesta esta vacio", "Error");
         if (accion.equals("GetMessyURLs")) {
             String carpetaFiesta = "/fiesta" + numeroFiesta;
             LOGGER.debug(carpetaFiesta);
 
             return getMP4FilesMessyURLs(client, carpetaFiesta);
-        } else if(accion.equals("Upload")) {
-            String nombreArchivo =  archivo.encontrarArchivoNuevo(numeroFiesta);
+        }
+        if(accion.equals("Upload")) {
+            String nombreArchivo =  archivo.encontrarArchivoNuevo(Integer.parseInt(numeroFiesta));
             String carpetaFiesta = "/fiesta" + numeroFiesta + "/" + nombreArchivo;
             String rutaFile = folderPath + numeroFiesta +  "/" + nombreArchivo;
 
             return uploadFile(client, rutaFile, carpetaFiesta);
-        }  else if(accion.equals("Delete")) {
+        }
+        if(accion.equals("Delete")) {
             String carpetaFiesta = "/fiesta" + numeroFiesta ;
             LOGGER.debug(carpetaFiesta);
 
             return deleteFolder(client, carpetaFiesta);
-        } else if(accion.equals("GetSortedURLs")) {
+        }
+        if(accion.equals("GetSortedURLs")) {
             String carpetaFiesta = "/fiesta" + numeroFiesta ;
 
             return getMP4FilesSortedURLs(client, carpetaFiesta);
         }
+        if(!accion.equals("GetMessyURLs") && !accion.equals("Upload") && !accion.equals("Delete") && !accion.equals("GetSortedURLs")) jsonObject.put("Ruta no encontrada", "Error");
 
-        return null;
+        return jsonObject;
     }
 
     // Get Mp4 Files Urls
