@@ -1,5 +1,10 @@
 package com.api.cabina_giratoria.servicios;
 
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
+import net.minidev.json.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -10,6 +15,8 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class TokenDropBox {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TokenDropBox.class);
+
     @Value("${dropbox.appKey}")
     private String Dropbox_appID;
     @Value("${dropbox.appSecret}")
@@ -42,10 +49,19 @@ public class TokenDropBox {
                 String.class
         );
 
+        JSONObject jsonObject;
+
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
-            return responseEntity.getBody();
+            JSONParser parser = new JSONParser();
+            try {
+                jsonObject = (JSONObject) parser.parse(responseEntity.getBody());
+                String accessToken = (String) jsonObject.get("access_token");
+                return accessToken;
+            } catch (ParseException e) {
+                return e.getMessage();
+            }
         } else {
-            throw new RuntimeException("Failed to obtain access token from Dropbox.");
+            return "Failed to obtain access token from Dropbox";
         }
     }
 }
