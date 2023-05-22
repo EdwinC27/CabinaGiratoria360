@@ -27,19 +27,17 @@ import java.util.List;
 @Service
 public class ServicioDropBox {
     private static final Logger LOGGER = LoggerFactory.getLogger(ServicioDropBox.class);
-    @Value("${tokenDropBox}")
-    private String ACCESS_TOKEN;
-
     @Autowired
     Archivo archivo;
 
     @Value("${direccionComputadora}")
     private String folderPath;
 
-    public JSONObject getPeticionURL(String accion, String numeroFiesta) {
+    public JSONObject getPeticionURL(String accion, String numeroFiesta, String accessToken) {
+        LOGGER.debug(accessToken);
         // Create Dropbox client
         DbxRequestConfig config = DbxRequestConfig.newBuilder("CabinaGiratoria").build();
-        DbxClientV2 client = new DbxClientV2(config, ACCESS_TOKEN);
+        DbxClientV2 client = new DbxClientV2(config, accessToken);
 
         JSONObject jsonObject = new JSONObject();
 

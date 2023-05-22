@@ -27,6 +27,8 @@ public class DropboxController {
     @Value("${dropbox.urlRedirect}")
     private String urlRedirect;
 
+    public static String accessToken;
+
     @GetMapping("/auth")
     public String authRedirect(HttpSession session) {
         DbxWebAuth webAuth = new DbxWebAuth(requestConfig, appInfo);
@@ -40,7 +42,7 @@ public class DropboxController {
 
     @GetMapping("/getAccessToken")
     public String getAccessToken(@RequestParam("code") String authorizationCode) {
-        String accessToken = tokenDropBox.getAccessToken(authorizationCode);
+        accessToken = tokenDropBox.getAccessToken(authorizationCode);
         return "Access Token: " + accessToken;
     }
 }
