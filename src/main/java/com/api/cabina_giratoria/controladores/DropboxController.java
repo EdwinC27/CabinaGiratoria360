@@ -4,6 +4,7 @@ import com.api.cabina_giratoria.servicios.TokenDropBox;
 import com.dropbox.core.*;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,10 +24,13 @@ public class DropboxController {
     @Autowired
     private TokenDropBox tokenDropBox;
 
+    @Value("${dropbox.urlRedirect}")
+    private String urlRedirect;
+
     @GetMapping("/auth")
     public String authRedirect(HttpSession session) {
         DbxWebAuth webAuth = new DbxWebAuth(requestConfig, appInfo);
-        String redirectUrl = "http://localhost:8080/dropbox/auth"; // URL de redirección después de la autenticación
+        String redirectUrl = urlRedirect; // URL de redirección después de la autenticación
         DbxSessionStore sessionStore = new DbxStandardSessionStore(session, "request");
         String authorizeUrl = webAuth.authorize(DbxWebAuth.newRequestBuilder()
                 .withRedirectUri(redirectUrl, sessionStore)

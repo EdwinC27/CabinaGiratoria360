@@ -23,6 +23,8 @@ public class TokenDropBox {
     private String Dropbox_appSecret;
     @Value("${dropbox.urlPeticion}")
     private String urlPeticionToken;
+    @Value("${dropbox.urlRedirect}")
+    private String urlRedirect;
 
     private final RestTemplate restTemplate;
 
@@ -40,7 +42,7 @@ public class TokenDropBox {
         body.add("code", authorizationCode);
         body.add("client_id", Dropbox_appID);
         body.add("client_secret", Dropbox_appSecret);
-        body.add("redirect_uri", "http://localhost:8080/dropbox/auth");
+        body.add("redirect_uri", urlRedirect);
 
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(body, headers);
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(
