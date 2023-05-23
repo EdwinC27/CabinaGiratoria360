@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+  angular:
+    image: "edwinc27/angular-cabina-giratoria"
+    ports:
+      - 4200:80
+    depends_on:
+      - api
+  api:
+    image: "edwinc27/api-cabina-giratoria"
+    ports:
+      - 8080:8080
