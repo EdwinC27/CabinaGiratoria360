@@ -2,6 +2,9 @@ package com.api.cabina_giratoria.controladores;
 
 import com.api.cabina_giratoria.servicios.TokenDropBox;
 import com.dropbox.core.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,6 +33,11 @@ public class DropboxController {
     public static String accessToken;
 
     @GetMapping("/auth")
+    @Operation(summary = "Redireccionar para la autenticación")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "URL de autorización generada exitosamente"),
+            @ApiResponse(responseCode = "500", description = "Error al obtener la URL de autorización")
+    })
     public JSONObject authRedirect(HttpSession session) {
         DbxWebAuth webAuth = new DbxWebAuth(requestConfig, appInfo);
         String redirectUrl = urlRedirect; // URL de redirección después de la autenticación
@@ -44,6 +52,12 @@ public class DropboxController {
     }
 
     @GetMapping("/getAccessToken")
+    @Operation(summary = "Obtener el token de acceso")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Token de acceso obtenido exitosamente"),
+            @ApiResponse(responseCode = "400", description = "Código de autorización incorrecto o faltante"),
+            @ApiResponse(responseCode = "500", description = "Error al obtener el token de acceso")
+    })
     public String getAccessToken(@RequestParam("code") String authorizationCode) {
         accessToken = tokenDropBox.getAccessToken(authorizationCode);
 

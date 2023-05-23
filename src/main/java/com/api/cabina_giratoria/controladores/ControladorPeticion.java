@@ -1,6 +1,9 @@
 package com.api.cabina_giratoria.controladores;
 
 import com.api.cabina_giratoria.servicios.ServicioDropBox;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +21,12 @@ public class ControladorPeticion {
     ServicioDropBox servicioDropBox;
 
     @GetMapping("/archivos")
+    @Operation(summary = "Realizar una petición a Dropbox")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "URL de la petición obtenida exitosamente"),
+            @ApiResponse(responseCode = "400", description = "Token vacío o parámetros incorrectos o faltantes"),
+            @ApiResponse(responseCode = "500", description = "Error al conectarse con Dropbox o servicios externos")
+    })
     public JSONObject query(@RequestParam(value = "accion") String accion, @RequestParam(value = "fiesta") String numeroFiesta) {
         JSONObject jsonObject = new JSONObject();
         if(accessToken != null) {
