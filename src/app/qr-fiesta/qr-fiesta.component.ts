@@ -55,7 +55,7 @@ export class QrFiestaComponent implements OnInit {
     this.videoUrls = Object.values(this.url);
     let urls;
 
-    if(this.videoUrls.includes("['Token vacio']")) {
+    if(!this.videoUrls.includes("Token vacio")) {
       for (let i = 0; i < this.videoUrls.length; i++) {
         const jsonString = JSON.stringify(this.videoUrls[i]);
         urls = jsonString.replace(/[\[\]\\"]/g, "").split(",");
