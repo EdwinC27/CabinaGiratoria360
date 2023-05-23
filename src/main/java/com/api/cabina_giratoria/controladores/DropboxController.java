@@ -30,14 +30,17 @@ public class DropboxController {
     public static String accessToken;
 
     @GetMapping("/auth")
-    public String authRedirect(HttpSession session) {
+    public JSONObject authRedirect(HttpSession session) {
         DbxWebAuth webAuth = new DbxWebAuth(requestConfig, appInfo);
         String redirectUrl = urlRedirect; // URL de redirección después de la autenticación
         DbxSessionStore sessionStore = new DbxStandardSessionStore(session, "request");
         String authorizeUrl = webAuth.authorize(DbxWebAuth.newRequestBuilder()
                 .withRedirectUri(redirectUrl, sessionStore)
                 .build());
-        return "redirect:" + authorizeUrl;
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("URL", authorizeUrl);
+        return jsonObject;
     }
 
     @GetMapping("/getAccessToken")
