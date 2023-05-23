@@ -46,6 +46,10 @@ public class DropboxController {
     @GetMapping("/getAccessToken")
     public String getAccessToken(@RequestParam("code") String authorizationCode) {
         accessToken = tokenDropBox.getAccessToken(authorizationCode);
-        return "Access Token: " + accessToken;
+
+        if(accessToken != null) {
+            return "The access token obtained successfully";
+        }
+        return "The access token was not obtained successfully";
     }
 }
