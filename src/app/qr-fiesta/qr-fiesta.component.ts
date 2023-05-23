@@ -55,15 +55,21 @@ export class QrFiestaComponent implements OnInit {
     this.videoUrls = Object.values(this.url);
     let urls;
 
-    for (let i = 0; i < this.videoUrls.length; i++) {
-      const jsonString = JSON.stringify(this.videoUrls[i]);
-      urls = jsonString.replace(/[\[\]\\"]/g, "").split(",");
-      for (let j = 0; j < urls.length; j++) {
-        urls[j] = urls[j].replace('?dl=0', '?raw=1');
+    if(this.videoUrls.includes("['Token vacio']")) {
+      for (let i = 0; i < this.videoUrls.length; i++) {
+        const jsonString = JSON.stringify(this.videoUrls[i]);
+        urls = jsonString.replace(/[\[\]\\"]/g, "").split(",");
+        for (let j = 0; j < urls.length; j++) {
+          urls[j] = urls[j].replace('?dl=0', '?raw=1');
+        }
+        console.log(urls);
       }
-      console.log(urls);
+      this.imagenUrls = urls;
     }
-    this.imagenUrls = urls;
+    else {
+      alert("Error te falta obtener un token de acceso");
+      console.log("Error te falta obtener un token de acceso:  "+ this.videoUrls);
+    }
   }
 
   setActiveIndex(indice: number): void {
