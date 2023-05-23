@@ -8,13 +8,15 @@ import { FormsModule } from '@angular/forms';
 import { QrFiestaComponent } from './qr-fiesta/qr-fiesta.component';
 import { MostrarFiestaComponent } from './mostrar-fiesta/mostrar-fiesta.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TokenDropboxComponent } from './token-dropbox/token-dropbox.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SeleccionarFiestaComponent,
     QrFiestaComponent,
-    MostrarFiestaComponent
+    MostrarFiestaComponent,
+    TokenDropboxComponent
   ],
   imports: [
     BrowserModule,
