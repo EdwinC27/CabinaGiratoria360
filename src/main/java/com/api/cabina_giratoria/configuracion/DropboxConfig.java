@@ -15,6 +15,9 @@ public class DropboxConfig {
     @Value("${dropbox.appSecret}")
     private String appSecret;
 
+    @Value("${dropbox.clientIdentifier}")
+    private String nombreApp;
+
 
     @Bean
     public DbxAppInfo appInfo() {
@@ -23,7 +26,7 @@ public class DropboxConfig {
 
     @Bean
     public DbxRequestConfig requestConfig() {
-        return DbxRequestConfig.newBuilder("CabinaGiratoria").build();
+        return DbxRequestConfig.newBuilder(nombreApp).build();
     }
     @Bean
     public RestTemplate restTemplate() {
