@@ -29,7 +29,7 @@
 	.video {
 		height: 100%;
         width: auto;
-        margin-left: 20%;
+        margin-left: 25%;
 	}
 
 	.juntos {
@@ -75,7 +75,9 @@
   left: 0;
   right: 0;
   height: 100%;
-  width: 100%;
+  width: 60%;
+  margin-left: 30%;
+  margin-right: 10%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -144,15 +146,6 @@
   transition: all 0.3s;
 }
 
-.left-arrow {
-  margin-left: 1000%;
-}
-
-.right-arrow {
-  margin-right: 400px;
-
-}
-
 .arrow-right {
   width: 0;
   height: 0;
@@ -167,4 +160,18 @@
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
   border-right: 10px solid black;
+}
+
+
+@media screen and (max-width: 1000px) {
+	.itemCarrouselArrows{
+    margin-left: 35%;
+    margin-right: 5%;
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .itemCarrouselArrows{
+    opacity: 0;
+  }
 }
