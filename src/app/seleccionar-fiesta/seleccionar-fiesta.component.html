@@ -1,6 +1,6 @@
 <input placeholder="Número de la fiesta..." [(ngModel)]="inputText">
-<button id="search-button" (click)="buscarQR()">Enviar</button>
-<button id="delete-button" (click)="confirmarEliminacion()">Eliminar</button><br>
+<button id="search-button" (click)="buscarQR()">Iniciar evento </button>
+<button id="delete-button" (click)="confirmarEliminacion()">Reiniciar evento</button><br>
 
 <textarea placeholder="Mensaje..." [(ngModel)]="inputMensage" class="frase"> </textarea>
 
@@ -8,7 +8,7 @@
 <form (submit)="subirArchivo()">
   <br><br><label>Selecciona un archivo:</label><br>
   <input type="file" (change)="seleccionarArchivo($event)">
-  <button type="submit">Subir archivo</button>
+  <button type="submit">Subir logo</button>
 </form>
 
 <!-- Previsualización -->
