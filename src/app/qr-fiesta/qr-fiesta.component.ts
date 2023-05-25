@@ -31,6 +31,10 @@ export class QrFiestaComponent implements OnInit {
     this.imgQR = "../../assets/QRs/fiesta" + this.id + ".png";
     this.logo = this.fileService.obtenerFileCompartida()
 
+    if(this.logo == "") {
+      this.logo = "../../assets/logo/logoEmpresa.png"
+    }
+    
     this.peticion()
 
     this.interval = setInterval(() => {
