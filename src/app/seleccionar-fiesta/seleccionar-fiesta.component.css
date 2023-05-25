@@ -81,3 +81,22 @@ button:hover {
         margin-right: -5px;
     }
 }
+
+.token {
+  font-size: 20px;
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin-bottom: 30px;
+}
+
+.token:hover {
+  background-color: #0056b3;
+
+}

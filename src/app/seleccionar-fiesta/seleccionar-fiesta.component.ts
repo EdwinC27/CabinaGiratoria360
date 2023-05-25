@@ -1,21 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FileService } from '../file.service';
 import { FraseService } from '../frase.service';
 import { EliminarFiestaService } from './eliminar-fiesta.service';
+import { URLTokenService } from './token-dropbox.service';
 
 @Component({
   selector: 'app-seleccionar-fiesta',
   templateUrl: './seleccionar-fiesta.component.html',
   styleUrls: ['./seleccionar-fiesta.component.css']
 })
-export class SeleccionarFiestaComponent {
+export class SeleccionarFiestaComponent implements OnInit {
   inputText: string = '';
   inputMensage: string = '';
   id: any;
   resultado: any;
 
-  constructor(private router: Router, private fraseService: FraseService, private eliminarFiestaService: EliminarFiestaService, private fileService: FileService) { }
+  constructor(private router: Router, private fraseService: FraseService, private eliminarFiestaService: EliminarFiestaService, private fileService: FileService, private UrlTokenService: URLTokenService) { }
 
   buscarQR() {
     if (parseInt(this.inputText) <= 4 && parseInt(this.inputText) >= 1) {
@@ -102,5 +103,18 @@ export class SeleccionarFiestaComponent {
       console.error('Error al convertir imagen a base64:', error);
       return { base64: null };
     }
+  }
+
+  // Obtener token
+  url: any;
+  ngOnInit(): void {
+    this.UrlTokenService.getPeticionUrlToken().subscribe(
+      (response: any) => {
+        this.url = response.URL;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 }
