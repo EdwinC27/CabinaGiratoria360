@@ -36,8 +36,8 @@
         </div>
       </div>
 
-      <div class="conteCarrouselController">
-        <a *ngFor="let url of vueltas.slice(0, 5); let i = index" href="#itemCarrousel-{{ i }}" [ngClass]="{'punto-activo': i === videoActual}" (click)="setActiveIndex(i)"></a>
+      <div class="conteCarrouselController" style="margin-left: -80px;">
+        <a *ngFor="let url of vueltas.slice(0, 5); let i = index" href="#itemCarrousel-{{ i }}" [ngClass]="{'punto-activo': i === videoActual}" (click)="setActiveIndex(i)" style="margin-right: 40px;"></a>
       </div>
     </div>
 
