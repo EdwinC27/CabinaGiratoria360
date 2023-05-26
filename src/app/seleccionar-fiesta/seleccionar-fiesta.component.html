@@ -1,17 +1,21 @@
-<a [href]="url" class="token">Obtener token</a><br>
+<div class="centrar">
+  <div style="margin-top: 10%;">
+    <a [href]="url" class="token">Obtener token</a><br>
 
-<input placeholder="Número de la fiesta..." [(ngModel)]="inputText">
-<button id="search-button" (click)="buscarQR()">Iniciar evento </button>
-<button id="delete-button" (click)="confirmarEliminacion()">Reiniciar evento</button><br>
+    <input placeholder="Número de la fiesta..." [(ngModel)]="inputText">
+    <button id="search-button" (click)="buscarQR()">Iniciar evento </button>
+    <button id="delete-button" (click)="confirmarEliminacion()">Reiniciar evento</button><br>
 
-<textarea placeholder="Mensaje..." [(ngModel)]="inputMensage" class="frase"> </textarea>
+    <textarea placeholder="Mensaje..." [(ngModel)]="inputMensage" class="frase"> </textarea>
 
-<!-- Subida de archivos -->
-<form (submit)="subirArchivo()">
-  <br><br><label>Selecciona un archivo:</label><br>
-  <input type="file" (change)="seleccionarArchivo($event)">
-  <button type="submit">Subir logo</button>
-</form>
+    <!-- Subida de archivos -->
+    <form (submit)="subirArchivo()">
+      <br><br><label>Selecciona un archivo:</label><br>
+      <input type="file" (change)="seleccionarArchivo($event)">
+      <button type="submit">Subir logo</button>
+    </form>
 
-<!-- Previsualización -->
-<br><img [src]="resultado" *ngIf="resultado" width="60%">
+    <!-- Previsualización -->
+    <br><img [src]="resultado" *ngIf="resultado" width="60%">
+  </div>
+</div>
