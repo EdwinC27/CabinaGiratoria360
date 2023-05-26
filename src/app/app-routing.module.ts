@@ -14,7 +14,7 @@ const routes: Routes = [
     component: QrFiestaComponent
   },
   {
-    path: "musica/:id",
+    path: "fiesta/:id",
     component: MostrarFiestaComponent
   }
 ];
