@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FileService } from '../file.service';
-import { FraseService } from '../frase.service';
+import { FileService } from '../file/file.service';
+import { FraseService } from '../frase/frase.service';
 import { EliminarFiestaService } from './eliminar-fiesta.service';
 import { URLTokenService } from './token-dropbox.service';
 

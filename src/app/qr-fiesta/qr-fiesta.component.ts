@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import { FileService } from '../file.service';
-import { FraseService } from '../frase.service';
-import { MostrarVideosService } from '../videos-fiesta.service';
+import { FileService } from '../file/file.service';
+import { FraseService } from '../frase/frase.service';
+import { MostrarVideosService } from '../videos-peticion/videos-fiesta.service';
 import * as QRCode from 'qrcode';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MostrarVideosService } from '../videos-fiesta.service';
+import { MostrarVideosService } from '../videos-peticion/videos-fiesta.service';
 
 @Component({
   selector: 'app-mostrar-fiesta',
