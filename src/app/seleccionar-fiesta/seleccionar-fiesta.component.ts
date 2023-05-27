@@ -19,24 +19,8 @@ export class SeleccionarFiestaComponent implements OnInit {
   constructor(private router: Router, private fraseService: FraseService, private eliminarFiestaService: EliminarFiestaService, private fileService: FileService, private UrlTokenService: URLTokenService) { }
 
   buscarQR() {
-    if (parseInt(this.inputText) <= 4 && parseInt(this.inputText) >= 1) {
-      switch (parseInt(this.inputText)) {
-        case 1:
-          this.id = 1;
-          break;
-
-        case 2:
-          this.id = 2;
-          break;
-
-        case 3:
-          this.id = 3;
-          break;
-
-        case 4:
-          this.id = 4;
-          break;
-      }
+    if (parseInt(this.inputText) >= 1) {
+      this.id = parseInt(this.inputText);
 
       // establecer la frase compartida
       this.fraseService.establecerFraseCompartida(this.inputMensage);

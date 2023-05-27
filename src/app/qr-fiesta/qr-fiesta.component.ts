@@ -59,7 +59,13 @@ export class QrFiestaComponent implements OnInit {
     this.videoUrls = Object.values(this.url);
     let urls;
 
-    if(!this.videoUrls.includes("Token vacio")) {
+    if(this.videoUrls.includes("Token vacio")) {
+      alert("Error te falta obtener un token de acceso");
+      console.log("Error te falta obtener un token de acceso:  "+ this.videoUrls);
+    } else if (this.videoUrls.includes("Exception in 2\/files\/list_folder: {\".tag\":\"path\",\"path\":\"not_found\"}")) {
+      alert("Carpeta no encontrada");
+      console.log("Carpeta no encontrada"+ this.videoUrls);
+    } else {
       for (let i = 0; i < this.videoUrls.length; i++) {
         const jsonString = JSON.stringify(this.videoUrls[i]);
         urls = jsonString.replace(/[\[\]\\"]/g, "").split(",");
@@ -69,10 +75,6 @@ export class QrFiestaComponent implements OnInit {
         console.log(urls);
       }
       this.imagenUrls = urls;
-    }
-    else {
-      alert("Error te falta obtener un token de acceso");
-      console.log("Error te falta obtener un token de acceso:  "+ this.videoUrls);
     }
   }
 
