@@ -4,6 +4,7 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 import { FileService } from '../file.service';
 import { FraseService } from '../frase.service';
 import { MostrarVideosService } from '../videos-fiesta.service';
+import * as QRCode from 'qrcode';
 
 @Component({
   selector: 'app-qr-fiesta',
@@ -22,11 +23,14 @@ export class QrFiestaComponent implements OnInit {
   interval: any;
   imagenUrls: string[] | undefined;
   videoActual: number = 0;
-  vueltas: any = [1, 2, 3, 4, 5, 6, 7]
+  vueltas: any = [1, 2, 3, 4, 5, 6, 7];
+  qrCodeImage: string | undefined;
+
   constructor (private router: ActivatedRoute, private fraseService: FraseService,private mostrarVideosService: MostrarVideosService, private fileService: FileService, private router2: Router){}
 
   ngOnInit(): void {
     this.id = this.router.snapshot.paramMap.get("id");
+    this.generateQRCode();
     this.frase = this.fraseService.obtenerFraseCompartida();
     this.imgQR = "../../assets/QRs/fiesta" + this.id + ".png";
     this.logo = this.fileService.obtenerFileCompartida()
@@ -98,5 +102,17 @@ export class QrFiestaComponent implements OnInit {
       this.videoActual++;
     }
     console.log("Next: "+this.videoActual)
+  }
+
+  generateQRCode(): void {
+    const qrCodeData = 'https://cabina/fiesta'+this.id;
+
+    QRCode.toDataURL(qrCodeData, { errorCorrectionLevel: 'H' }, (error, url) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+      this.qrCodeImage = url;
+    });
   }
 }
