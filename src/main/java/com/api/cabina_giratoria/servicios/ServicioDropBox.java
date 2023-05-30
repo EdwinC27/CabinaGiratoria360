@@ -27,6 +27,7 @@ import java.util.List;
 @Service
 public class ServicioDropBox {
     private static final Logger LOGGER = LoggerFactory.getLogger(ServicioDropBox.class);
+    private static final String ERROR = "Error";
     @Autowired
     Archivo archivo;
 
@@ -41,8 +42,8 @@ public class ServicioDropBox {
 
         JSONObject jsonObject = new JSONObject();
 
-        if(accion.isEmpty()) jsonObject.put("La accion esta vacia", "Error");
-        if(numeroFiesta.isEmpty()) jsonObject.put("El numero de fiesta esta vacio", "Error");
+        if(accion.isEmpty()) jsonObject.put(ERROR, "La accion esta vacia");
+        if(numeroFiesta.isEmpty()) jsonObject.put(ERROR, "El numero de fiesta esta vacio");
         if (accion.equals("GetMessyURLs")) {
             String carpetaFiesta = "/fiesta" + numeroFiesta;
             LOGGER.debug(carpetaFiesta);
@@ -67,7 +68,7 @@ public class ServicioDropBox {
 
             return getMP4FilesSortedURLs(client, carpetaFiesta);
         }
-        if(!accion.equals("GetMessyURLs") && !accion.equals("Upload") && !accion.equals("Delete") && !accion.equals("GetSortedURLs")) jsonObject.put("Ruta no encontrada", "Error");
+        if(!accion.equals("GetMessyURLs") && !accion.equals("Upload") && !accion.equals("Delete") && !accion.equals("GetSortedURLs")) jsonObject.put(ERROR, "Ruta no encontrada");
 
         return jsonObject;
     }
@@ -101,7 +102,7 @@ public class ServicioDropBox {
             }
 
         } catch (DbxException e) {
-            jsonObject.put("Error", e.getMessage());
+            jsonObject.put(ERROR, e.getMessage());
         }
         return jsonObject;
     }
@@ -132,7 +133,7 @@ public class ServicioDropBox {
                 return getURL(client, filePath);
             } else {
                 // Error al listar los enlaces compartidos
-                return "Error: " + ex.getMessage();
+                return ERROR + ex.getMessage();
             }
         }
     }
@@ -243,11 +244,11 @@ public class ServicioDropBox {
 
                 jsonObject.put("videos", jsonArray);
             } else {
-                jsonObject.put("Error", "No se encontraron archivos de vídeo en la carpeta especificada.");
+                jsonObject.put(ERROR, "No se encontraron archivos de vídeo en la carpeta especificada.");
             }
 
         } catch (DbxException e) {
-            jsonObject.put("Error", e.getMessage());
+            jsonObject.put(ERROR, e.getMessage());
         }
         return jsonObject;
     }
