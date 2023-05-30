@@ -38,6 +38,8 @@ public class ServicioDropBox {
     private String clienName;
 
     public JSONObject getPeticionURL(String accion, String numeroFiesta, String accessToken) {
+        String nameCarpetaBase = "/fiesta";
+
         LOGGER.debug(accessToken);
         // Create Dropbox client
         DbxRequestConfig config = DbxRequestConfig.newBuilder(clienName).build();
@@ -48,26 +50,26 @@ public class ServicioDropBox {
         if(accion.isEmpty()) jsonObject.put(ERROR, "La accion esta vacia");
         if(numeroFiesta.isEmpty()) jsonObject.put(ERROR, "El numero de fiesta esta vacio");
         if (accion.equals("GetMessyURLs")) {
-            String carpetaFiesta = "/fiesta" + numeroFiesta;
+            String carpetaFiesta = nameCarpetaBase + numeroFiesta;
             LOGGER.debug(carpetaFiesta);
 
             return getMP4FilesMessyURLs(client, carpetaFiesta);
         }
         if(accion.equals("Upload")) {
             String nombreArchivo =  archivo.encontrarArchivoNuevo(Integer.parseInt(numeroFiesta));
-            String carpetaFiesta = "/fiesta" + numeroFiesta + "/" + nombreArchivo;
+            String carpetaFiesta = nameCarpetaBase + numeroFiesta + "/" + nombreArchivo;
             String rutaFile = folderPath + numeroFiesta +  "/" + nombreArchivo;
 
             return uploadFile(client, rutaFile, carpetaFiesta);
         }
         if(accion.equals("Delete")) {
-            String carpetaFiesta = "/fiesta" + numeroFiesta ;
+            String carpetaFiesta = nameCarpetaBase + numeroFiesta ;
             LOGGER.debug(carpetaFiesta);
 
             return deleteFolder(client, carpetaFiesta);
         }
         if(accion.equals("GetSortedURLs")) {
-            String carpetaFiesta = "/fiesta" + numeroFiesta ;
+            String carpetaFiesta = nameCarpetaBase + numeroFiesta ;
 
             return getMP4FilesSortedURLs(client, carpetaFiesta);
         }
