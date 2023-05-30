@@ -29,7 +29,7 @@ public class ServicioDropBox {
     private static final Logger LOGGER = LoggerFactory.getLogger(ServicioDropBox.class);
     private static final String ERROR = "Error";
     @Autowired
-    Archivo archivo;
+    VideosNuevo videosNuevo;
 
     @Value("${direccionComputadora}")
     private String folderPath;
@@ -56,7 +56,7 @@ public class ServicioDropBox {
             return getMP4FilesMessyURLs(client, carpetaFiesta);
         }
         if(accion.equals("Upload")) {
-            String nombreArchivo =  archivo.encontrarArchivoNuevo(Integer.parseInt(numeroFiesta));
+            String nombreArchivo =  videosNuevo.encontrarArchivoNuevo(Integer.parseInt(numeroFiesta));
             String carpetaFiesta = nameCarpetaBase + numeroFiesta + "/" + nombreArchivo;
             String rutaFile = folderPath + numeroFiesta +  "/" + nombreArchivo;
 

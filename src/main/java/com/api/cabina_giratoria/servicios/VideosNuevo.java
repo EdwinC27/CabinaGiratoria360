@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 @Service
-public class Archivo {
+public class VideosNuevo {
     @Value("${direccionComputadora}")
     private String folderPath;
 
