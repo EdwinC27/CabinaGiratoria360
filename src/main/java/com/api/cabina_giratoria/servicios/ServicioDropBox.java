@@ -34,10 +34,13 @@ public class ServicioDropBox {
     @Value("${direccionComputadora}")
     private String folderPath;
 
+    @Value("${dropbox.clientIdentifier}")
+    private String clienName;
+
     public JSONObject getPeticionURL(String accion, String numeroFiesta, String accessToken) {
         LOGGER.debug(accessToken);
         // Create Dropbox client
-        DbxRequestConfig config = DbxRequestConfig.newBuilder("CabinaGiratoria").build();
+        DbxRequestConfig config = DbxRequestConfig.newBuilder(clienName).build();
         DbxClientV2 client = new DbxClientV2(config, accessToken);
 
         JSONObject jsonObject = new JSONObject();
