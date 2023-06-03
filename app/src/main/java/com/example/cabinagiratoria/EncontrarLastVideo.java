@@ -2,11 +2,11 @@ package com.example.cabinagiratoria;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.widget.MediaController;
-import android.widget.Toast; import android.widget.VideoView;
+import android.widget.VideoView;
 
 import java.io.File;
 import java.util.Arrays;
@@ -38,11 +38,17 @@ public class EncontrarLastVideo extends AppCompatActivity {
             mediaController.setAnchorView(videoView);
             videoView.setMediaController(mediaController);
 
+            videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    mediaPlayer.setVolume(0, 0); // Establece el volumen del audio a cero
+                }
+            });
+
             // Inicia la reproducción del video
             videoView.start();
         }
     }
-
 
     private String obtenerUltimoVideo() {
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
