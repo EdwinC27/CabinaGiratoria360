@@ -67,6 +67,13 @@ public class GrabarVideo extends AppCompatActivity {
 
         if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
             Toast.makeText(this, "Archivo guardado", Toast.LENGTH_SHORT).show();
+
+            // Abrir otro Activity
+            Intent intent = new Intent(this, EncontrarLastVideo.class);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(this, "No se pudo guardar el archivo", Toast.LENGTH_SHORT).show();
         }
     }
 
