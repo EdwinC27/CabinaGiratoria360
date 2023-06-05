@@ -1,15 +1,13 @@
 package com.example.cabinagiratoria;
 
-import android.net.Uri;
-
 public class MP3Utils {
-    private static Uri selectedFileUri;
+    private static String selectedFileUri;
 
-    public static void setSelectedFileUri(Uri uri) {
+    public static void setSelectedFileAudio(String uri) {
         selectedFileUri = uri;
     }
 
-    public static Uri getSelectedFileUri() {
+    public static String getSelectedFileAudio() {
         return selectedFileUri;
     }
 }

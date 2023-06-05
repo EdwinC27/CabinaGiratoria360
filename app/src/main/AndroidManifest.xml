@@ -22,7 +22,13 @@
         android:theme="@style/Theme.CabinaGiratoria"
         tools:targetApi="31">
         <activity
-            android:name=".EncontrarLastVideo"
+            android:name=".ProcesandoVideo"
+            android:exported="false" />
+        <activity
+            android:name=".VideoConMusica"
+            android:exported="false" />
+        <activity
+            android:name=".MotrarLastVideo"
             android:exported="false" />
         <activity
             android:name=".GrabarVideo"

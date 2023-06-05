@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_SELECT_MP3 && resultCode == RESULT_OK && data != null) {
             Uri selectedFileUri = data.getData();
-            MP3Utils.setSelectedFileUri(selectedFileUri);
+            MP3Utils.setSelectedFileAudio(selectedFileUri.getPath());
         }
     }
 }

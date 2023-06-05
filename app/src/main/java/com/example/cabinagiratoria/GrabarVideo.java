@@ -69,7 +69,7 @@ public class GrabarVideo extends AppCompatActivity {
             Toast.makeText(this, "Archivo guardado", Toast.LENGTH_SHORT).show();
 
             // Abrir otro Activity
-            Intent intent = new Intent(this, EncontrarLastVideo.class);
+            Intent intent = new Intent(this, ProcesandoVideo.class);
             startActivity(intent);
         }
         else {
