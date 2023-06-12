@@ -15,7 +15,7 @@ public class VideoConMusica {
     FFmpeg fFmpeg;
 
     public static String cambiarVideoPorVideoConAudio() {
-        String video = MP4Utils.getSelectedFileVideo();
+        String video = MP4Utils.getSelectedFileProcess();
         String m4a = MP3Utils.getSelectedFileAudio();
         String nuevaCadenaAudio = m4a.replace(m4a.substring(0, m4a.indexOf('/', 1)), "");
         nuevaCadenaAudio = "/storage/emulated/0" + nuevaCadenaAudio;

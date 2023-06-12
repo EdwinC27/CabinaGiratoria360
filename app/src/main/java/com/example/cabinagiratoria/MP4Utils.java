@@ -5,6 +5,8 @@ public class MP4Utils {
 
     private static String selectedFileWithAudio;
 
+    private static String selectedFileProcess;
+
 
     public static void setSelectedFileVideo(String uri) {
         selectedFileUri = uri;
@@ -21,5 +23,13 @@ public class MP4Utils {
 
     public static String getSelectedFileWithAudio() {
         return selectedFileWithAudio;
+    }
+
+    public static void setSelectedFileProcess(String uri) {
+        selectedFileProcess = uri;
+    }
+
+    public static String getSelectedFileProcess() {
+        return selectedFileProcess;
     }
 }

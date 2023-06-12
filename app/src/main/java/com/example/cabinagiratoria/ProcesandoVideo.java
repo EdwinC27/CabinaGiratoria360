@@ -24,8 +24,7 @@ public class ProcesandoVideo extends AppCompatActivity {
         MP4Utils.setSelectedFileVideo(rutaUltimoVideo);
         MP4Utils.setSelectedFileWithAudio(MP4Utils.getSelectedFileVideo());
 
-        MP4Utils.setSelectedFileWithAudio(VideoConMusica.cambiarVideoPorVideoConAudio());
-
+        VideoConEfecto.realintizarVideo();
     }
 
     private String obtenerUltimoVideo() {
