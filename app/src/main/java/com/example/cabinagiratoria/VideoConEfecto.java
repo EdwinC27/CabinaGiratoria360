@@ -11,10 +11,10 @@ public class VideoConEfecto {
         String newArchivo = Video.createVideoFile().getPath();
 
         String[] command = {"-i", video, "-filter_complex",
-                "[0:v]trim=0:3,setpts=PTS-STARTPTS[v1];" + // Primera parte (0 a 3 segundos)
-                        "[0:v]trim=3:6,setpts=2.0*(PTS-STARTPTS)[v2];" + // Segunda parte (3 a 6 segundos) en cámara lenta
-                        "[0:v]trim=6:12,setpts=PTS-STARTPTS[v3];" + // Tercera parte (6 a 10 segundos)
-                        "[v1][v2][v3]concat=n=3:v=1:a=0[out]", // Concatenar las tres partes
+                "[0:v]trim=0:3,setpts=PTS-STARTPTS[v1];" +
+                "[0:v]trim=3:8,setpts=3.0*(PTS-STARTPTS)[v2];" +
+                "[0:v]trim=8:12,setpts=0.5*(PTS-STARTPTS)[v3];" +
+                "[v1][v2][v3]concat=n=3:v=1:a=0[out]",
                 "-map", "[out]", newArchivo};
 
 
