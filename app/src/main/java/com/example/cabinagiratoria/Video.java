@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class NombreArchivo {
+public class Video {
     public static File createVideoFile() {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         String videoFileName = "VIDEO_" + timeStamp + ".mp4";

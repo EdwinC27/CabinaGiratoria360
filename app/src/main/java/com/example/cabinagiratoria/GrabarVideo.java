@@ -39,7 +39,7 @@ public class GrabarVideo extends AppCompatActivity {
         takeVideoIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, DURATION_LIMIT_SECONDS);
 
         // Generar una URI de archivo segura utilizando FileProvider
-        Uri videoUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", NombreArchivo.createVideoFile());
+        Uri videoUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", Video.createVideoFile());
 
         takeVideoIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
 

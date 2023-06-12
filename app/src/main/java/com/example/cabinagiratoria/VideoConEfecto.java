@@ -8,7 +8,7 @@ import com.arthenica.mobileffmpeg.FFmpeg;
 public class VideoConEfecto {
     public static void realintizarVideo() {
         String video = MP4Utils.getSelectedFileVideo();
-        String newArchivo = NombreArchivo.createVideoFile().getPath();
+        String newArchivo = Video.createVideoFile().getPath();
 
         String[] command = {"-i", video, "-filter_complex",
                 "[0:v]trim=0:3,setpts=PTS-STARTPTS[v1];" + // Primera parte (0 a 3 segundos)

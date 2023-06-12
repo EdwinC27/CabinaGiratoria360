@@ -15,7 +15,7 @@ public class VideoConMusica {
         String m4a = MP3Utils.getSelectedFileAudio();
         String nuevaCadenaAudio = m4a.replace(m4a.substring(0, m4a.indexOf('/', 1)), "");
         nuevaCadenaAudio = "/storage/emulated/0" + nuevaCadenaAudio;
-        File newArchivo = NombreArchivo.createVideoFile();
+        File newArchivo = Video.createVideoFile();
 
         String[] c = {"-i", video, "-i", nuevaCadenaAudio, "-c:v", "copy", "-c:a", "aac",
                 "-map", "0:v:0", "-map", "1:a:0", "-shortest",
