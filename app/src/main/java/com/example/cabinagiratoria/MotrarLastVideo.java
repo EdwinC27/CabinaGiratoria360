@@ -23,6 +23,7 @@ public class MotrarLastVideo extends AppCompatActivity {
         String rutaVideoAudio = MP4Utils.getSelectedFileWithAudio();
 
         if (rutaVideoAudio != null) {
+            eliminarVideo();
             // Configura la ruta del video en el VideoView
             videoView.setVideoPath(rutaVideoAudio);
 
@@ -44,4 +45,8 @@ public class MotrarLastVideo extends AppCompatActivity {
         }
     }
 
+    private void eliminarVideo() {
+        Video.eliminarVideo(MP4Utils.getSelectedFileVideo());
+        Video.eliminarVideo(MP4Utils.getSelectedFileProcess());
+    }
 }
