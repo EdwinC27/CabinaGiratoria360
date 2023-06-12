@@ -1,20 +1,14 @@
 package com.example.cabinagiratoria;
 
-import android.os.Environment;
 import android.util.Log;
 
 import com.arthenica.mobileffmpeg.ExecuteCallback;
 import com.arthenica.mobileffmpeg.FFmpeg;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 public class VideoConEfecto {
     public static void realintizarVideo() {
         String video = MP4Utils.getSelectedFileVideo();
-        String newArchivo = createVideoFile().getPath();
+        String newArchivo = NombreArchivo.createVideoFile().getPath();
 
         String[] command = {"-i", video, "-filter_complex",
                 "[0:v]trim=0:3,setpts=PTS-STARTPTS[v1];" + // Primera parte (0 a 3 segundos)
@@ -37,11 +31,4 @@ public class VideoConEfecto {
         });
     }
 
-    private static File createVideoFile() {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-        String videoFileName = "VIDEO_" + timeStamp + ".mp4";
-        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
-        File videoFile = new File(storageDir, videoFileName);
-        return videoFile;
-    }
 }

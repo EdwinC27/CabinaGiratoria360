@@ -6,9 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,11 +15,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class GrabarVideo extends AppCompatActivity {
     static final int REQUEST_VIDEO_CAPTURE = 1;
@@ -45,7 +39,7 @@ public class GrabarVideo extends AppCompatActivity {
         takeVideoIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, DURATION_LIMIT_SECONDS);
 
         // Generar una URI de archivo segura utilizando FileProvider
-        Uri videoUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", createVideoFile());
+        Uri videoUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", NombreArchivo.createVideoFile());
 
         takeVideoIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
 
@@ -77,14 +71,6 @@ public class GrabarVideo extends AppCompatActivity {
         }
     }
 
-    private File createVideoFile() {
-        // Crea un archivo de video con un nombre único
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-        String videoFileName = "VIDEO_" + timeStamp + ".mp4";
-        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
-        File videoFile = new File(storageDir, videoFileName);
-        return videoFile;
-    }
 }
 
 
