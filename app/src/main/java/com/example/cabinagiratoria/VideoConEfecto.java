@@ -12,7 +12,7 @@ public class VideoConEfecto {
 
         String[] command = {"-i", video, "-filter_complex",
                 "[0:v]trim=0:3,setpts=PTS-STARTPTS[v1];" +
-                "[0:v]trim=3:8,setpts=3.0*(PTS-STARTPTS)[v2];" +
+                "[0:v]trim=3:8,setpts=2.0*(PTS-STARTPTS)[v2];" +
                 "[0:v]trim=8:12,setpts=0.5*(PTS-STARTPTS)[v3];" +
                 "[v1][v2][v3]concat=n=3:v=1:a=0[out]",
                 "-map", "[out]", newArchivo};
