@@ -48,5 +48,7 @@ public class MotrarLastVideo extends AppCompatActivity {
     private void eliminarVideo() {
         Video.eliminarVideo(MP4Utils.getSelectedFileVideo());
         Video.eliminarVideo(MP4Utils.getSelectedFileProcess());
+        Video.eliminarVideo(MP4Utils.getSelectedFileFinal());
+        Video.eliminarVideo(MP4Utils.getSelectedFileRever());
     }
 }
