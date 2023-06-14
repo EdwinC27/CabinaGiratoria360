@@ -1,16 +1,11 @@
 package com.example.cabinagiratoria;
 
-import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 
 import com.arthenica.mobileffmpeg.ExecuteCallback;
 import com.arthenica.mobileffmpeg.FFmpeg;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class VideoConEfecto {
     public static void realintizarVideo() {
@@ -28,7 +23,7 @@ public class VideoConEfecto {
 
     public static void ida() {
         String video = MP4Utils.getSelectedFileVideo();
-        String newArchivo = Video.createVideoFile().getPath();
+        String newArchivo = Video.createVideoFile("Ida").getPath();
 
         String[] command = {"-i", video, "-filter_complex",
                 "[0:v]trim=0:3,setpts=PTS-STARTPTS[v1];" +
@@ -51,7 +46,7 @@ public class VideoConEfecto {
 
     public static void vuelta() {
         String video = MP4Utils.getSelectedFileVideo();
-        String newArchivo = createVideoFileRegreso().getPath();
+        String newArchivo = Video.createVideoFile("Regreso").getPath();
 
         String[] command = {"-i", video, "-filter_complex",
                 "[0:v]trim=0:3,setpts=PTS-STARTPTS[v1];" +
@@ -72,18 +67,10 @@ public class VideoConEfecto {
         });
     }
 
-    public static File createVideoFileRegreso() {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-        String videoFileName = "VIDEO_Vuelta" + timeStamp + ".mp4";
-        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
-        File videoFile = new File(storageDir, videoFileName);
-        return videoFile;
-    }
-
     public static void unirVideos() {
         String videoIda = MP4Utils.getSelectedFileProcess();
         String videoRegreso = MP4Utils.getSelectedFileRever();
-        String newArchivo = createVideoFileFinal().getPath();
+        String newArchivo = Video.createVideoFile("Final").getPath();
 
 
         String[] command = {"-y", "-i", videoIda, "-i", videoRegreso, "-filter_complex",
@@ -103,11 +90,4 @@ public class VideoConEfecto {
         });
     }
 
-    public static File createVideoFileFinal() {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-        String videoFileName = "VIDEO_Final" + timeStamp + ".mp4";
-        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
-        File videoFile = new File(storageDir, videoFileName);
-        return videoFile;
-    }
 }
