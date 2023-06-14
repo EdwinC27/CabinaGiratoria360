@@ -7,6 +7,9 @@ public class MP4Utils {
 
     private static String selectedFileProcess;
 
+    private static String selectedFileRever;
+
+    private static String selectedFileFinal;
 
     public static void setSelectedFileVideo(String uri) {
         selectedFileUri = uri;
@@ -31,5 +34,21 @@ public class MP4Utils {
 
     public static String getSelectedFileProcess() {
         return selectedFileProcess;
+    }
+
+    public static void setSelectedFileRever(String uri) {
+        selectedFileRever = uri;
+    }
+
+    public static String getSelectedFileRever() {
+        return selectedFileRever;
+    }
+
+    public static void setSelectedFileFinal(String uri) {
+        selectedFileFinal = uri;
+    }
+
+    public static String getSelectedFileFinal() {
+        return selectedFileFinal;
     }
 }
