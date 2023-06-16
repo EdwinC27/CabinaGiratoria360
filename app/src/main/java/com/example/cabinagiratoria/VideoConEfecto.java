@@ -10,36 +10,6 @@ import java.util.concurrent.CompletableFuture;
 
 public class VideoConEfecto {
 
-    public static void realintizarVideo() {
-        CompletableFuture<Void> idaFuture = ida();
-        CompletableFuture<Void> vueltaFuture = vuelta();
-
-        CompletableFuture.allOf(idaFuture, vueltaFuture).thenAccept((Void) -> {
-            String videoIda = MP4Utils.getSelectedFileProcess();
-            String videoRegreso = MP4Utils.getSelectedFileRever();
-            String newArchivo = Video.createVideoFile("Final").getPath();
-
-            String[] command = {"-y", "-i", videoIda, "-i", videoRegreso, "-filter_complex",
-                    "[0:v]scale=w=640:h=480:force_original_aspect_ratio=1[v0];[1:v]scale=w=640:h=480:force_original_aspect_ratio=1[v1];[v0][v1]concat=n=2:v=1:a=0[a]",
-                    "-map", "[a]", newArchivo};
-
-            FFmpeg.executeAsync(command, new ExecuteCallback() {
-                @Override
-                public void apply(long executionId, int returnCode) {
-                    Log.d("Return Final: ", returnCode + ": ********************************************************");
-                    if (returnCode == 0) {
-                        MP4Utils.setSelectedFileFinal(newArchivo);
-                        MP4Utils.setSelectedFileWithAudio(VideoConMusica.cambiarVideoPorVideoConAudio());
-                    }
-                }
-            });
-        }).exceptionally(ex -> {
-            // Se ejecuta si ocurre algún error en ida() o vuelta()
-            Log.d("Error en realintizarVideo(): ", ex.getMessage());
-            return null;
-        });
-    }
-
     public static CompletableFuture<Void> ida() {
         CompletableFuture<Void> future = new CompletableFuture<>();
         String video = MP4Utils.getSelectedFileVideo();
