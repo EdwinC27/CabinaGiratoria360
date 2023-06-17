@@ -78,6 +78,12 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE_SELECT_MP3 && resultCode == RESULT_OK && data != null) {
             Uri selectedFileUri = data.getData();
             MP3Utils.setSelectedFileAudio(selectedFileUri.getPath());
+            mostrarMP3FueSeleccionado();
         }
+    }
+
+    private void mostrarMP3FueSeleccionado() {
+        if(MP3Utils.getSelectedFileAudio() != null) Toast.makeText(this, "Cancion agregada", Toast.LENGTH_SHORT).show();
+        if(MP3Utils.getSelectedFileAudio() == null) Toast.makeText(this, "No se pudo agregar la cancion ", Toast.LENGTH_SHORT).show();
     }
 }
