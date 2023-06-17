@@ -16,7 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class Inicio extends AppCompatActivity {
     private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
     private static final int REQUEST_CODE_SELECT_MP3 = 2;
     private MediaPlayer mediaPlayer;
@@ -24,20 +24,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_inicio);
 
         Button buttonSubirMP3 = findViewById(R.id.buttonSubirMP3);
         buttonSubirMP3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Verificar si se tienen los permisos necesarios
-                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                if (ContextCompat.checkSelfPermission(Inicio.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         == PackageManager.PERMISSION_GRANTED) {
                     // Permiso otorgado, abrir el explorador de archivos
                     seleccionarArchivoMP3();
                 } else {
                     // Permiso denegado, solicitar permisos
-                    ActivityCompat.requestPermissions(MainActivity.this,
+                    ActivityCompat.requestPermissions(Inicio.this,
                             new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                             REQUEST_CODE_STORAGE_PERMISSION);
                 }
