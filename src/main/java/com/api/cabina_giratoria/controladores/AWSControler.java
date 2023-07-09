@@ -19,8 +19,8 @@ public class AWSControler {
     }
 
     @GetMapping("/videos")
-    public ResponseEntity<JSONObject> getVideos(@RequestParam(value = "fiesta") String numeroFiesta) {
-        ResponseEntity<JSONObject> respuestaVideos = s3Service.listFiles(numeroFiesta);
+    public ResponseEntity<JSONObject> getVideos(@RequestParam(value = "fiesta") String nombreFiesta) {
+        ResponseEntity<JSONObject> respuestaVideos = s3Service.listFiles(nombreFiesta);
 
         if (respuestaVideos.getBody().isEmpty()) {
             JSONObject errorResponse = new JSONObject();

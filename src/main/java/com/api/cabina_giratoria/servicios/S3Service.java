@@ -28,15 +28,17 @@ public class S3Service {
     @Value("${aws.bucketName}")
     String bucketName;
 
-    public ResponseEntity<JSONObject> listFiles(String numeroFiesta) {
+    public ResponseEntity<JSONObject> listFiles(String nombreFiesta) {
         JSONObject listOfFiles = new JSONObject();
 
+        /*
         if(!validaciones.isConvertibleToInt(numeroFiesta)) {
             listOfFiles.put("Error", "Elemento ingresado no es un numero");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(listOfFiles);
         }
+        */
 
-        String prefix = "fiesta" + numeroFiesta + "/";
+        String prefix = nombreFiesta + "/";
 
         ListObjectsV2Request request = new ListObjectsV2Request()
                 .withBucketName(bucketName)
