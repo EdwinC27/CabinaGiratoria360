@@ -15,6 +15,7 @@ import net.minidev.json.JSONObject;
 import java.io.ByteArrayInputStream;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class S3Service {
@@ -108,6 +109,43 @@ public class S3Service {
         } catch (Exception e) {
             JSONObject errorResponse = new JSONObject();
             errorResponse.put("Error", "No se pudo crear la carpeta");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+        }
+    }
+
+
+    public ResponseEntity<JSONObject> deleteFolder(String folderName) {
+        // Existe la carpeta
+        if(!validaciones.folderExists(folderName)) {
+            JSONObject errorResponse = new JSONObject();
+            errorResponse.put("Error", "La carpeta no existe");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+        }
+
+        String folderKey = folderName + "/"; // Agrega "/" al final para indicar que es una carpeta
+
+        // Obtener la lista de objetos en la carpeta
+        ListObjectsV2Request request = new ListObjectsV2Request()
+                .withBucketName(bucketName)
+                .withPrefix(folderKey);
+        ListObjectsV2Result result = amazonS3.listObjectsV2(request);
+        List<S3ObjectSummary> objects = result.getObjectSummaries();
+
+        // Eliminar los objetos dentro de la carpeta
+        for (S3ObjectSummary object : objects) {
+            String key = object.getKey();
+            amazonS3.deleteObject(new DeleteObjectRequest(bucketName, key));
+        }
+
+        // Eliminar la carpeta en sí
+        try {
+            amazonS3.deleteObject(bucketName, folderKey);
+            JSONObject correctResponse = new JSONObject();
+            correctResponse.put("Exito", "Carpeta creada correctamente");
+            return ResponseEntity.status(HttpStatus.OK).body(correctResponse);
+        } catch (Exception e) {
+            JSONObject errorResponse = new JSONObject();
+            errorResponse.put("Error", "No se pudo eliminar la carpeta");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         }
     }

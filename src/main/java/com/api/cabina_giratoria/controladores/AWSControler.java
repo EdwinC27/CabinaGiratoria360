@@ -35,4 +35,9 @@ public class AWSControler {
     public ResponseEntity<JSONObject> putCarpeta(@RequestParam(value = "carpeta") String nombreCarpeta) {
         return s3Service.createFolder(nombreCarpeta);
     }
+
+    @GetMapping("/carpeta/eliminar")
+    public ResponseEntity<JSONObject> deleteCarpeta(@RequestParam(value = "carpeta") String nombreCarpeta) {
+        return s3Service.deleteFolder(nombreCarpeta);
+    }
 }
