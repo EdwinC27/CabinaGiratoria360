@@ -141,7 +141,7 @@ public class S3Service {
         try {
             amazonS3.deleteObject(bucketName, folderKey);
             JSONObject correctResponse = new JSONObject();
-            correctResponse.put("Exito", "Carpeta creada correctamente");
+            correctResponse.put("Exito", "Carpeta eliminada correctamente");
             return ResponseEntity.status(HttpStatus.OK).body(correctResponse);
         } catch (Exception e) {
             JSONObject errorResponse = new JSONObject();
