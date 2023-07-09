@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import net.minidev.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -73,4 +74,22 @@ public class S3Service {
         return amazonS3.generatePresignedUrl(request).toString();
     }
 
+
+    public boolean createFolder(String folderName) {
+        String folderKey = folderName + "/"; // Agrega "/" al final para indicar que es una carpeta
+
+        // Contenido vacío para crear la carpeta
+        byte[] content = new byte[0];
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentLength(content.length);
+
+        PutObjectRequest request = new PutObjectRequest(bucketName, folderKey, new ByteArrayInputStream(content), metadata);
+        try {
+            amazonS3.putObject(request);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

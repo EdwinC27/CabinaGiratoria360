@@ -30,4 +30,19 @@ public class AWSControler {
 
         return respuestaVideos;
     }
+
+    @GetMapping("/carpeta")
+    public ResponseEntity<JSONObject> putCarpeta(@RequestParam(value = "carpeta") String nombreCarpeta) {
+        Boolean creacionCarpeta = s3Service.createFolder(nombreCarpeta);
+
+        if (creacionCarpeta) {
+            JSONObject correctResponse = new JSONObject();
+            correctResponse.put("Exito", "Carpeta creada correctamente");
+            return ResponseEntity.status(HttpStatus.OK).body(correctResponse);
+        } else {
+            JSONObject errorResponse = new JSONObject();
+            errorResponse.put("Error", "No se pudo crear la carpeta");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+        }
+    }
 }
