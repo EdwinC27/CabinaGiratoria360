@@ -6,6 +6,8 @@ import com.amazonaws.services.s3.AmazonS3;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import net.minidev.json.JSONObject;
@@ -25,12 +27,12 @@ public class S3Service {
     @Value("${aws.bucketName}")
     String bucketName;
 
-    public JSONObject listFiles(String numeroFiesta) {
+    public ResponseEntity<JSONObject> listFiles(String numeroFiesta) {
         JSONObject listOfFiles = new JSONObject();
 
         if(!validaciones.isConvertibleToInt(numeroFiesta)) {
             listOfFiles.put("Error", "Elemento ingresado no es un numero");
-            return listOfFiles;
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(listOfFiles);
         }
 
         String prefix = "fiesta" + numeroFiesta + "/";
@@ -51,7 +53,7 @@ public class S3Service {
             }
         }
 
-        return listOfFiles;
+        return ResponseEntity.ok(listOfFiles);
     }
 
     public String generatePreSignedUrl(String bucket, String filePath) {
