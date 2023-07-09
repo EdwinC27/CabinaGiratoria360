@@ -29,6 +29,13 @@ public class S3Service {
     String bucketName;
 
     public ResponseEntity<JSONObject> listFiles(String nombreFiesta) {
+        // Existe la carpeta
+        if(!validaciones.folderExists(nombreFiesta)) {
+            JSONObject errorResponse = new JSONObject();
+            errorResponse.put("Error", "La carpeta no existe");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+        }
+
         JSONObject listOfFiles = new JSONObject();
 
         /*
