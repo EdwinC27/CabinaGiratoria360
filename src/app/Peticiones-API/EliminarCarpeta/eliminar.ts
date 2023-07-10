@@ -2,17 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { environment } from '../../../environments/environmet';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PeticionEliminarCarpeta {
   constructor(private http: HttpClient) { }
-  urlBase = "http://18.118.247.152:8080/api/carpeta/eliminar?carpeta=";
+
+  urlBase = environment.APIUrlBase;
+  urlEliminar = environment.APIUrlEliminarCarpeta
+  urlComplit = this.urlBase + this.urlEliminar
   url = "";
 
   getEliminarFiesta(nombreFiesta: string): Observable<string> {
-    this.url = this.urlBase + nombreFiesta;
+    this.url = this.urlComplit + nombreFiesta;
 
     return this.http.get<any>(this.url).pipe(
       map((response) => {
