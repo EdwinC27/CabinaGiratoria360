@@ -7,12 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { EliminarCarpetaComponent } from './eliminar-carpeta/eliminar-carpeta.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CrearCarpetaComponent } from './crear-carpeta/crear-carpeta.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuAccionesComponent,
-    EliminarCarpetaComponent
+    EliminarCarpetaComponent,
+    CrearCarpetaComponent
   ],
   imports: [
     BrowserModule,

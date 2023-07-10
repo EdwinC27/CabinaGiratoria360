@@ -52,7 +52,8 @@ export class MenuAccionesComponent {
     }
 
     if (selectedOption === "Crear carpeta") {
-      alert("1")
+      this.nombreFiesta.establecerNombreFiesta(this.inputText)
+      this.router.navigate(['/crear']);
     }
 
     if (selectedOption === "Eliminar carpeta") {

@@ -1,0 +1,26 @@
+div {
+  background-color: #fff;
+  width: 50%;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+h1 {
+  text-align: center;
+}
+
+button {
+  padding: 10px;
+  background-color:rgb(139, 228, 131);
+  color: #000000;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  margin-left: 43%;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: scale(1.2);
+}
