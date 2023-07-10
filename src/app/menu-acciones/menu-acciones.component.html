@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="select-wrapper">
+        <select [(ngModel)]="selectedOption" required>
+            <option [value]="'Seleccionar'" disabled>{{ selectedOptionDefault }}</option>
+            <option value="Acceder a carpeta">Acceder a carpeta</option>
+            <option value="Crear carpeta">Crear carpeta</option>
+            <option value="Eliminar carpeta">Eliminar carpeta</option>
+        </select><br>
+
+        <input placeholder="Nombre de la fiesta..." [(ngModel)]="inputText" class="inputTextNameParty">
+    </div>
+
+    <div *ngIf="selectedOption === 'Acceder a carpeta'">
+        <textarea placeholder="Mensaje..." [(ngModel)]="inputMensage" class="frase"> </textarea>
+
+        <!-- Subida de archivos -->
+        <form (submit)="subirArchivo()">
+        <br><br><label>Selecciona un archivo:</label><br>
+        <input type="file" (change)="seleccionarArchivo($event)">
+        <button type="submit">Subir logo</button>
+        </form>
+
+        <!-- Previsualización -->
+        <br><img [src]="resultado" *ngIf="resultado" width="60%" alt="Previsualización">
+    </div>
+    
+    <button (click)="accion(selectedOption)" [disabled]="selectedOption === 'Seleccionar'" class="custom-button">{{ selectedOption }}</button>
+
+</div>
