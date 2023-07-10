@@ -1,0 +1,12 @@
+<div>
+  <h1>Eliminar carpeta: {{ textnombreFiesta }} </h1>
+
+
+  <p>Para confirmar la eliminación, escriba eliminar permanentemente en el campo de entrada de texto.</p>
+  <input placeholder="eliminar permanentemente" [(ngModel)]="inputText">
+
+  <button (click)="eliminar()" [disabled]="inputText != 'eliminar permanentemente'" class="custom-button">Eliminar carpeta</button>
+
+  <p> {{ mensajeEliminacion }}</p>
+</div>
+

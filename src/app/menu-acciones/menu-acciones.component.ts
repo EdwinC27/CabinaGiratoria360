@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FileService } from '../FileLogoFiesta/file.service';
 import { FraseService } from '../Frase/frase.service';
+import { Router } from '@angular/router';
+import { NombreFiestaService } from '../NombreFiesta/Nombre.Fiesta.Service';
 
 @Component({
   selector: 'app-menu-acciones',
@@ -15,7 +17,7 @@ export class MenuAccionesComponent {
   inputMensage: string = '';
   resultado: any;
 
-  constructor(private fraseService: FraseService, private fileService: FileService) { }
+  constructor(private fraseService: FraseService, private fileService: FileService, private nombreFiesta: NombreFiestaService, private router: Router) { }
 
   async seleccionarArchivo(event: any) {
     const imagen = event.target.files[0];
@@ -45,6 +47,17 @@ export class MenuAccionesComponent {
   }
 
   accion(selectedOption: string) {
-    alert(selectedOption)
+    if (selectedOption === "Acceder a carpeta") {
+      alert("0")
+    }
+
+    if (selectedOption === "Crear carpeta") {
+      alert("1")
+    }
+
+    if (selectedOption === "Eliminar carpeta") {
+      this.nombreFiesta.establecerNombreFiesta(this.inputText)
+      this.router.navigate(['/eliminar']);
+    }
   }
 }
