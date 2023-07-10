@@ -28,4 +28,8 @@ export class EliminarCarpetaComponent {
       this.cdr.detectChanges(); // Detectar cambios para actualizar el HTML
     });
   }
+
+  regresar() {
+    this.router.navigate(['/']);
+  }
 }

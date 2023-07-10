@@ -28,4 +28,8 @@ export class CrearCarpetaComponent {
       this.cdr.detectChanges(); // Detectar cambios para actualizar el HTML
     });
   }
+
+  regresar() {
+    this.router.navigate(['/']);
+  }
 }
