@@ -23,7 +23,11 @@
         <!-- Previsualización -->
         <br><img [src]="resultado" *ngIf="resultado" width="60%" alt="Previsualización">
     </div>
-    
-    <button (click)="accion(selectedOption)" [disabled]="selectedOption === 'Seleccionar'" class="custom-button">{{ selectedOption }}</button>
 
+    <button (click)="accion(selectedOption)"
+      [disabled]="inputText === null || inputText === '' || selectedOption === 'Seleccionar'"
+      class="custom-button">
+      {{ selectedOption }}
+    </button>
+    
 </div>
