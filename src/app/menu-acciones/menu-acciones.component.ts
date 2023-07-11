@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { FileService } from '../FileLogoFiesta/file.service';
 import { FraseService } from '../Frase/frase.service';
 import { Router } from '@angular/router';
 import { NombreFiestaService } from '../NombreFiesta/Nombre.Fiesta.Service';
+import { PeticionEliminarArchivos } from '../Peticiones-API/EliminarArchivos/eliminarArchivos';
 
 @Component({
   selector: 'app-menu-acciones',
@@ -17,7 +18,10 @@ export class MenuAccionesComponent {
   inputMensage: string = '';
   resultado: any;
 
-  constructor(private fraseService: FraseService, private fileService: FileService, private nombreFiesta: NombreFiestaService, private router: Router) { }
+  responseData: any;
+  mensajeEliminacion: string = "";
+
+  constructor(private fraseService: FraseService, private fileService: FileService, private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarArchivos: PeticionEliminarArchivos, private cdr: ChangeDetectorRef) { }
 
   async seleccionarArchivo(event: any) {
     const imagen = event.target.files[0];
@@ -61,6 +65,20 @@ export class MenuAccionesComponent {
     if (selectedOption === "Eliminar carpeta") {
       this.nombreFiesta.establecerNombreFiesta(this.inputText)
       this.router.navigate(['/eliminar']);
+    }
+
+    if (selectedOption === "Eliminar archivos") {
+        this.peticionEliminarArchivos.getEliminarDatos().subscribe((message) => {
+          this.responseData = message;
+          if (this.responseData == "Archivos sin extensión eliminados correctamente") {
+            this.mensajeEliminacion = this.responseData;
+            this.cdr.detectChanges();
+          }
+        }, (error) => {
+          this.mensajeEliminacion = error;
+          this.cdr.detectChanges();
+        });
+
     }
   }
 }

@@ -7,27 +7,25 @@ import { environment } from 'src/environments/environmet';
 @Injectable({
   providedIn: 'root'
 })
-export class PeticionCrearCarpeta {
+export class PeticionEliminarArchivos {
   constructor(private http: HttpClient) { }
 
   urlBase = environment.APIUrlBase;
-  urlCrear = environment.APIUrlCrearCarpeta;
-  urlComplit = this.urlBase + this.urlCrear;
-  url = "";
+  urlEliminar = environment.APIUrlEliminarArchivos
+  urlComplit = this.urlBase + this.urlEliminar
 
-  getCrearFiesta(nombreFiesta: string): Observable<string> {
-    this.url = this.urlComplit + nombreFiesta;
+  getEliminarDatos(): Observable<string> {
 
-    return this.http.get<any>(this.url).pipe(
+    return this.http.get<any>(this.urlComplit).pipe(
       map((response) => {
         if (response && response.Exito) {
           return response.Exito;
         } else {
-            throw new Error("Erro en la solicitud")
+            throw new Error("Error en la solicitud")
         }
       }), catchError((error) => {
-        console.error('La carpeta ya existe:', error);
-        throw new Error('La carpeta ya existe');
+        console.error('No se pudo eliminar los archivos:', error);
+        throw new Error('No se pudo eliminar los archivos');
       })
     );
   }
