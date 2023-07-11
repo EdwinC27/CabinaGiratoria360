@@ -8,19 +8,23 @@ import { FormsModule } from '@angular/forms';
 import { EliminarCarpetaComponent } from './eliminar-carpeta/eliminar-carpeta.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CrearCarpetaComponent } from './crear-carpeta/crear-carpeta.component';
+import { AccederCarpetaComponent } from './acceder-carpeta/acceder-carpeta.component';
+import { CarouselModule } from 'ngx-bootstrap/carousel'; 
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuAccionesComponent,
     EliminarCarpetaComponent,
-    CrearCarpetaComponent
+    CrearCarpetaComponent,
+    AccederCarpetaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule ,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CarouselModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

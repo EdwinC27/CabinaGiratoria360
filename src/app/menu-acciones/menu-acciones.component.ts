@@ -48,7 +48,9 @@ export class MenuAccionesComponent {
 
   accion(selectedOption: string) {
     if (selectedOption === "Acceder a carpeta") {
-      alert("0")
+      this.fraseService.establecerFraseCompartida(this.inputMensage)
+      this.nombreFiesta.establecerNombreFiesta(this.inputText)
+      this.router.navigate(['/acceder']);
     }
 
     if (selectedOption === "Crear carpeta") {
