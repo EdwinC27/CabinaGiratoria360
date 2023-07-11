@@ -149,4 +149,30 @@ public class S3Service {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         }
     }
+
+    public ResponseEntity<JSONObject> deleteArchivos() {
+        // Obtener la lista de objetos en la carpeta
+        ListObjectsV2Request request = new ListObjectsV2Request()
+                .withBucketName(bucketName);
+
+        ListObjectsV2Result result = amazonS3.listObjectsV2(request);
+        List<S3ObjectSummary> objects = result.getObjectSummaries();
+
+        // Eliminar los archivos sin extensión
+        for (S3ObjectSummary object : objects) {
+            String key = object.getKey();
+            if (!hasExtension(key)) {
+                amazonS3.deleteObject(new DeleteObjectRequest(bucketName, key));
+            }
+        }
+
+        JSONObject correctResponse = new JSONObject();
+        correctResponse.put("Exito", "Archivos sin extensión eliminados correctamente");
+        return ResponseEntity.status(HttpStatus.OK).body(correctResponse);
+    }
+
+    private boolean hasExtension(String fileName) {
+        int dotIndex = fileName.lastIndexOf('.');
+        return (dotIndex > 0 && dotIndex < fileName.length() - 1);
+    }
 }
