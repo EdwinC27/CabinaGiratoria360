@@ -1,25 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AccederCarpetaComponent } from './acceder-carpeta/acceder-carpeta.component';
-import { CrearCarpetaComponent } from './crear-carpeta/crear-carpeta.component';
-import { EliminarCarpetaComponent } from './eliminar-carpeta/eliminar-carpeta.component';
-import { MenuAccionesComponent } from './menu-acciones/menu-acciones.component';
 
 const routes: Routes = [
   {
     path: "",
-    component: MenuAccionesComponent
-  },
-  {
-    path: "eliminar",
-    component: EliminarCarpetaComponent
-  },
-  {
-    path: "crear",
-    component: CrearCarpetaComponent
-  },
-  {
-    path: "acceder",
     component: AccederCarpetaComponent
   }
 ];

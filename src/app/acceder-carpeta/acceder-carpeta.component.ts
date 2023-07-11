@@ -1,11 +1,5 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FileService } from '../FileLogoFiesta/file.service';
-import { FraseService } from '../Frase/frase.service';
-import { environment } from '../../environments/environmet';
-import { NombreFiestaService } from '../NombreFiesta/Nombre.Fiesta.Service'
+import { Component, OnInit } from '@angular/core';
 import { MostrarVideosService } from '../Peticiones-API/TraerCarpeta/videos-fiesta.service';
-
-import * as QRCode from 'qrcode';
 
 @Component({
   selector: 'app-acceder-carpeta',
@@ -13,35 +7,14 @@ import * as QRCode from 'qrcode';
   styleUrls: ['./acceder-carpeta.component.css']
 })
 export class AccederCarpetaComponent implements OnInit{
-  frase: string = " ";
-  logo: any;
-  qrCodeImage: string | undefined;
-  textnombreFiesta = this.nombreFiesta.obtenerNombreFiesta();
-
   videoUrls: any;
   url: any;
   interval: any;
-  currentVideoIndex = 0;
   responseData: any;
-  mensajeEliminacion: string = "";
 
-  constructor (private nombreFiesta: NombreFiestaService, private fraseService: FraseService,  private fileService: FileService, private mostrarVideosService: MostrarVideosService, private cdr: ChangeDetectorRef){}
-
-  showNextVideo() {
-    this.currentVideoIndex = (this.currentVideoIndex + 1) % this.videoUrls.length;
-  }
-
-  showPreviousVideo() {
-    this.currentVideoIndex = (this.currentVideoIndex - 1 + this.videoUrls.length) % this.videoUrls.length;
-  }
+  constructor (private mostrarVideosService: MostrarVideosService){}
 
   ngOnInit(): void {
-    this.generateQRCode();
-    this.frase = this.fraseService.obtenerFraseCompartida();
-    this.logo = this.fileService.obtenerFileCompartida()
-
-    if(this.logo == "") this.logo = "../../favicon.ico"
-
     this.peticion()
 
     this.interval = setInterval(() => {
@@ -50,7 +23,7 @@ export class AccederCarpetaComponent implements OnInit{
   }
 
   peticion(): void {
-    this.mostrarVideosService.getInfo(this.textnombreFiesta).subscribe(
+    this.mostrarVideosService.getInfo("edwuin").subscribe(
       () => {
         this.url = this.mostrarVideosService.respuesta;
         this.videoUrls = Object.values(this.url);
@@ -59,17 +32,5 @@ export class AccederCarpetaComponent implements OnInit{
         console.log(error);
       }
     )
-  }
-
-  generateQRCode(): void {
-    const qrCodeData = environment.APIUrlBase + environment.APIUrlTraerVideo + this.textnombreFiesta
-
-    QRCode.toDataURL(qrCodeData, (error, url) => {
-      if (error) {
-        console.error(error);
-        return;
-      }
-      this.qrCodeImage = url;
-    });
   }
 }

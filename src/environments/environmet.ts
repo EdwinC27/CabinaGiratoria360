@@ -1,7 +1,4 @@
 export const environment = {
   APIUrlBase: ,
-  APIUrlEliminarCarpeta: ,
-  APIUrlCrearCarpeta: ,
-  APIUrlTraerVideo: ,
-  APIUrlEliminarArchivos:
+  APIUrlTraerVideo: 
 }
