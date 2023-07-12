@@ -32,6 +32,10 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
             android:gravity="center"
+            android:background="@color/material_dynamic_neutral50"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:padding="15dp"
             android:hint="Ingresar número de evento" />
 
         <Button
@@ -58,21 +62,10 @@
             android:text="Reiniciar Evento" />
 
         <Button
-            android:id="@+id/buttonObtenerToken"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/buttonReiniciarEvento"
-            android:layout_marginTop="16dp"
-            android:text="Obtener Token"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:layout_centerHorizontal="true" />
-
-        <Button
             android:id="@+id/buttonSubirMP3"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/buttonObtenerToken"
+            android:layout_below="@+id/buttonReiniciarEvento"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
             android:gravity="center"
