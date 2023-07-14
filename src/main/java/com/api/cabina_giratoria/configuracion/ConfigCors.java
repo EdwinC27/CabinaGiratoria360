@@ -12,13 +12,16 @@ public class ConfigCors {
     @Value("${frontend.url}")
     String FRONTEND_URL;
 
+    @Value("${frontend.url.public}")
+    String FRONTEND_URL_PUBLIC;
+
     @Bean
     public WebMvcConfigurer configuracionCors() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins(FRONTEND_URL)
+                        .allowedOrigins(FRONTEND_URL, FRONTEND_URL_PUBLIC)
                         .allowedMethods("GET");
                 //.allowedHeaders()
                 //.exposedHeaders()
