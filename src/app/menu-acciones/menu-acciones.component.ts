@@ -53,23 +53,23 @@ export class MenuAccionesComponent {
   }
 
   accion(selectedOption: string) {
-    if (selectedOption === "Acceder a carpeta") {
+    if (selectedOption === "Acceder a evento") {
       this.fraseService.establecerFraseCompartida(this.inputMensage)
       this.nombreFiesta.establecerNombreFiesta(this.inputText)
       this.router.navigate(['/acceder']);
     }
 
-    if (selectedOption === "Crear carpeta") {
+    if (selectedOption === "Crear evento") {
       this.nombreFiesta.establecerNombreFiesta(this.inputText)
       this.router.navigate(['/crear']);
     }
 
-    if (selectedOption === "Eliminar carpeta") {
+    if (selectedOption === "Eliminar evento") {
       this.nombreFiesta.establecerNombreFiesta(this.inputText)
       this.router.navigate(['/eliminar']);
     }
 
-    if (selectedOption === "Eliminar archivos") {
+    if (selectedOption === "Limpiar cache") {
         this.peticionEliminarArchivos.getEliminarDatos().subscribe((message) => {
           this.responseData = message;
           if (this.responseData == "Archivos sin extensión eliminados correctamente") {

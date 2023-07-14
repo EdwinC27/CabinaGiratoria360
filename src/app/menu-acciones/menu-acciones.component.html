@@ -4,18 +4,18 @@
 
         <select [(ngModel)]="selectedOption" required>
             <option [value]="'Seleccionar'" disabled>{{ selectedOptionDefault }}</option>
-            <option value="Acceder a carpeta">Acceder a evento</option>
-            <option value="Crear carpeta">Crear evento</option>
-            <option value="Eliminar carpeta">Eliminar evento</option>
-            <option value="Eliminar archivos">Limpiar cache</option>
+            <option value="Acceder a evento">Acceder a evento</option>
+            <option value="Crear evento">Crear evento</option>
+            <option value="Eliminar evento">Eliminar evento</option>
+            <option value="Limpiar cache">Limpiar cache</option>
         </select><br>
 
-        <input *ngIf="selectedOption !== 'Eliminar archivos'" placeholder="Nombre de la fiesta..." [(ngModel)]="inputText" class="inputTextNameParty">
+        <input *ngIf="selectedOption !== 'Limpiar cache'" placeholder="Nombre de la fiesta..." [(ngModel)]="inputText" class="inputTextNameParty">
 
         <p> {{ mensajeEliminacion }}</p>
     </div>
 
-    <div *ngIf="selectedOption === 'Acceder a carpeta'" style="margin-left: -5%;">
+    <div *ngIf="selectedOption === 'Acceder a evento'" style="margin-left: -5%;">
         <textarea placeholder="Mensaje para mostrar en el evento" [(ngModel)]="inputMensage" class="frase"> </textarea>
 
         <!-- Subida de archivos -->
@@ -30,7 +30,7 @@
     </div>
 
     <button (click)="accion(selectedOption)"
-      [disabled]="selectedOption === 'Eliminar archivos' ? false :
+      [disabled]="selectedOption === 'Limpiar cache' ? false :
       (inputText === null || inputText === '' || selectedOption === 'Seleccionar')"
       class="custom-button">
       {{ selectedOption }}
