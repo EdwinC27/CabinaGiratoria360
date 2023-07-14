@@ -1,11 +1,13 @@
 <div class="container">
     <div class="select-wrapper">
+        <img [src]="logoRuta" class="logo">
+
         <select [(ngModel)]="selectedOption" required>
             <option [value]="'Seleccionar'" disabled>{{ selectedOptionDefault }}</option>
-            <option value="Acceder a carpeta">Acceder a carpeta</option>
-            <option value="Crear carpeta">Crear carpeta</option>
-            <option value="Eliminar carpeta">Eliminar carpeta</option>
-            <option value="Eliminar archivos">Eliminar Archivos</option>
+            <option value="Acceder a carpeta">Acceder a evento</option>
+            <option value="Crear carpeta">Crear evento</option>
+            <option value="Eliminar carpeta">Eliminar evento</option>
+            <option value="Eliminar archivos">Limpiar cache</option>
         </select><br>
 
         <input *ngIf="selectedOption !== 'Eliminar archivos'" placeholder="Nombre de la fiesta..." [(ngModel)]="inputText" class="inputTextNameParty">
@@ -13,14 +15,14 @@
         <p> {{ mensajeEliminacion }}</p>
     </div>
 
-    <div *ngIf="selectedOption === 'Acceder a carpeta'">
-        <textarea placeholder="Mensaje..." [(ngModel)]="inputMensage" class="frase"> </textarea>
+    <div *ngIf="selectedOption === 'Acceder a carpeta'" style="margin-left: -5%;">
+        <textarea placeholder="Mensaje para mostrar en el evento" [(ngModel)]="inputMensage" class="frase"> </textarea>
 
         <!-- Subida de archivos -->
         <form (submit)="subirArchivo()">
         <br><br><label>Selecciona un archivo:</label><br>
         <input type="file" (change)="seleccionarArchivo($event)">
-        <button type="submit">Subir logo</button>
+        <button type="submit" style="margin-left: 2%;">Subir logo</button>
         </form>
 
         <!-- Previsualización -->

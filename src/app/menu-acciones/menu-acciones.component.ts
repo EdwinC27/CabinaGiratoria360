@@ -21,6 +21,8 @@ export class MenuAccionesComponent {
   responseData: any;
   mensajeEliminacion: string = "";
 
+  logoRuta = "../../assets/img/logo.jpeg";
+
   constructor(private fraseService: FraseService, private fileService: FileService, private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarArchivos: PeticionEliminarArchivos, private cdr: ChangeDetectorRef) { }
 
   async seleccionarArchivo(event: any) {

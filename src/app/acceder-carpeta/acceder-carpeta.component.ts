@@ -42,6 +42,8 @@ export class AccederCarpetaComponent implements OnInit{
 
     if(this.logo == "") this.logo = "../../favicon.ico"
 
+    if(this.frase == "") this.frase = "www.rockolasguadalajara.com"
+
     this.peticion()
 
     this.interval = setInterval(() => {

@@ -2,7 +2,7 @@
 
 <div class="juntos">
   <div class="col1">
-    <img [src]="logo" class="img-qr" alt="Logo">
+    <a href="/#/"><img [src]="logo" class="img-logo" alt="Logo"></a>
     <img [src]="qrCodeImage" alt="Código QR" class="img-qr">
   </div>
 
@@ -11,7 +11,7 @@
       <div class="video-container">
         <video #videoPlayer [src]="videoUrls[currentVideoIndex]" controls autoplay></video>
       </div>
-      
+
       <div class="controls">
         <button (click)="showPreviousVideo()">Anterior</button>
         <button (click)="showNextVideo()">Siguiente</button>
