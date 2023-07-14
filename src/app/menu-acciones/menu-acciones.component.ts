@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, Renderer2 } from '@angular/core';
 import { FileService } from '../FileLogoFiesta/file.service';
 import { FraseService } from '../Frase/frase.service';
 import { Router } from '@angular/router';
@@ -19,11 +19,10 @@ export class MenuAccionesComponent {
   resultado: any;
 
   responseData: any;
-  mensajeEliminacion: string = "";
 
   logoRuta = "../../assets/img/logo.jpeg";
 
-  constructor(private fraseService: FraseService, private fileService: FileService, private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarArchivos: PeticionEliminarArchivos, private cdr: ChangeDetectorRef) { }
+  constructor(private fraseService: FraseService, private fileService: FileService, private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarArchivos: PeticionEliminarArchivos, private cdr: ChangeDetectorRef, private renderer: Renderer2) { }
 
   async seleccionarArchivo(event: any) {
     const imagen = event.target.files[0];
@@ -73,14 +72,36 @@ export class MenuAccionesComponent {
         this.peticionEliminarArchivos.getEliminarDatos().subscribe((message) => {
           this.responseData = message;
           if (this.responseData == "Archivos sin extensión eliminados correctamente") {
-            this.mensajeEliminacion = this.responseData;
-            this.cdr.detectChanges();
+            this.showPopup(this.responseData);
           }
         }, (error) => {
-          this.mensajeEliminacion = error;
-          this.cdr.detectChanges();
+          this.showPopup(error);
         });
 
     }
+  }
+
+  showPopup(message: string) {
+    const popupContainer = this.renderer.createElement('div');
+    const popupText = this.renderer.createText(message);
+
+    this.renderer.appendChild(popupContainer, popupText);
+    this.renderer.setAttribute(popupContainer, 'id', 'popupContainer');
+
+    this.renderer.listen(popupContainer, 'click', () => {
+      this.hidePopup(popupContainer);
+    });
+
+    this.renderer.appendChild(document.body, popupContainer);
+    this.cdr.detectChanges();
+
+    setTimeout(() => {
+      this.hidePopup(popupContainer);
+    }, 5000);
+  }
+
+  hidePopup(popupContainer: any) {
+    this.renderer.removeChild(document.body, popupContainer);
+    this.cdr.detectChanges();
   }
 }

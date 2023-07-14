@@ -9,7 +9,7 @@ import { EliminarCarpetaComponent } from './eliminar-carpeta/eliminar-carpeta.co
 import { HttpClientModule } from '@angular/common/http';
 import { CrearCarpetaComponent } from './crear-carpeta/crear-carpeta.component';
 import { AccederCarpetaComponent } from './acceder-carpeta/acceder-carpeta.component';
-import { CarouselModule } from 'ngx-bootstrap/carousel'; 
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @NgModule({
   declarations: [

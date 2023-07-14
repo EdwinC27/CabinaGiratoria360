@@ -131,3 +131,12 @@ select {
     }
 
 }
+
+#popupContainer {
+  position: fixed;
+  top: 75%;
+  left: 47%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  z-index: 9999;
+}

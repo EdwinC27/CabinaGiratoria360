@@ -11,8 +11,6 @@
         </select><br>
 
         <input *ngIf="selectedOption !== 'Limpiar cache'" placeholder="Nombre de la fiesta..." [(ngModel)]="inputText" class="inputTextNameParty">
-
-        <p> {{ mensajeEliminacion }}</p>
     </div>
 
     <div *ngIf="selectedOption === 'Acceder a evento'" style="margin-left: -5%;">
@@ -37,3 +35,5 @@
     </button>
 
 </div>
+
+<div id="popupContainer"></div>
