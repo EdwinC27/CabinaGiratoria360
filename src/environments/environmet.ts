@@ -3,5 +3,7 @@ export const environment = {
   APIUrlEliminarCarpeta: ,
   APIUrlCrearCarpeta: ,
   APIUrlTraerVideo: ,
-  APIUrlEliminarArchivos:
+  APIUrlEliminarArchivos: ,
+
+  URLPaginaPublica: 
 }
