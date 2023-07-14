@@ -4,13 +4,13 @@ import { AccederCarpetaComponent } from './acceder-carpeta/acceder-carpeta.compo
 
 const routes: Routes = [
   {
-    path: "",
+    path: "evento/:evento",
     component: AccederCarpetaComponent
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
