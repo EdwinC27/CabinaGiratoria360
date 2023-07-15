@@ -1,28 +1,33 @@
-import { Component, ChangeDetectorRef, Renderer2 } from '@angular/core';
+import { Component, ChangeDetectorRef, Renderer2, OnInit } from '@angular/core';
 import { FileService } from '../FileLogoFiesta/file.service';
 import { FraseService } from '../Frase/frase.service';
 import { Router } from '@angular/router';
 import { NombreFiestaService } from '../NombreFiesta/Nombre.Fiesta.Service';
 import { PeticionEliminarArchivos } from '../Peticiones-API/EliminarArchivos/eliminarArchivos';
+import { MostrarCarpetasService } from '../Peticiones-API/TraerNombresDeCarpetas/videos-fiesta.service';
 
 @Component({
   selector: 'app-menu-acciones',
   templateUrl: './menu-acciones.component.html',
   styleUrls: ['./menu-acciones.component.css']
 })
-export class MenuAccionesComponent {
+export class MenuAccionesComponent implements OnInit {
   selectedOption: string = 'Seleccionar';
-  selectedOptionDefault: string = 'Seleccionar'
+  selectedOptionCarpeta: string = 'Seleccionar';
+  selectedOptionDefault: string = 'Seleccionar';
 
   inputText: string = '';
   inputMensage: string = '';
   resultado: any;
 
   responseData: any;
+  responseCarpetas: any;
+
+  carpetas: any;
 
   logoRuta = "../../assets/img/logo.jpeg";
 
-  constructor(private fraseService: FraseService, private fileService: FileService, private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarArchivos: PeticionEliminarArchivos, private cdr: ChangeDetectorRef, private renderer: Renderer2) { }
+  constructor(private fraseService: FraseService, private fileService: FileService, private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarArchivos: PeticionEliminarArchivos, private mostrarCarpetasService: MostrarCarpetasService, private cdr: ChangeDetectorRef, private renderer: Renderer2) { }
 
   async seleccionarArchivo(event: any) {
     const imagen = event.target.files[0];
@@ -51,10 +56,18 @@ export class MenuAccionesComponent {
     }
   }
 
+  ngOnInit(): void {
+    this.mostrarCarpetasService.getMostrarCarpetas().subscribe((carpeta) => {
+      this.carpetas = carpeta;
+    }, (error) => {
+      this.showPopup(error);
+    });
+  }
+
   accion(selectedOption: string) {
     if (selectedOption === "Acceder a evento") {
       this.fraseService.establecerFraseCompartida(this.inputMensage)
-      this.nombreFiesta.establecerNombreFiesta(this.inputText)
+      this.nombreFiesta.establecerNombreFiesta(this.selectedOptionCarpeta)
       this.router.navigate(['/acceder']);
     }
 
@@ -64,7 +77,7 @@ export class MenuAccionesComponent {
     }
 
     if (selectedOption === "Eliminar evento") {
-      this.nombreFiesta.establecerNombreFiesta(this.inputText)
+      this.nombreFiesta.establecerNombreFiesta(this.selectedOptionCarpeta)
       this.router.navigate(['/eliminar']);
     }
 
