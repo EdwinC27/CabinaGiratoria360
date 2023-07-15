@@ -30,11 +30,17 @@ export class AccederCarpetaComponent implements OnInit{
     this.mostrarVideosService.getInfo(evento).subscribe(
       () => {
         this.url = this.mostrarVideosService.respuesta;
-        this.videoUrls = Object.values(this.url);
+        this.mostrarVideos();
        },
       (error) => {
         console.log(error);
       }
     )
   }
+
+  mostrarVideos(): void {
+    this.videoUrls = Object.values(this.url.videos).map((video: any) => Object.values(video)[0]);
+    console.log(this.videoUrls);
+  }
+
 }
