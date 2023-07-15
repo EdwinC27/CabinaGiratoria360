@@ -36,11 +36,9 @@
         <br><img [src]="resultado" *ngIf="resultado" width="60%" alt="Previsualización">
     </div>
 
-    <button (click)="accion(selectedOption)"
-      class="custom-button">
+    <button (click)="accion(selectedOption)" [disabled]="isButtonDisabled()" class="custom-button">
       {{ selectedOption }}
     </button>
-
 </div>
 
 <div id="popupContainer"></div>

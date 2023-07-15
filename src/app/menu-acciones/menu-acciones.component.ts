@@ -117,4 +117,24 @@ export class MenuAccionesComponent implements OnInit {
     this.renderer.removeChild(document.body, popupContainer);
     this.cdr.detectChanges();
   }
+
+  // Función que determina si el botón debe estar deshabilitado
+  isButtonDisabled(): boolean {
+    if (this.selectedOption === 'Seleccionar') {
+      return true;
+    }
+    if (
+      (this.selectedOption === 'Acceder a evento' || this.selectedOption === 'Eliminar evento') &&
+      this.selectedOptionCarpeta !== 'Seleccionar'
+    ) {
+      return false;
+    }
+    if (this.selectedOption === 'Crear evento' && this.inputText !== '') {
+      return false;
+    }
+    if (this.selectedOption === 'Limpiar cache') {
+      return false;
+    }
+    return true;
+  }
 }
