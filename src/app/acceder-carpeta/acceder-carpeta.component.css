@@ -22,13 +22,21 @@
 }
 
 @media screen and (min-width: 810px) {
-.img-qr {
-  width: 70%;
-  margin-left: 50px;
-      margin-right: 50px;
-  margin-top: 50px;
+  .img-qr {
+    width: 70%;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 50px;
+  }
 }
 
+@media screen and (max-width: 1200px) {
+  .img-logo {
+    max-width: 70%;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-left: 50px;
+  }
 }
 
 .juntos {
