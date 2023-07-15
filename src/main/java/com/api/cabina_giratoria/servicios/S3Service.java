@@ -4,6 +4,8 @@ import com.amazonaws.services.s3.model.*;
 import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3;
 
+import net.minidev.json.JSONArray;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,7 @@ import net.minidev.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -37,7 +40,7 @@ public class S3Service {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         }
 
-        JSONObject listOfFiles = new JSONObject();
+        JSONArray listOfFiles = new JSONArray();
 
         /*
         if(!validaciones.isConvertibleToInt(numeroFiesta)) {
@@ -54,17 +57,27 @@ public class S3Service {
 
         ListObjectsV2Result response = amazonS3.listObjectsV2(request);
 
-        for (S3ObjectSummary s3Object : response.getObjectSummaries()) {
+        List<S3ObjectSummary> objectSummaries = response.getObjectSummaries();
+        objectSummaries.sort(Comparator.comparing(S3ObjectSummary::getLastModified).reversed());
+
+        for (S3ObjectSummary s3Object : objectSummaries) {
             String fileKey = s3Object.getKey();
             // Excluir la carpeta "fiesta + numero" en sí misma
             if (!fileKey.equals(prefix)) {
                 String fileUrl = generatePreSignedUrl(bucketName, fileKey);  // Generar la URL prefirmada para el archivo
 
-                listOfFiles.put(fileKey, fileUrl);
+                JSONObject fileObject = new JSONObject();
+                fileObject.put(fileKey, fileUrl);
+
+                listOfFiles.add(fileObject);
             }
         }
 
-        return ResponseEntity.ok(listOfFiles);
+
+        JSONObject responseJson = new JSONObject();
+        responseJson.put("videos", listOfFiles);
+
+        return ResponseEntity.ok(responseJson);
     }
 
     public String generatePreSignedUrl(String bucket, String filePath) {
