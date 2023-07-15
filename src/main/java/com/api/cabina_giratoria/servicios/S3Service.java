@@ -188,4 +188,20 @@ public class S3Service {
         int dotIndex = fileName.lastIndexOf('.');
         return (dotIndex > 0 && dotIndex < fileName.length() - 1);
     }
+
+    public ResponseEntity<JSONObject> listFolder() {
+        ListObjectsV2Request request = new ListObjectsV2Request()
+                .withBucketName(bucketName)
+                .withDelimiter("/");
+
+        ListObjectsV2Result response = amazonS3.listObjectsV2(request);
+
+        JSONObject listOfFolders = new JSONObject();
+        for (String commonPrefix : response.getCommonPrefixes()) {
+            String folderName = commonPrefix.substring(0, commonPrefix.length() - 1); // Eliminar la barra diagonal al final
+            listOfFolders.put(folderName, "carpeta"); // Generar la URL de la carpeta
+        }
+
+        return ResponseEntity.ok(listOfFolders);
+    }
 }

@@ -31,6 +31,11 @@ public class AWSControler {
         return respuestaVideos;
     }
 
+    @GetMapping("/carpeta")
+    public ResponseEntity<JSONObject> putCarpeta() {
+        return s3Service.listFolder();
+    }
+
     @GetMapping("/carpeta/crear")
     public ResponseEntity<JSONObject> putCarpeta(@RequestParam(value = "carpeta") String nombreCarpeta) {
         return s3Service.createFolder(nombreCarpeta);
