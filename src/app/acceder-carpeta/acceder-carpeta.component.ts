@@ -48,7 +48,7 @@ export class AccederCarpetaComponent implements OnInit{
 
     this.interval = setInterval(() => {
       this.peticion();
-    }, 90_000); // tiempo en segundos (1 minuto y 30 segundos)
+    }, 120_000); // tiempo en segundos (1 minuto y 30 segundos)
   }
 
   peticion(): void {
