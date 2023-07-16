@@ -29,6 +29,8 @@ export class MenuAccionesComponent implements OnInit {
 
   isPopupVisible: boolean = false;
 
+  public showOverlay = true;
+
   constructor(private fraseService: FraseService, private fileService: FileService, private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarArchivos: PeticionEliminarArchivos, private mostrarCarpetasService: MostrarCarpetasService, private cdr: ChangeDetectorRef, private renderer: Renderer2) { }
 
   async seleccionarArchivo(event: any) {
@@ -64,6 +66,10 @@ export class MenuAccionesComponent implements OnInit {
     }, (error) => {
       this.showPopup(error);
     });
+
+    setTimeout(() => {
+      this.showOverlay = false;
+    }, 5000);
   }
 
   accion(selectedOption: string) {

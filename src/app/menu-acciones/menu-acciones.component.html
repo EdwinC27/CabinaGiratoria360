@@ -42,3 +42,7 @@
 </div>
 
 <div id="popupContainer" [ngClass]="{ 'show-popup': isPopupVisible }"> </div>
+
+<div id="overlay" *ngIf="showOverlay">
+  <img [src]="logoRuta" alt="Imagen" class="imgFondo">
+</div>
