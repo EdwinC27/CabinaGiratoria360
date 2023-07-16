@@ -1,9 +1,9 @@
-<div>
+<div class="mensaje">
   <h1>Crear evento: {{ textnombreFiesta }} </h1>
 
   <button (click)="crear()">Crear evento</button>
 
   <button (click)="regresar()">Regresar</button>
-
-  <p> {{ mensajeEliminacion }}</p>
 </div>
+
+<div id="popupContainer" [ngClass]="{ 'show-popup': isPopupVisible }"> </div>
