@@ -1,16 +1,15 @@
-<div>
+<div class="div">
   <h1>Eliminar evento: {{ textnombreFiesta }} </h1>
 
   <span><br>
     <p>Para confirmar la eliminación, dale click al boton "Eliminar"</p>
 
-    <div>
+    <div class="div">
       <button (click)="eliminar()" class="custom-button">Eliminar evento</button>
 
       <button (click)="regresar()">Regresar</button>
-
-      <p> {{ mensajeEliminacion }}</p>
     </div>
   </span>
 </div>
 
+<div id="popupContainer" [ngClass]="{ 'show-popup': isPopupVisible }"> </div>
