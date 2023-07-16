@@ -111,10 +111,10 @@ export class MenuAccionesComponent implements OnInit {
     this.cdr.detectChanges();
 
     this.isPopupVisible = true;
-    
+
     setTimeout(() => {
       this.hidePopup(popupContainer);
-    }, 5000);
+    }, 3000);
   }
 
   hidePopup(popupContainer: any) {

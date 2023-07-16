@@ -57,7 +57,7 @@ export class EliminarCarpetaComponent {
 
     setTimeout(() => {
       this.hidePopup(popupContainer);
-    }, 5000);
+    }, 3000);
   }
 
   hidePopup(popupContainer: any) {
