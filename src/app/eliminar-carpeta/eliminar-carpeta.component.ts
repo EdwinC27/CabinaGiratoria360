@@ -20,7 +20,7 @@ export class EliminarCarpetaComponent {
     this.peticionEliminarCarpeta.getEliminarFiesta(this.textnombreFiesta).subscribe((message) => {
       this.responseData = message;
       if (this.responseData == "Carpeta eliminada correctamente") {
-        this.mensajeEliminacion = this.responseData;
+        this.mensajeEliminacion = "Evento eliminado correctamente";
         this.cdr.detectChanges(); // Detectar cambios para actualizar el HTML
       }
     }, (error) => {

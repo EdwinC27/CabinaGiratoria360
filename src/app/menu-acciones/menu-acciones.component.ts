@@ -27,6 +27,8 @@ export class MenuAccionesComponent implements OnInit {
 
   logoRuta = "../../assets/img/logo.jpeg";
 
+  isPopupVisible: boolean = false;
+
   constructor(private fraseService: FraseService, private fileService: FileService, private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarArchivos: PeticionEliminarArchivos, private mostrarCarpetasService: MostrarCarpetasService, private cdr: ChangeDetectorRef, private renderer: Renderer2) { }
 
   async seleccionarArchivo(event: any) {
@@ -108,6 +110,8 @@ export class MenuAccionesComponent implements OnInit {
     this.renderer.appendChild(document.body, popupContainer);
     this.cdr.detectChanges();
 
+    this.isPopupVisible = true;
+    
     setTimeout(() => {
       this.hidePopup(popupContainer);
     }, 5000);
@@ -116,6 +120,8 @@ export class MenuAccionesComponent implements OnInit {
   hidePopup(popupContainer: any) {
     this.renderer.removeChild(document.body, popupContainer);
     this.cdr.detectChanges();
+
+    this.isPopupVisible = false;
   }
 
   // Función que determina si el botón debe estar deshabilitado

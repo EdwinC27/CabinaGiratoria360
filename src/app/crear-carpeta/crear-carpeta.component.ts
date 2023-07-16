@@ -20,7 +20,7 @@ export class CrearCarpetaComponent {
     this.peticionCrearCarpeta.getCrearFiesta(this.textnombreFiesta).subscribe((message) => {
       this.responseData = message;
       if (this.responseData == "Carpeta creada correctamente") {
-        this.mensajeEliminacion = this.responseData;
+        this.mensajeEliminacion = "Evento creado correctamente";
         this.cdr.detectChanges(); // Detectar cambios para actualizar el HTML
       }
     }, (error) => {
