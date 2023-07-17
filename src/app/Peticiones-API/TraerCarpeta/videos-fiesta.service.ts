@@ -25,9 +25,8 @@ export class MostrarVideosService {
         this.respuesta = response;
 
       }), catchError((error) => {
-        console.error('La carpeta no existe:', error);
-        alert("Error")
-        throw new Error('La carpeta no existe');
+        console.error(error);
+        throw new Error('La carpeta no existe o esta vacia');
       })
     );
   }
