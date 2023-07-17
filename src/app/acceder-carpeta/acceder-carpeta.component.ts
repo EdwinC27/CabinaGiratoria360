@@ -65,6 +65,10 @@ export class AccederCarpetaComponent implements OnInit{
 
   mostrarVideos(): void {
     this.videoUrls = Object.values(this.url.videos).map((video: any) => Object.values(video)[0]);
+
+    if (this.videoUrls.length > 5) {
+      this.videoUrls = this.videoUrls.slice(0, 5);
+    }
   }
 
   generateQRCode(): void {
