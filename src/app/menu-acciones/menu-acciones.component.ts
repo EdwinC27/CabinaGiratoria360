@@ -69,7 +69,7 @@ export class MenuAccionesComponent implements OnInit {
 
     setTimeout(() => {
       this.showOverlay = false;
-    }, 5000);
+    }, 2000);
   }
 
   accion(selectedOption: string) {
