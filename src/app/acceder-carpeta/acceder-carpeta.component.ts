@@ -25,14 +25,18 @@ export class AccederCarpetaComponent implements OnInit{
   responseData: any;
   mensajeEliminacion: string = "";
 
+  videoActual: number = 0;
+
   constructor (private nombreFiesta: NombreFiestaService, private fraseService: FraseService,  private fileService: FileService, private mostrarVideosService: MostrarVideosService, private cdr: ChangeDetectorRef){}
 
   showNextVideo() {
     this.currentVideoIndex = (this.currentVideoIndex + 1) % this.videoUrls.length;
+    this.videoActual = this.currentVideoIndex;
   }
 
   showPreviousVideo() {
     this.currentVideoIndex = (this.currentVideoIndex - 1 + this.videoUrls.length) % this.videoUrls.length;
+    this.videoActual = this.currentVideoIndex;
   }
 
   ngOnInit(): void {
@@ -81,5 +85,9 @@ export class AccederCarpetaComponent implements OnInit{
       }
       this.qrCodeImage = url;
     });
+  }
+
+  setActiveIndex(indice: number): void {
+    this.videoActual = indice;
   }
 }
