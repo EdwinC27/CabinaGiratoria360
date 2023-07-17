@@ -98,7 +98,7 @@ public class S3Service {
     }
 
 
-    public ResponseEntity<JSONObject> createFolder(String folderName) {
+    public ResponseEntity<JSONObject> createFolder(String folderName, String fileName) {
         // Existe la carpeta
         if(validaciones.folderExists(folderName)) {
             JSONObject errorResponse = new JSONObject();
@@ -113,15 +113,16 @@ public class S3Service {
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentLength(content.length);
 
-        PutObjectRequest request = new PutObjectRequest(bucketName, folderKey, new ByteArrayInputStream(content), metadata);
+        PutObjectRequest request = new PutObjectRequest(bucketName, folderKey + fileName, new ByteArrayInputStream(content), metadata);
+
         try {
             amazonS3.putObject(request);
             JSONObject correctResponse = new JSONObject();
-            correctResponse.put("Exito", "Carpeta creada correctamente");
+            correctResponse.put("Exito", "Carpeta y archivo .txt creados correctamente");
             return ResponseEntity.status(HttpStatus.OK).body(correctResponse);
         } catch (Exception e) {
             JSONObject errorResponse = new JSONObject();
-            errorResponse.put("Error", "No se pudo crear la carpeta");
+            errorResponse.put("Error", "No se pudo crear la carpeta o el archivo .txt");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         }
     }

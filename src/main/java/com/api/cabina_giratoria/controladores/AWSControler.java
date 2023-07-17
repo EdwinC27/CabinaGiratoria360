@@ -37,8 +37,9 @@ public class AWSControler {
     }
 
     @GetMapping("/carpeta/crear")
-    public ResponseEntity<JSONObject> putCarpeta(@RequestParam(value = "carpeta") String nombreCarpeta) {
-        return s3Service.createFolder(nombreCarpeta);
+    public ResponseEntity<JSONObject> putCarpeta(@RequestParam(value = "carpeta") String nombreCarpeta, @RequestParam(value = "archivo") String nombreArchivo) {
+        String file = nombreArchivo + ".txt";
+        return s3Service.createFolder(nombreCarpeta, file);
     }
 
     @GetMapping("/carpeta/eliminar")
