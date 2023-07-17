@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class S3Service {
@@ -41,6 +42,7 @@ public class S3Service {
         }
 
         JSONArray listOfFiles = new JSONArray();
+        JSONObject responseJson = new JSONObject();
 
         /*
         if(!validaciones.isConvertibleToInt(numeroFiesta)) {
@@ -64,20 +66,41 @@ public class S3Service {
             String fileKey = s3Object.getKey();
             // Excluir la carpeta "fiesta + numero" en sí misma
             if (!fileKey.equals(prefix)) {
-                String fileUrl = generatePreSignedUrl(bucketName, fileKey);  // Generar la URL prefirmada para el archivo
+                String fileExtension = obtenerExtension(fileKey);
 
-                JSONObject fileObject = new JSONObject();
-                fileObject.put(fileKey, fileUrl);
+                if (fileExtension.equals(".mp4")) {
+                    String fileUrl = generatePreSignedUrl(bucketName, fileKey);  // Generar la URL prefirmada para el archivo
 
-                listOfFiles.add(fileObject);
+                    JSONObject fileObject = new JSONObject();
+                    fileObject.put(fileKey, fileUrl);
+                    listOfFiles.add(fileObject);
+                } else if (fileExtension.equals(".txt")) {
+                    String resultado = obtenerParteDerechaSinUltimos4(fileKey);
+                    responseJson.put("txt", resultado);
+                }
             }
         }
 
-
-        JSONObject responseJson = new JSONObject();
         responseJson.put("videos", listOfFiles);
 
         return ResponseEntity.ok(responseJson);
+    }
+
+    private String obtenerParteDerechaSinUltimos4(String texto) {
+        int posicionDiagonal = texto.indexOf("/");
+        if (posicionDiagonal >= 0 && posicionDiagonal < texto.length() - 1) {
+            String parteDerecha = texto.substring(posicionDiagonal + 1);
+            return parteDerecha.substring(0, parteDerecha.length() - 4);
+        }
+        return texto;
+    }
+
+    public String obtenerExtension(String fileKey) {
+        int lastDotIndex = fileKey.lastIndexOf(".");
+        if (lastDotIndex >= 0 && lastDotIndex < fileKey.length() - 1) {
+            return fileKey.substring(lastDotIndex);
+        }
+        return "";
     }
 
     public String generatePreSignedUrl(String bucket, String filePath) {
