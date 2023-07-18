@@ -153,7 +153,7 @@ public class S3Service {
 
     public ResponseEntity<JSONObject> deleteFolder(String folderName) {
         // Existe la carpeta
-        if(!validaciones.folderExists(folderName)) {
+        if(validaciones.folderExists(folderName)) {
             JSONObject errorResponse = new JSONObject();
             errorResponse.put("Error", "La carpeta no existe");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
