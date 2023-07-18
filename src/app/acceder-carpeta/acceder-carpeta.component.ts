@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FileService } from '../FileLogoFiesta/file.service';
-import { FraseService } from '../Frase/frase.service';
 import { environment } from '../../environments/environmet';
 import { NombreFiestaService } from '../NombreFiesta/Nombre.Fiesta.Service'
 import { MostrarVideosService } from '../Peticiones-API/TraerCarpeta/videos-fiesta.service';
@@ -27,7 +26,7 @@ export class AccederCarpetaComponent implements OnInit{
 
   videoActual: number = 0;
 
-  constructor (private nombreFiesta: NombreFiestaService, private fraseService: FraseService,  private fileService: FileService, private mostrarVideosService: MostrarVideosService, private cdr: ChangeDetectorRef){}
+  constructor (private nombreFiesta: NombreFiestaService, private fileService: FileService, private mostrarVideosService: MostrarVideosService, private cdr: ChangeDetectorRef){}
 
   showNextVideo() {
     this.currentVideoIndex = (this.currentVideoIndex + 1) % this.videoUrls.length;
@@ -41,12 +40,9 @@ export class AccederCarpetaComponent implements OnInit{
 
   ngOnInit(): void {
     this.generateQRCode();
-    this.frase = this.fraseService.obtenerFraseCompartida();
     this.logo = this.fileService.obtenerFileCompartida()
 
     if(this.logo == "") this.logo = "../../favicon.ico"
-
-    if(this.frase == "") this.frase = "www.rockolasguadalajara.com"
 
     this.peticion()
 
@@ -69,7 +65,7 @@ export class AccederCarpetaComponent implements OnInit{
 
   mostrarVideos(): void {
     this.videoUrls = Object.values(this.url.videos).map((video: any) => Object.values(video)[0]);
-
+    this.frase = this.url.txt;
     if (this.videoUrls.length > 5) {
       this.videoUrls = this.videoUrls.slice(0, 5);
     }

@@ -74,12 +74,12 @@ export class MenuAccionesComponent implements OnInit {
 
   accion(selectedOption: string) {
     if (selectedOption === "Acceder a evento") {
-      this.fraseService.establecerFraseCompartida(this.inputMensage)
       this.nombreFiesta.establecerNombreFiesta(this.selectedOptionCarpeta)
       this.router.navigate(['/acceder']);
     }
 
     if (selectedOption === "Crear evento") {
+      this.fraseService.establecerFraseCompartida(this.inputMensage)
       this.nombreFiesta.establecerNombreFiesta(this.inputText)
       this.router.navigate(['/crear']);
     }
