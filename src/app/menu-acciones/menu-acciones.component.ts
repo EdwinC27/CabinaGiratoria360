@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { NombreFiestaService } from '../NombreFiesta/Nombre.Fiesta.Service';
 import { PeticionEliminarArchivos } from '../Peticiones-API/EliminarArchivos/eliminarArchivos';
 import { MostrarCarpetasService } from '../Peticiones-API/TraerNombresDeCarpetas/videos-fiesta.service';
+import { HttpClient } from '@angular/common/http';
+import { PeticionAddImagen } from '../Peticiones-API/SubirImagen/subirImagen';
 
 @Component({
   selector: 'app-menu-acciones',
@@ -31,9 +33,13 @@ export class MenuAccionesComponent implements OnInit {
 
   public showOverlay = true;
 
-  constructor(private fraseService: FraseService, private fileService: FileService, private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarArchivos: PeticionEliminarArchivos, private mostrarCarpetasService: MostrarCarpetasService, private cdr: ChangeDetectorRef, private renderer: Renderer2) { }
+  selectedFile: File | null = null;
+
+  constructor(private fraseService: FraseService, private fileService: FileService, private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarArchivos: PeticionEliminarArchivos, private mostrarCarpetasService: MostrarCarpetasService, private cdr: ChangeDetectorRef, private renderer: Renderer2, private http: HttpClient, private peticionAddImagen: PeticionAddImagen) { }
 
   async seleccionarArchivo(event: any) {
+    this.selectedFile = event.target.files[0];
+
     const imagen = event.target.files[0];
     const resultado = await this.convertirImagenABase64(imagen);
     this.resultado = resultado.base64
@@ -79,9 +85,16 @@ export class MenuAccionesComponent implements OnInit {
     }
 
     if (selectedOption === "Crear evento") {
-      this.fraseService.establecerFraseCompartida(this.inputMensage)
-      this.nombreFiesta.establecerNombreFiesta(this.inputText)
-      this.router.navigate(['/crear']);
+      if (this.selectedFile) {
+        const formData = new FormData();
+        formData.append('file', this.selectedFile);
+
+        this.fraseService.establecerFraseCompartida(this.inputMensage)
+        this.nombreFiesta.establecerNombreFiesta(this.inputText)
+        this.peticionAddImagen.addImagen(formData, this.nombreFiesta.obtenerNombreFiesta());
+
+        this.router.navigate(['/crear']);
+      }
     }
 
     if (selectedOption === "Eliminar evento") {
