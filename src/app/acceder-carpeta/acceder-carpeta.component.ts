@@ -42,8 +42,6 @@ export class AccederCarpetaComponent implements OnInit{
     this.generateQRCode();
     this.logo = this.fileService.obtenerFileCompartida()
 
-    if(this.logo == "") this.logo = "../../favicon.ico"
-
     this.peticion()
 
     this.interval = setInterval(() => {
@@ -66,6 +64,10 @@ export class AccederCarpetaComponent implements OnInit{
   mostrarVideos(): void {
     this.videoUrls = Object.values(this.url.videos).map((video: any) => Object.values(video)[0]);
     this.frase = this.url.txt;
+    this.logo = this.url.logo;
+
+    if(this.logo == "" || this.logo === undefined) this.logo = "../../favicon.ico"
+
     if (this.videoUrls.length > 5) {
       this.videoUrls = this.videoUrls.slice(0, 5);
     }
