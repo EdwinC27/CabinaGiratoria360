@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, Renderer2 } from '@angular/core';
+import { Component, ChangeDetectorRef, Renderer2, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NombreFiestaService } from '../NombreFiesta/Nombre.Fiesta.Service'
 import { PeticionCrearCarpeta } from '../Peticiones-API/CrearCarpeta/crear';
@@ -8,7 +8,7 @@ import { PeticionCrearCarpeta } from '../Peticiones-API/CrearCarpeta/crear';
   templateUrl: './crear-carpeta.component.html',
   styleUrls: ['./crear-carpeta.component.css']
 })
-export class CrearCarpetaComponent {
+export class CrearCarpetaComponent implements OnInit {
   inputText: string = '';
   textnombreFiesta = this.nombreFiesta.obtenerNombreFiesta();
   responseData: any;
@@ -18,7 +18,7 @@ export class CrearCarpetaComponent {
 
   constructor(private nombreFiesta: NombreFiestaService, private router: Router, private peticionCrearCarpeta: PeticionCrearCarpeta, private cdr: ChangeDetectorRef,  private renderer: Renderer2) { }
 
-  crear() {
+  ngOnInit(): void {
     this.peticionCrearCarpeta.getCrearFiesta(this.textnombreFiesta).subscribe((message) => {
       this.responseData = message;
       if (this.responseData == "Carpeta creada correctamente") {
