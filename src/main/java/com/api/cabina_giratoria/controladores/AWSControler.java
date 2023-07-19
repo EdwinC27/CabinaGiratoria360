@@ -1,11 +1,17 @@
 package com.api.cabina_giratoria.controladores;
 
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.api.cabina_giratoria.servicios.S3Service;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.sound.midi.Patch;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
@@ -50,5 +56,10 @@ public class AWSControler {
     @GetMapping("/archivos/eliminar")
     public ResponseEntity<JSONObject> deleteArchivos() {
         return s3Service.deleteArchivos();
+    }
+
+    @PostMapping("/upload")
+    public ResponseEntity<JSONObject> uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("carpeta") String nombreFiesta) {
+        return s3Service.subirImagen(file, nombreFiesta);
     }
 }

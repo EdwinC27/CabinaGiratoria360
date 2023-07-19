@@ -6,6 +6,7 @@ import com.amazonaws.services.s3.AmazonS3;
 
 import net.minidev.json.JSONArray;
 
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -13,13 +14,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import net.minidev.json.JSONObject;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayInputStream;
+import java.io.*;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.io.ByteArrayInputStream;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 
 @Service
 public class S3Service {
@@ -77,6 +82,10 @@ public class S3Service {
                 } else if (fileExtension.equals(".txt")) {
                     String resultado = obtenerParteDerechaSinUltimos4(fileKey);
                     responseJson.put("txt", resultado);
+                } else if (fileExtension.equals(".jpeg") || fileExtension.equals(".png")) {
+                    String fileUrl = generatePreSignedUrl(bucketName, fileKey);  // Generar la URL prefirmada para el archivo
+
+                    responseJson.put("logo", fileUrl);
                 }
             }
         }
@@ -150,6 +159,26 @@ public class S3Service {
         }
     }
 
+    public ResponseEntity<JSONObject> subirImagen(MultipartFile file, String folderName) {
+        try {
+            // Crear un objeto de metadatos para configurar el tipo de contenido de la imagen
+            ObjectMetadata metadata = new ObjectMetadata();
+            metadata.setContentType(file.getContentType());
+
+            String folderKey = folderName + "/"; // Agrega "/" al final para indicar que es una carpeta
+
+            // Subir la imagen a Amazon S3
+            amazonS3.putObject(new PutObjectRequest(bucketName, folderKey + file.getOriginalFilename(), file.getInputStream(), metadata));
+
+            JSONObject correctResponse = new JSONObject();
+            correctResponse.put("Exito", "Carpeta subida correctamente");
+            return ResponseEntity.status(HttpStatus.OK).body(correctResponse);
+        } catch (Exception e) {
+            JSONObject errorResponse = new JSONObject();
+            errorResponse.put("Error", "No se pudo subir la imagen");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+        }
+    }
 
     public ResponseEntity<JSONObject> deleteFolder(String folderName) {
         // Existe la carpeta
