@@ -25,7 +25,7 @@ public class ConfigCors {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins(FRONTEND_URL, FRONTEND_URL_PUBLIC, FRONTEND_URL_LOCAL)
-                        .allowedMethods("GET", "POST");
+                        .allowedMethods("GET", "POST", "DELETE");
                 //.allowedHeaders()
                 //.exposedHeaders()
             }
