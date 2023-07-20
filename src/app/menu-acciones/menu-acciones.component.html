@@ -18,7 +18,7 @@
         </div>
 
         <div *ngIf="selectedOption === 'Crear evento'"> <!-- Opcion para crear una carpeta -->
-          <input placeholder="Nombre de la fiesta..." [(ngModel)]="inputText" class="inputTextNameParty">
+          <input placeholder="Nombre de la fiesta..." [(ngModel)]="inputText" class="inputTextNameParty" class="input">
         </div>
     </div>
 
@@ -33,7 +33,7 @@
         </form>
 
         <!-- Previsualización -->
-        <br><img [src]="resultado" *ngIf="resultado" width="60%" alt="Previsualización">
+        <br><img [src]="resultado" *ngIf="resultado" width="60%" alt="Previsualización" class="previsualizacion">
     </div>
 
     <button (click)="accion(selectedOption)" [disabled]="isButtonDisabled()" class="custom-button">

@@ -18,7 +18,7 @@ label {
     margin-bottom: 20px;
 }
 
-input {
+.input {
     padding: 10px;
     border: none;
     border-bottom: 2px solid #47e2e2;
@@ -28,7 +28,7 @@ input {
     color: rgb(0, 0, 0);
 }
 
-input:focus {
+.input:focus {
     width: 500px;
 }
 
@@ -77,17 +77,17 @@ select {
 }
 
 @media screen and (max-width: 840px) {
-    input:focus {
+    .input:focus {
         width: 300px;
     }
   }
 
 @media screen and (max-width: 587px) {
-    input {
+    .input {
         width: 200px;
     }
 
-    input:focus {
+    .input:focus {
         width: 200px;
     }
 
@@ -98,11 +98,11 @@ select {
   }
 
 @media screen and (max-width: 500px) {
-    input {
+    .input {
         width: 100px;
     }
 
-    input:focus {
+    .input:focus {
         width: 100px;
     }
 }
@@ -169,4 +169,8 @@ select {
   max-height: 80%;
   opacity: 0;
   animation: fade-in 1s ease-in-out 5s forwards;
+}
+
+.previsualizacion {
+  width: 450px;
 }
