@@ -17,7 +17,6 @@ export class PeticionAddImagen {
 
   addImagen(formData: FormData, nombreFiesta: string) {
     this.url =  this.urlComplit + nombreFiesta;
-    console.log(this.url)
     this.http.post(this.url, formData).subscribe(
         (response) => {
             console.log('Imagen subida con éxito');
