@@ -16,7 +16,7 @@ export class PeticionEliminarArchivos {
 
   getEliminarDatos(): Observable<string> {
 
-    return this.http.get<any>(this.urlComplit).pipe(
+    return this.http.delete<any>(this.urlComplit).pipe(
       map((response) => {
         if (response && response.Exito) {
           return response.Exito;

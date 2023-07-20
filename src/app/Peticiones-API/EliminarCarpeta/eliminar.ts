@@ -18,7 +18,7 @@ export class PeticionEliminarCarpeta {
   getEliminarFiesta(nombreFiesta: string): Observable<string> {
     this.url = this.urlComplit + nombreFiesta;
 
-    return this.http.get<any>(this.url).pipe(
+    return this.http.delete<any>(this.url).pipe(
       map((response) => {
         if (response && response.Exito) {
           return response.Exito;
