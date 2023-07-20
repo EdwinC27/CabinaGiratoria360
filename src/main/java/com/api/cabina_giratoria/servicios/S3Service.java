@@ -252,7 +252,10 @@ public class S3Service {
         JSONObject listOfFolders = new JSONObject();
         for (String commonPrefix : response.getCommonPrefixes()) {
             String folderName = commonPrefix.substring(0, commonPrefix.length() - 1); // Eliminar la barra diagonal al final
-            listOfFolders.put(folderName, "carpeta"); // Generar la URL de la carpeta
+
+            if (folderName != "") {
+                listOfFolders.put(folderName, "carpeta"); // Generar la URL de la carpeta
+            }
         }
 
         return ResponseEntity.ok(listOfFolders);
