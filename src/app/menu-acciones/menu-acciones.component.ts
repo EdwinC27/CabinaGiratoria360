@@ -102,13 +102,11 @@ export class MenuAccionesComponent implements OnInit {
 
             this.mensajeEliminacion = "Evento creado correctamente";
             this.cdr.detectChanges(); // Detectar cambios para actualizar el HTML
-          
+
         }, (error) => {
           this.mensajeEliminacion = error;
           this.cdr.detectChanges(); // Detectar cambios para actualizar el HTML
         });
-
-        //this.router.navigate(['/crear']);
       }
     }
 
