@@ -26,6 +26,10 @@ export class EliminarCarpetaComponent {
 
         this.mensajeEliminacion = "Evento eliminado correctamente";
         this.cdr.detectChanges(); // Detectar cambios para actualizar el HTML
+
+        setTimeout(() => {
+          this.regresar()
+        }, 3500);
       }
     }, (error) => {
       this.showPopup(error);
