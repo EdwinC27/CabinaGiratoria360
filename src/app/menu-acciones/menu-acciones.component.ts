@@ -7,6 +7,7 @@ import { PeticionEliminarArchivos } from '../Peticiones-API/EliminarArchivos/eli
 import { MostrarCarpetasService } from '../Peticiones-API/TraerNombresDeCarpetas/videos-fiesta.service';
 import { HttpClient } from '@angular/common/http';
 import { PeticionAddImagen } from '../Peticiones-API/SubirImagen/subirImagen';
+import { PeticionCrearCarpeta } from '../Peticiones-API/CrearCarpeta/crear';
 
 @Component({
   selector: 'app-menu-acciones',
@@ -35,7 +36,9 @@ export class MenuAccionesComponent implements OnInit {
 
   selectedFile: File | null = null;
 
-  constructor(private fraseService: FraseService, private fileService: FileService, private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarArchivos: PeticionEliminarArchivos, private mostrarCarpetasService: MostrarCarpetasService, private cdr: ChangeDetectorRef, private renderer: Renderer2, private http: HttpClient, private peticionAddImagen: PeticionAddImagen) { }
+  mensajeEliminacion: string = "";
+
+  constructor(private fraseService: FraseService, private fileService: FileService, private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarArchivos: PeticionEliminarArchivos, private mostrarCarpetasService: MostrarCarpetasService, private cdr: ChangeDetectorRef, private renderer: Renderer2, private http: HttpClient, private peticionAddImagen: PeticionAddImagen, private peticionCrearCarpeta: PeticionCrearCarpeta) { }
 
   async seleccionarArchivo(event: any) {
     this.selectedFile = event.target.files[0];
@@ -93,7 +96,19 @@ export class MenuAccionesComponent implements OnInit {
         this.nombreFiesta.establecerNombreFiesta(this.inputText)
         this.peticionAddImagen.addImagen(formData, this.nombreFiesta.obtenerNombreFiesta());
 
-        this.router.navigate(['/crear']);
+        this.peticionCrearCarpeta.getCrearFiesta(this.nombreFiesta.obtenerNombreFiesta()).subscribe((message) => {
+          this.responseData = message;
+          this.showPopup("Evento creado correctamente");
+
+            this.mensajeEliminacion = "Evento creado correctamente";
+            this.cdr.detectChanges(); // Detectar cambios para actualizar el HTML
+          
+        }, (error) => {
+          this.mensajeEliminacion = error;
+          this.cdr.detectChanges(); // Detectar cambios para actualizar el HTML
+        });
+
+        //this.router.navigate(['/crear']);
       }
     }
 
