@@ -28,9 +28,6 @@ label {
     color: rgb(0, 0, 0);
 }
 
-.input:focus {
-    width: 500px;
-}
 
 button {
     padding: 10px;
@@ -76,18 +73,8 @@ select {
     margin-left: -2%;
 }
 
-@media screen and (max-width: 840px) {
-    .input:focus {
-        width: 300px;
-    }
-  }
-
 @media screen and (max-width: 587px) {
     .input {
-        width: 200px;
-    }
-
-    .input:focus {
         width: 200px;
     }
 
@@ -102,9 +89,6 @@ select {
         width: 100px;
     }
 
-    .input:focus {
-        width: 100px;
-    }
 }
 
 .logo {
