@@ -96,12 +96,16 @@ export class MenuAccionesComponent implements OnInit {
         this.nombreFiesta.establecerNombreFiesta(this.inputText)
         this.peticionAddImagen.addImagen(formData, this.nombreFiesta.obtenerNombreFiesta());
 
-        this.peticionCrearCarpeta.getCrearFiesta(this.nombreFiesta.obtenerNombreFiesta()).subscribe((message) => {
+        this.peticionCrearCarpeta.getCrearFiesta(this.nombreFiesta.obtenerNombreFiesta(), this.fraseService.obtenerFraseCompartida()).subscribe((message) => {
           this.responseData = message;
           this.showPopup("Evento creado correctamente");
 
-            this.mensajeEliminacion = "Evento creado correctamente";
-            this.cdr.detectChanges(); // Detectar cambios para actualizar el HTML
+          this.mensajeEliminacion = "Evento creado correctamente";
+          this.cdr.detectChanges(); // Detectar cambios para actualizar el HTML
+
+          setTimeout(() => {
+            this.router.navigate(['/acceder']);
+          }, 6000);
 
         }, (error) => {
           this.mensajeEliminacion = error;

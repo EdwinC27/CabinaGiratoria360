@@ -15,12 +15,12 @@ export class PeticionCrearCarpeta {
   urlCrear = environment.APIUrlCrearCarpeta;
   urlComplit = this.urlBase + this.urlCrear;
   url = "";
-  frase = this.fraseService.obtenerFraseCompartida();
 
-  getCrearFiesta(nombreFiesta: string): Observable<string> {
-    if(this.frase == "") this.frase = "www.rockolasguadalajara.com"
+  getCrearFiesta(nombreFiesta: string, frase: string): Observable<string> {
+    console.log(frase)
+    if(frase == "") frase = "www.rockolasguadalajara.com"
 
-    this.url = this.urlComplit + nombreFiesta + "&archivo=" + this.frase;
+    this.url = this.urlComplit + nombreFiesta + "&archivo=" + frase;
 
     return this.http.get<any>(this.url).pipe(
       map((response) => {
