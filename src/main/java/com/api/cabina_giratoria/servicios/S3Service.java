@@ -82,7 +82,7 @@ public class S3Service {
                 } else if (fileExtension.equals(".txt")) {
                     String resultado = obtenerParteDerechaSinUltimos4(fileKey);
                     responseJson.put("txt", resultado);
-                } else if (fileExtension.equals(".jpeg") || fileExtension.equals(".png")) {
+                } else if (fileExtension.equals(".jpeg") || fileExtension.equals(".png") || fileExtension.equals(".jpg") || fileExtension.equals(".git") || fileExtension.equals(".svg")) {
                     String fileUrl = generatePreSignedUrl(bucketName, fileKey);  // Generar la URL prefirmada para el archivo
 
                     responseJson.put("logo", fileUrl);
