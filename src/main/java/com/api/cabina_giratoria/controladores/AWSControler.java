@@ -45,12 +45,12 @@ public class AWSControler {
         return s3Service.createFolder(nombreCarpeta, file);
     }
 
-    @DeleteMapping(EndPoints.ELIMINAR_CARPETAS)
+    @GetMapping(EndPoints.ELIMINAR_CARPETAS)
     public ResponseEntity<JSONObject> deleteCarpeta(@RequestParam(value = "carpeta") String nombreCarpeta) {
         return s3Service.deleteFolder(nombreCarpeta);
     }
 
-    @DeleteMapping(EndPoints.ELIMINAR_ARCHIVOS)
+    @GetMapping(EndPoints.ELIMINAR_ARCHIVOS)
     public ResponseEntity<JSONObject> deleteArchivos() {
         return s3Service.deleteArchivos();
     }
