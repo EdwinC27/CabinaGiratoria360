@@ -34,6 +34,8 @@ export class MenuAccionesComponent implements OnInit {
 
   public showOverlay = true;
 
+  showImage: boolean = false;
+
   selectedFile: File | null = null;
 
   mensajeEliminacion: string = "";
@@ -98,12 +100,11 @@ export class MenuAccionesComponent implements OnInit {
 
         this.peticionCrearCarpeta.getCrearFiesta(this.nombreFiesta.obtenerNombreFiesta(), this.fraseService.obtenerFraseCompartida()).subscribe((message) => {
           this.responseData = message;
-          this.showPopup("Evento creado correctamente");
 
-          this.mensajeEliminacion = "Evento creado correctamente";
-          this.cdr.detectChanges(); // Detectar cambios para actualizar el HTML
-
+          this.showImage = true;
           setTimeout(() => {
+            this.showImage = false;
+
             this.router.navigate(['/acceder']);
           }, 6000);
 
