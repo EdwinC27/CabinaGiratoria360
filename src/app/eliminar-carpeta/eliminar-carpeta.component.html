@@ -13,3 +13,7 @@
 </div>
 
 <div id="popupContainer" [ngClass]="{ 'show-popup': isPopupVisible }"> </div>
+
+<div id="overlay" *ngIf="showImage">
+  <img src="../../assets/gif/cargando.gif" alt="Imagen centrada"  class="imgFondo">
+</div>

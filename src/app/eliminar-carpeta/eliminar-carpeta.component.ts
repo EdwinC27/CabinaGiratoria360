@@ -16,12 +16,18 @@ export class EliminarCarpetaComponent {
 
   isPopupVisible: boolean = false;
 
+  showImage: boolean = false;
+
   constructor(private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarCarpeta: PeticionEliminarCarpeta, private cdr: ChangeDetectorRef,  private renderer: Renderer2) { }
 
   eliminar() {
+    this.showImage = true;
+
     this.peticionEliminarCarpeta.getEliminarFiesta(this.textnombreFiesta).subscribe((message) => {
       this.responseData = message;
       if (this.responseData == "Carpeta eliminada correctamente") {
+        this.showImage = false;
+
         this.showPopup("Evento eliminado correctamente");
 
         this.mensajeEliminacion = "Evento eliminado correctamente";
