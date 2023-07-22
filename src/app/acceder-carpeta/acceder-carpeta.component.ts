@@ -7,40 +7,53 @@ import { MostrarVideosService } from '../Peticiones-API/TraerCarpeta/videos-fies
   templateUrl: './acceder-carpeta.component.html',
   styleUrls: ['./acceder-carpeta.component.css']
 })
-export class AccederCarpetaComponent implements OnInit{
+export class AccederCarpetaComponent implements OnInit {
   videoUrls: any;
   url: any;
   interval: any;
   responseData: any;
   evento: any;
 
-  constructor (private mostrarVideosService: MostrarVideosService, private router: ActivatedRoute){}
+  currentPage = 1;
+  videosPerPage = 5;
+
+  constructor(private mostrarVideosService: MostrarVideosService, private router: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.evento = this.router.snapshot.paramMap.get("evento");
-
-    this.peticion(this.evento)
-
-    this.interval = setInterval(() => {
-      this.peticion(this.evento);
-    }, 120_000); // tiempo en segundos (1 minuto y 30 segundos)
+    this.updateVideosAndPagination();
+    this.interval = setInterval(() => this.updateVideosAndPagination(), 180000); // 180,000 ms = 3 minuto
   }
 
-  peticion(evento: any): void {
-    this.mostrarVideosService.getInfo(evento).subscribe(
+  updateVideosAndPagination(): void {
+    this.mostrarVideosService.getInfo(this.evento).subscribe(
       () => {
         this.url = this.mostrarVideosService.respuesta;
-        this.mostrarVideos();
-       },
+        this.videoUrls = Object.values(this.url.videos).map((video: any) => Object.values(video)[0]);
+      },
       (error) => {
         console.log(error);
       }
-    )
+    );
   }
 
-  mostrarVideos(): void {
-    this.videoUrls = Object.values(this.url.videos).map((video: any) => Object.values(video)[0]);
-    console.log(this.videoUrls);
+  range(start: number, end: number): number[] {
+    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
   }
 
+  changePage(page: number): void {
+    this.currentPage = page;
+  }
+
+  separateVideos(currentPage: number, videosPerPage: number) {
+    const startIndex = (currentPage - 1) * videosPerPage;
+    return this.videoUrls.slice(startIndex, startIndex + videosPerPage);
+  }
+
+  getTotalPages(): number {
+    if (!this.videoUrls) {
+      return 0;
+    }
+    return Math.ceil(this.videoUrls.length / this.videosPerPage);
+  }
 }

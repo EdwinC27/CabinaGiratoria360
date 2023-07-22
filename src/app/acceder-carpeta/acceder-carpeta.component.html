@@ -1,5 +1,17 @@
-<div class="video">
-  <video *ngFor="let videoUrl of videoUrls" controls>
-    <source [src]="videoUrl" type="video/mp4">
-  </video>
+<h1>Bienvenidos a la fiesta de {{ evento }}</h1><hr>
+
+<!-- Mostrar el índice para cambiar de página -->
+<span class="video-group">
+  <button *ngFor="let page of range(1, getTotalPages())" (click)="changePage(page)" [class.active]="currentPage === page">
+    {{ page }}
+  </button>
+</span>
+
+<!-- Mostrar los videos de la página actual -->
+<div class="video-group">
+  <div *ngFor="let video of separateVideos(currentPage, videosPerPage)">
+    <video class="video-item" controls>
+      <source [src]="video" type="video/mp4">
+    </video>
+  </div>
 </div>

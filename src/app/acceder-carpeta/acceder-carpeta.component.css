@@ -1,4 +1,39 @@
-.video {
+h1 {
   text-align: center;
-  margin-right: 80px;
+}
+
+/* Estilos para el contenedor de grupos de videos */
+.video-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Estilos para cada video individual */
+.video-item {
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px
+}
+
+
+/* Estilos para el índice de paginación */
+
+
+button {
+  margin: 20px 5px 20px 10px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ccc;
+}
+
+button.active {
+  background-color: #ccc;
 }
