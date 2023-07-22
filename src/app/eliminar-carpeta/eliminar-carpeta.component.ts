@@ -9,7 +9,6 @@ import { PeticionEliminarCarpeta } from '../Peticiones-API/EliminarCarpeta/elimi
   styleUrls: ['./eliminar-carpeta.component.css']
 })
 export class EliminarCarpetaComponent {
-  inputText: string = '';
   textnombreFiesta = this.nombreFiesta.obtenerNombreFiesta();
   responseData: any;
   mensajeEliminacion: string = "";
