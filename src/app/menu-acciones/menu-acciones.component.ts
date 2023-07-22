@@ -15,25 +15,26 @@ import { PeticionCrearCarpeta } from '../Peticiones-API/CrearCarpeta/crear';
   styleUrls: ['./menu-acciones.component.css']
 })
 export class MenuAccionesComponent implements OnInit {
+  // opciones menu
   selectedOption: string = 'Seleccionar';
   selectedOptionCarpeta: string = 'Seleccionar';
   selectedOptionDefault: string = 'Seleccionar';
 
+  // opciones de guardado
   inputText: string = '';
   inputMensage: string = '';
-  resultado: any;
+  resultadoImagen: any;
 
+  // respuesta de API
   responseData: any;
   responseCarpetas: any;
-
   carpetas: any;
 
   logoRuta = "../../assets/img/logo.jpeg";
 
+  // mostrar cosas
   isPopupVisible: boolean = false;
-
   public showOverlay = true;
-
   showImage: boolean = false;
 
   selectedFile: File | null = null;
@@ -47,11 +48,11 @@ export class MenuAccionesComponent implements OnInit {
 
     const imagen = event.target.files[0];
     const resultado = await this.convertirImagenABase64(imagen);
-    this.resultado = resultado.base64
+    this.resultadoImagen = resultado.base64
   }
 
   subirArchivo() {
-    this.fileService.establecerFileCompartida(this.resultado);
+    this.fileService.establecerFileCompartida(this.resultadoImagen);
     alert("Archivo subido exitosamente")
   }
 

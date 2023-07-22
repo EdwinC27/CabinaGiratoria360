@@ -18,21 +18,18 @@
         </div>
 
         <div *ngIf="selectedOption === 'Crear evento'"> <!-- Opcion para crear una carpeta -->
-          <input placeholder="Nombre de la fiesta..." [(ngModel)]="inputText" class="inputTextNameParty" class="input">
+          <input placeholder="Nombre de la fiesta..." [(ngModel)]="inputText" class="inputTextNameParty" class="input"><br>
+          <textarea placeholder="Mensaje para mostrar en el evento" [(ngModel)]="inputMensage" class="frase"> </textarea> <br>
+
+          <!-- Subida de archivos -->
+          <form (submit)="subirArchivo()">
+            <br><br><label>Selecciona un archivo:</label>
+            <input type="file" (change)="seleccionarArchivo($event)">
+          </form>
+
+          <!-- Previsualización -->
+          <br><img [src]="resultadoImagen" *ngIf="resultadoImagen" width="60%" alt="Previsualización" class="previsualizacion">
         </div>
-    </div>
-
-    <div *ngIf="selectedOption === 'Crear evento'"> <!-- Informacion adicional para acceder a un evento -->
-        <textarea placeholder="Mensaje para mostrar en el evento" [(ngModel)]="inputMensage" class="frase"> </textarea>
-
-        <!-- Subida de archivos -->
-        <form (submit)="subirArchivo()">
-          <br><br><label>Selecciona un archivo:</label>
-          <input type="file" (change)="seleccionarArchivo($event)">
-        </form>
-
-        <!-- Previsualización -->
-        <br><img [src]="resultado" *ngIf="resultado" width="60%" alt="Previsualización" class="previsualizacion">
     </div>
 
     <button (click)="accion(selectedOption)" [disabled]="isButtonDisabled()" class="custom-button">
@@ -40,12 +37,15 @@
     </button>
 </div>
 
+<!-- Mensage de acccion -->
 <div id="popupContainer" [ngClass]="{ 'show-popup': isPopupVisible }"> </div>
 
+<!-- Imagen de fondo -->
 <div id="overlay" *ngIf="showOverlay">
   <img [src]="logoRuta" alt="Imagen" class="imgFondo">
 </div>
 
+<!-- Gif de cargar -->
 <div id="overlay" *ngIf="showImage">
   <img src="../../assets/gif/cargando.gif" alt="Imagen centrada"  class="imgFondo">
 </div>
