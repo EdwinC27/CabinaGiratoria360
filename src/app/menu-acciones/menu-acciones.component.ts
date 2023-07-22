@@ -121,12 +121,18 @@ export class MenuAccionesComponent implements OnInit {
     }
 
     if (selectedOption === "Limpiar cache") {
+      this.showImage = true;
+
         this.peticionEliminarArchivos.getEliminarDatos().subscribe((message) => {
           this.responseData = message;
+          this.showImage = false;
+
           if (this.responseData == "Archivos sin extensión eliminados correctamente") {
             this.showPopup(this.responseData);
           }
         }, (error) => {
+          this.showImage = false;
+
           this.showPopup(error);
         });
 
