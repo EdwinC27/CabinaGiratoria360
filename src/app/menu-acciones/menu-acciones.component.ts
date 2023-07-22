@@ -73,6 +73,8 @@ export class MenuAccionesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.eliminarCache();
+
     this.mostrarCarpetasService.getMostrarCarpetas().subscribe((carpeta) => {
       this.carpetas = carpeta;
     }, (error) => {
@@ -120,7 +122,7 @@ export class MenuAccionesComponent implements OnInit {
       this.nombreFiesta.establecerNombreFiesta(this.selectedOptionCarpeta)
       this.router.navigate(['/eliminar']);
     }
-
+    /*
     if (selectedOption === "Limpiar cache") {
       this.showImage = true;
 
@@ -138,6 +140,7 @@ export class MenuAccionesComponent implements OnInit {
         });
 
     }
+    */
   }
 
   showPopup(message: string) {
@@ -187,4 +190,13 @@ export class MenuAccionesComponent implements OnInit {
     }
     return true;
   }
+
+  eliminarCache(): void {
+    this.peticionEliminarArchivos.getEliminarDatos().subscribe((message) => {
+      this.responseData = message;
+    }, (error) => {
+      this.showPopup(error);
+    });
+  }
+
 }
