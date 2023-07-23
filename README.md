@@ -1,18 +1,58 @@
-# CabinaPrueba2
+# FontEnd de conexión con AWS
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
+Este proyecto fue generado con [Angular CLI](https://github.com/angular/angular-cli) versión 15.2.4.
 
-## Development server
+El objetivo principal de este proyecto es permitirte tanto modificar y visualizar los archivos almacenados en tu cuenta de S3.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Requisitos:
+1. Tener Node instalado en su computadora. Si no lo tiene, puede descargarlo <a href="https://nodejs.org/en/">aquí</a>.
+2. Tenga instalado npm en su computadora. Si no lo tienes, puedes hacerlo con el siguiente comando:
+    ```
+      npm instalar npm@último -g
+    ```
+3. Tenga Angular instalado en su computadora. Si no lo tienes, puedes hacerlo con el siguiente comando:
+    ```
+      npm instalar @angular/cli
+    ```
 
-## Code scaffolding
+## Inicialización
+Para utilizar este proyecto, puede seguir una de las siguientes instrucciones:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Descargue el proyecto en un archivo .zip.
+1. Descarga el proyecto en formato .zip desde la opción "Código" de este repositorio.
+2. Una vez descargado, extraiga el archivo y abra la carpeta del proyecto.
+3. Modifica el archivo environmet.ts que se encuentra en la ruta **src/environments/**, proporcionando los datos necesarios para la autenticación hacia la API.
+4. Para ejecutar la aplicación, siga estos pasos:
+     - Abra una terminal en la raíz del proyecto y ejecute:
+      ```
+        npm install
+      ```
+  
+      - Ejecute este comando:
+      ```
+        ng serve
+      ```
+      Este comando iniciará la aplicación en el puerto 4200 de su computadora.
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Clona el repositorio.
+1. Clone el repositorio de Git en su PC con el siguiente comando:
+     ```
+        git clone git@github.com:EdwinC27/CabinaGiratoria.git
+     ```
+2. Una vez descargado, abra la carpeta del proyecto.
+3. Cambiate a la rama de FrontEnd-Privado-AWS.
+4. Modifica el archivo environmet.ts que se encuentra en la ruta **src/environments/**, proporcionando los datos necesarios para la autenticación hacia la API.
+5. Finalmente, para ejecutar la aplicación, primero use el comando:
+       - Abra una terminal en la raíz del proyecto y ejecute:
+      ```
+        npm install
+      ```
+  
+      - Ejecute este comando:
+      ```
+        ng serve
+      ```
+      Este comando iniciará la aplicación en el puerto 4200 de su computadora. Acceda a la URL **http://localhost:4200/** para ver la aplicación.
 
 ## Running unit tests
 
