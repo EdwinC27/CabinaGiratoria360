@@ -2,6 +2,7 @@ package com.api.cabina_giratoria.controladores;
 
 import com.api.cabina_giratoria.model.constants.EndPoints;
 import com.api.cabina_giratoria.servicios.S3Service;
+import com.api.cabina_giratoria.servicios.Users;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class AWSControler {
 
     private final S3Service s3Service;
+
+    @Autowired
+    Users users;
 
     @Autowired
     public AWSControler(S3Service s3Service) {
@@ -54,6 +58,12 @@ public class AWSControler {
     public ResponseEntity<JSONObject> deleteArchivos() {
         return s3Service.deleteArchivos();
     }
+
+    @GetMapping(EndPoints.USERS)
+    public boolean getUser(@RequestParam(value = "user") String usuario, @RequestParam(value = "password") String password) {
+        return users.isUserExist(usuario, password);
+    }
+
 
     @PostMapping(EndPoints.SUBIR_IMAGEN)
     public ResponseEntity<JSONObject> uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("carpeta") String nombreFiesta) {
