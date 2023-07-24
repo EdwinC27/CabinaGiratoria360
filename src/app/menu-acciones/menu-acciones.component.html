@@ -23,7 +23,7 @@
           <!-- Subida de archivos -->
           <form (submit)="subirArchivo()">
             <br><br><label>Selecciona un archivo:</label>
-            <input type="file" (change)="seleccionarArchivo($event)">
+            <input type="file" accept=".png, .jpg, .jpeg, .svg" (change)="seleccionarArchivo($event)">
           </form>
 
           <!-- Previsualización -->
