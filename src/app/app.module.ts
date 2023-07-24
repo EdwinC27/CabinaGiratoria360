@@ -9,13 +9,15 @@ import { EliminarCarpetaComponent } from './eliminar-carpeta/eliminar-carpeta.co
 import { HttpClientModule } from '@angular/common/http';
 import { AccederCarpetaComponent } from './acceder-carpeta/acceder-carpeta.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuAccionesComponent,
     EliminarCarpetaComponent,
-    AccederCarpetaComponent
+    AccederCarpetaComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, Renderer2 } from '@angular/core';
+import { Component, ChangeDetectorRef, Renderer2, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NombreFiestaService } from '../NombreFiesta/Nombre.Fiesta.Service'
 import { PeticionEliminarCarpeta } from '../Peticiones-API/EliminarCarpeta/eliminar';
@@ -8,7 +8,7 @@ import { PeticionEliminarCarpeta } from '../Peticiones-API/EliminarCarpeta/elimi
   templateUrl: './eliminar-carpeta.component.html',
   styleUrls: ['./eliminar-carpeta.component.css']
 })
-export class EliminarCarpetaComponent {
+export class EliminarCarpetaComponent implements OnInit {
   textnombreFiesta = this.nombreFiesta.obtenerNombreFiesta();
   responseData: any;
   mensajeEliminacion: string = "";
@@ -17,7 +17,17 @@ export class EliminarCarpetaComponent {
 
   showImage: boolean = false;
 
-  constructor(private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarCarpeta: PeticionEliminarCarpeta, private cdr: ChangeDetectorRef,  private renderer: Renderer2) { }
+  currentUser: string | null;
+
+  constructor(private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarCarpeta: PeticionEliminarCarpeta, private cdr: ChangeDetectorRef,  private renderer: Renderer2) {
+    this.currentUser = localStorage.getItem('currentUser');
+   }
+
+  ngOnInit(): void {
+    if (this.currentUser == null) {
+      this.router.navigate(['/login']);
+    }
+  }
 
   eliminar() {
     this.showImage = true;
@@ -45,7 +55,7 @@ export class EliminarCarpetaComponent {
   }
 
   regresar() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/menu']);
   }
 
   showPopup(message: string) {

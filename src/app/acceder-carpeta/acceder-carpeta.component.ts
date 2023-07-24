@@ -5,6 +5,7 @@ import { NombreFiestaService } from '../NombreFiesta/Nombre.Fiesta.Service'
 import { MostrarVideosService } from '../Peticiones-API/TraerCarpeta/videos-fiesta.service';
 
 import * as QRCode from 'qrcode';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-acceder-carpeta',
@@ -26,7 +27,11 @@ export class AccederCarpetaComponent implements OnInit{
 
   videoActual: number = 0;
 
-  constructor (private nombreFiesta: NombreFiestaService, private fileService: FileService, private mostrarVideosService: MostrarVideosService, private cdr: ChangeDetectorRef){}
+  currentUser: string | null;
+
+  constructor (private nombreFiesta: NombreFiestaService, private fileService: FileService, private mostrarVideosService: MostrarVideosService, private cdr: ChangeDetectorRef, private router: Router) {
+    this.currentUser = localStorage.getItem('currentUser');
+  }
 
   showNextVideo() {
     this.currentVideoIndex = (this.currentVideoIndex + 1) % this.videoUrls.length;
@@ -39,6 +44,9 @@ export class AccederCarpetaComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    if (this.currentUser == null) {
+      this.router.navigate(['/login']);
+    }
     this.generateQRCode();
     this.logo = this.fileService.obtenerFileCompartida()
 

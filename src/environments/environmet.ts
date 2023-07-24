@@ -6,6 +6,7 @@ export const environment = {
   APIUrlTraerCarpetas: "carpeta",
   APIUrlEliminarArchivos: "archivos/eliminar",
   APIUrlAgregarImagen: "upload?carpeta=",
+  APIUrlTraerUsuiarios: "users?user=",
 
 
   URLPaginaPublica:

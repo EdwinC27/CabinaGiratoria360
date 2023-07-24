@@ -2,20 +2,32 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AccederCarpetaComponent } from './acceder-carpeta/acceder-carpeta.component';
 import { EliminarCarpetaComponent } from './eliminar-carpeta/eliminar-carpeta.component';
+import { AuthGuard } from './login/auth/auth.guard';
+import { LoginComponent } from './login/login.component';
 import { MenuAccionesComponent } from './menu-acciones/menu-acciones.component';
 
 const routes: Routes = [
   {
-    path: "",
-    component: MenuAccionesComponent
+    path: "login",
+    component: LoginComponent
+  },
+  {
+    path: "menu",
+    component: MenuAccionesComponent,
   },
   {
     path: "eliminar",
-    component: EliminarCarpetaComponent
+    component: EliminarCarpetaComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "acceder",
-    component: AccederCarpetaComponent
+    component: AccederCarpetaComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: '**',
+    redirectTo: 'login'
   }
 ];
 

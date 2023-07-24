@@ -41,7 +41,11 @@ export class MenuAccionesComponent implements OnInit {
 
   mensajeEliminacion: string = "";
 
-  constructor(private fraseService: FraseService, private fileService: FileService, private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarArchivos: PeticionEliminarArchivos, private mostrarCarpetasService: MostrarCarpetasService, private cdr: ChangeDetectorRef, private renderer: Renderer2, private http: HttpClient, private peticionAddImagen: PeticionAddImagen, private peticionCrearCarpeta: PeticionCrearCarpeta) { }
+  currentUser: string | null;
+
+  constructor(private fraseService: FraseService, private fileService: FileService, private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarArchivos: PeticionEliminarArchivos, private mostrarCarpetasService: MostrarCarpetasService, private cdr: ChangeDetectorRef, private renderer: Renderer2, private http: HttpClient, private peticionAddImagen: PeticionAddImagen, private peticionCrearCarpeta: PeticionCrearCarpeta) {
+    this.currentUser = localStorage.getItem('currentUser');
+  }
 
   async seleccionarArchivo(event: any) {
     this.selectedFile = event.target.files[0];
@@ -73,6 +77,10 @@ export class MenuAccionesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.currentUser == null) {
+      this.router.navigate(['/login']);
+    }
+
     this.eliminarCache();
 
     this.mostrarCarpetasService.getMostrarCarpetas().subscribe((carpeta) => {
