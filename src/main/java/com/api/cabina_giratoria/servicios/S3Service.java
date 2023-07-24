@@ -161,6 +161,13 @@ public class S3Service {
 
     public ResponseEntity<JSONObject> subirImagen(MultipartFile file, String folderName) {
         try {
+            if (!validaciones.fileIsImage(file)) {
+                JSONObject errorResponse = new JSONObject();
+
+                errorResponse.put("Error", "El archivo no es una imagen");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+            }
+
             // Crear un objeto de metadatos para configurar el tipo de contenido de la imagen
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentType(file.getContentType());
