@@ -11,6 +11,11 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  credencialesErronias: boolean = false;
+
+  user: string = "";
+  contrasena: string = "";
+
   ngOnInit(): void {
     localStorage.clear()
   }
@@ -25,7 +30,15 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/menu']);
     } else {
       // Si la autenticación falla, puedes mostrar un mensaje de error o realizar alguna otra acción.
-      alert("Fallo")
+      this.credencialesErronias = true;
+
+      setTimeout(() => {
+        this.credencialesErronias = false;
+
+        this.user = "";
+        this.contrasena = "";
+
+      }, 2000);
     }
   }
 }

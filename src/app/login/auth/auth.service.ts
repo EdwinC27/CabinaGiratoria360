@@ -11,19 +11,13 @@ export class AuthService {
 
   login(username: string, password: string): boolean {
     const respuestaUser = this.traerUsuarios.getUser(username, password).subscribe((message) => {
-        console.log(message)
+      this.isAuthenticated = message
     }, (error) => {
       console.error(error)
     });
 
-    
-    if (respuestaUser) {
-      this.isAuthenticated = true;
-      return true;
-    } else {
-      this.isAuthenticated = false;
-      return false;
-    }
+
+    return this.isAuthenticated;
   }
 
   logout() {
