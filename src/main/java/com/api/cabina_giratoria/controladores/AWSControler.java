@@ -59,12 +59,6 @@ public class AWSControler {
         return s3Service.deleteArchivos();
     }
 
-    @GetMapping(EndPoints.USERS)
-    public boolean getUser(@RequestParam(value = "user") String usuario, @RequestParam(value = "password") String password) {
-        return users.isUserExist(usuario, password);
-    }
-
-
     @PostMapping(EndPoints.SUBIR_IMAGEN)
     public ResponseEntity<JSONObject> uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("carpeta") String nombreFiesta) {
         return s3Service.subirImagen(file, nombreFiesta);
