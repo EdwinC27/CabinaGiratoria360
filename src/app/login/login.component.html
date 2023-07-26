@@ -16,7 +16,7 @@
       </div>
 
       <div class="form-group">
-        <input type="submit" value="Iniciar sesión">
+        <input type="submit" value="Iniciar sesión" [disabled]="isButtonDisabled()" >
       </div>
 
       <p style="text-align: center;" *ngIf="credencialesErronias">Usuario o contraseña incorrecto</p>
