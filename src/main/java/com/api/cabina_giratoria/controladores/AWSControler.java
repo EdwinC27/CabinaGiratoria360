@@ -26,8 +26,8 @@ public class AWSControler {
     }
 
     @GetMapping(EndPoints.VIDEOS)
-    public ResponseEntity<JSONObject> getVideos(@RequestParam(value = "fiesta") String nombreFiesta) {
-        ResponseEntity<JSONObject> respuestaVideos = s3Service.listFiles(nombreFiesta);
+    public ResponseEntity<JSONObject> getVideos(@RequestParam(value = "fiesta") String nombreFiesta, @RequestParam(value = "usuario") String usuario) {
+        ResponseEntity<JSONObject> respuestaVideos = s3Service.listFiles(nombreFiesta, usuario);
 
         if (respuestaVideos.getBody().isEmpty()) {
             JSONObject errorResponse = new JSONObject();
@@ -39,19 +39,19 @@ public class AWSControler {
     }
 
     @GetMapping(EndPoints.MOSTRAR_CARPETAS)
-    public ResponseEntity<JSONObject> putCarpeta() {
-        return s3Service.listFolder();
+    public ResponseEntity<JSONObject> putCarpeta(@RequestParam(value = "usuario") String usuario) {
+        return s3Service.listFolder(usuario);
     }
 
     @GetMapping(EndPoints.CREAR_CARPETAS)
-    public ResponseEntity<JSONObject> putCarpeta(@RequestParam(value = "carpeta") String nombreCarpeta, @RequestParam(value = "archivo") String nombreArchivo) {
+    public ResponseEntity<JSONObject> putCarpeta(@RequestParam(value = "carpeta") String nombreCarpeta, @RequestParam(value = "archivo") String nombreArchivo, @RequestParam(value = "usuario") String usuario) {
         String file = nombreArchivo + ".txt";
-        return s3Service.createFolder(nombreCarpeta, file);
+        return s3Service.createFolder(nombreCarpeta, file, usuario);
     }
 
     @GetMapping(EndPoints.ELIMINAR_CARPETAS)
-    public ResponseEntity<JSONObject> deleteCarpeta(@RequestParam(value = "carpeta") String nombreCarpeta) {
-        return s3Service.deleteFolder(nombreCarpeta);
+    public ResponseEntity<JSONObject> deleteCarpeta(@RequestParam(value = "carpeta") String nombreCarpeta, @RequestParam(value = "usuario") String usuario) {
+        return s3Service.deleteFolder(nombreCarpeta, usuario);
     }
 
     @GetMapping(EndPoints.ELIMINAR_ARCHIVOS)
@@ -60,7 +60,7 @@ public class AWSControler {
     }
 
     @PostMapping(EndPoints.SUBIR_IMAGEN)
-    public ResponseEntity<JSONObject> uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("carpeta") String nombreFiesta) {
-        return s3Service.subirImagen(file, nombreFiesta);
+    public ResponseEntity<JSONObject> uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("carpeta") String nombreFiesta, @RequestParam(value = "usuario") String usuario) {
+        return s3Service.subirImagen(file, nombreFiesta, usuario);
     }
 }

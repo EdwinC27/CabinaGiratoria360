@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import net.minidev.json.JSONObject;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -38,7 +39,7 @@ public class S3Service {
     @Value("${aws.bucketName}")
     String bucketName;
 
-    public ResponseEntity<JSONObject> listFiles(String nombreFiesta) {
+    public ResponseEntity<JSONObject> listFiles(String nombreFiesta, String carpetaUsuario) {
         // Existe la carpeta
         if(validaciones.folderExists(nombreFiesta)) {
             JSONObject errorResponse = new JSONObject();
@@ -57,10 +58,12 @@ public class S3Service {
         */
 
         String prefix = nombreFiesta + "/";
+        String carpeta = carpetaUsuario.endsWith("/") ? carpetaUsuario : carpetaUsuario + "/" + prefix;
 
         ListObjectsV2Request request = new ListObjectsV2Request()
                 .withBucketName(bucketName)
-                .withPrefix(prefix);
+                .withPrefix(carpeta)
+                .withDelimiter("/");
 
         ListObjectsV2Result response = amazonS3.listObjectsV2(request);
 
@@ -130,7 +133,7 @@ public class S3Service {
     }
 
 
-    public ResponseEntity<JSONObject> createFolder(String folderName, String fileName) {
+    public ResponseEntity<JSONObject> createFolder(String folderName, String fileName, String carpetaUsuario) {
         // Existe la carpeta
         if(validaciones.folderExists(folderName)) {
             JSONObject errorResponse = new JSONObject();
@@ -138,7 +141,7 @@ public class S3Service {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         }
 
-        String folderKey = folderName + "/"; // Agrega "/" al final para indicar que es una carpeta
+        String folderKey = carpetaUsuario + "/" + folderName + "/"; // Agrega la ruta completa de la carpeta
 
         // Contenido vacío para crear la carpeta
         byte[] content = new byte[0];
@@ -159,7 +162,7 @@ public class S3Service {
         }
     }
 
-    public ResponseEntity<JSONObject> subirImagen(MultipartFile file, String folderName) {
+    public ResponseEntity<JSONObject> subirImagen(MultipartFile file, String folderName, String carpetaUsuario) {
         try {
             if (!validaciones.fileIsImage(file)) {
                 JSONObject errorResponse = new JSONObject();
@@ -172,7 +175,7 @@ public class S3Service {
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentType(file.getContentType());
 
-            String folderKey = folderName + "/"; // Agrega "/" al final para indicar que es una carpeta
+            String folderKey = carpetaUsuario + "/" + folderName + "/"; // Agrega la ruta completa de la carpeta
 
             // Subir la imagen a Amazon S3
             amazonS3.putObject(new PutObjectRequest(bucketName, folderKey + file.getOriginalFilename(), file.getInputStream(), metadata));
@@ -187,7 +190,7 @@ public class S3Service {
         }
     }
 
-    public ResponseEntity<JSONObject> deleteFolder(String folderName) {
+    public ResponseEntity<JSONObject> deleteFolder(String folderName, String carpetaUsuario) {
         // Existe la carpeta
         if(validaciones.folderExists(folderName)) {
             JSONObject errorResponse = new JSONObject();
@@ -195,7 +198,7 @@ public class S3Service {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         }
 
-        String folderKey = folderName + "/"; // Agrega "/" al final para indicar que es una carpeta
+        String folderKey = carpetaUsuario + "/" + folderName + "/"; // Ruta completa de la carpeta a eliminar
 
         // Obtener la lista de objetos en la carpeta
         ListObjectsV2Request request = new ListObjectsV2Request()
@@ -249,19 +252,23 @@ public class S3Service {
         return (dotIndex > 0 && dotIndex < fileName.length() - 1);
     }
 
-    public ResponseEntity<JSONObject> listFolder() {
+    public ResponseEntity<JSONObject> listFolder(String carpetaUsuario) {
+        String carpeta = carpetaUsuario.endsWith("/") ? carpetaUsuario : carpetaUsuario + "/";
+
         ListObjectsV2Request request = new ListObjectsV2Request()
                 .withBucketName(bucketName)
+                .withPrefix(carpeta)
                 .withDelimiter("/");
 
         ListObjectsV2Result response = amazonS3.listObjectsV2(request);
 
         JSONObject listOfFolders = new JSONObject();
         for (String commonPrefix : response.getCommonPrefixes()) {
-            String folderName = commonPrefix.substring(0, commonPrefix.length() - 1); // Eliminar la barra diagonal al final
+            String folderName = commonPrefix.substring(carpeta.length(), commonPrefix.length() - 1);
 
-            if (folderName != "") {
-                listOfFolders.put(folderName, "carpeta"); // Generar la URL de la carpeta
+            if (!folderName.isEmpty()) {
+                String displayFolderName = folderName.substring(folderName.lastIndexOf("/") + 1);
+                listOfFolders.put(displayFolderName, "carpeta"); // Generar la URL de la carpeta
             }
         }
 
