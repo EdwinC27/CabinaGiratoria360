@@ -99,11 +99,15 @@ public class S3Service {
     }
 
     private String obtenerParteDerechaSinUltimos4(String texto) {
-        int posicionDiagonal = texto.indexOf("/");
-        if (posicionDiagonal >= 0 && posicionDiagonal < texto.length() - 1) {
-            String parteDerecha = texto.substring(posicionDiagonal + 1);
-            return parteDerecha.substring(0, parteDerecha.length() - 4);
+        // Quitar la extensión ".txt"
+        if (texto.endsWith(".txt")) {
+            texto = texto.substring(0, texto.length() - 4);
         }
+
+        // Eliminar la primera parte de la ruta
+        String[] segments = texto.split("/");
+        texto = segments[segments.length - 1];
+
         return texto;
     }
 
