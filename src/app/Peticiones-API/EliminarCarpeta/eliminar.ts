@@ -8,8 +8,12 @@ import { environment } from 'src/environments/environmet';
   providedIn: 'root'
 })
 export class PeticionEliminarCarpeta {
-  constructor(private http: HttpClient) { }
+  currentUser: string | null = "";
 
+  constructor(private http: HttpClient) {
+    this.currentUser = localStorage.getItem('currentUser');
+  }
+  
   urlBase = environment.APIUrlBase;
   urlEliminar = environment.APIUrlEliminarCarpeta
   urlComplit = this.urlBase + this.urlEliminar
@@ -17,6 +21,7 @@ export class PeticionEliminarCarpeta {
 
   getEliminarFiesta(nombreFiesta: string): Observable<string> {
     this.url = this.urlComplit + nombreFiesta;
+    this.url = this.urlComplit + nombreFiesta + "&" + environment.APIusuarios + this.currentUser;
 
     return this.http.get<any>(this.url).pipe(
       map((response) => {

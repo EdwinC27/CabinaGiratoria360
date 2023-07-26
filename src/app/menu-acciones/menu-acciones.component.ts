@@ -117,7 +117,7 @@ export class MenuAccionesComponent implements OnInit {
             this.showImage = false;
 
             this.router.navigate(['/acceder']);
-          }, 6000);
+          }, 7000);
 
         }, (error) => {
           this.mensajeEliminacion = error;

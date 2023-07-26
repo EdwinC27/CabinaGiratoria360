@@ -9,7 +9,11 @@ import { FraseService } from 'src/app/Frase/frase.service';
   providedIn: 'root'
 })
 export class PeticionCrearCarpeta {
-  constructor(private http: HttpClient, private fraseService: FraseService) { }
+  currentUser: string | null = "";
+
+  constructor(private http: HttpClient) {
+    this.currentUser = localStorage.getItem('currentUser');
+  }
 
   urlBase = environment.APIUrlBase;
   urlCrear = environment.APIUrlCrearCarpeta;
@@ -20,7 +24,7 @@ export class PeticionCrearCarpeta {
     console.log(frase)
     if(frase == "") frase = "www.rockolasguadalajara.com"
 
-    this.url = this.urlComplit + nombreFiesta + "&archivo=" + frase;
+    this.url = this.urlComplit + nombreFiesta + "&archivo=" + frase + "&" + environment.APIusuarios + this.currentUser;;
 
     return this.http.get<any>(this.url).pipe(
       map((response) => {

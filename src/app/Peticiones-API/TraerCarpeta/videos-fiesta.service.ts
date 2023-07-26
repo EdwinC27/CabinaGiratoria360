@@ -7,7 +7,11 @@ import { environment } from 'src/environments/environmet';
   providedIn: 'root'
 })
 export class MostrarVideosService {
-  constructor(private http: HttpClient) { }
+  currentUser: string | null = "";
+
+  constructor(private http: HttpClient) {
+    this.currentUser = localStorage.getItem('currentUser');
+  }
 
   respuesta: any;
   urlBase = environment.APIUrlBase;
@@ -15,7 +19,7 @@ export class MostrarVideosService {
   urlFinal = this.urlBase + this.urlTraer;
 
   getPeticionVideos(nombreFiesta: string) {
-    const url = this.urlFinal + nombreFiesta;
+    const url = this.urlFinal + nombreFiesta + "&" + environment.APIusuarios + this.currentUser;;
     return this.http.get(url);
   }
 

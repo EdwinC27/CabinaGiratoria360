@@ -3,10 +3,11 @@ export const environment = {
   APIUrlEliminarCarpeta: "carpeta/eliminar?carpeta=",
   APIUrlCrearCarpeta: "carpeta/crear?carpeta=",
   APIUrlTraerVideo: "videos?fiesta=",
-  APIUrlTraerCarpetas: "carpeta",
+  APIUrlTraerCarpetas: "carpeta/",
   APIUrlEliminarArchivos: "archivos/eliminar",
   APIUrlAgregarImagen: "upload?carpeta=",
   APIUrlTraerUsuiarios: "users?user=",
+  APIusuarios: "usuario=",
 
 
   URLPaginaPublica:

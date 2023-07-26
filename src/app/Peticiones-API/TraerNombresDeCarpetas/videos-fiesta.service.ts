@@ -7,14 +7,20 @@ import { environment } from 'src/environments/environmet';
   providedIn: 'root'
 })
 export class MostrarCarpetasService {
-  constructor(private http: HttpClient) { }
+  currentUser: string | null = "";
+
+  constructor(private http: HttpClient) {
+    this.currentUser = localStorage.getItem('currentUser');
+  }
 
   respuesta: any;
   urlBase = environment.APIUrlBase;
   urlTraer = environment.APIUrlTraerCarpetas;
-  urlFinal = this.urlBase + this.urlTraer;
+  urlFinal = "" ;
 
   getMostrarCarpetas(): Observable<string[]> {
+    this.urlFinal = this.urlBase + this.urlTraer + "?" + environment.APIusuarios + this.currentUser;
+
     return this.http.get<any>(this.urlFinal).pipe(
       map((response) => {
         const carpetas = Object.keys(response);

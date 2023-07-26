@@ -14,6 +14,7 @@ const routes: Routes = [
   {
     path: "menu",
     component: MenuAccionesComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: "eliminar",
