@@ -84,10 +84,7 @@ export class AccederCarpetaComponent implements OnInit {
   }
 
   generateQRCode(): void {
-    const nombreFiestaEncriptado = this.encryptValue(this.textnombreFiesta);
-    const nombreUsuarioEncriptado = this.encryptValue(this.currentUser);
-
-    const qrCodeData = environment.URLPaginaPublica + nombreFiestaEncriptado + environment.URLPaginaPublicaUsuario + nombreUsuarioEncriptado;
+    const qrCodeData = environment.URLPaginaPublica + this.textnombreFiesta + environment.URLPaginaPublicaUsuario + this.currentUser;
 
     QRCode.toDataURL(qrCodeData, (error, url) => {
       if (error) {
