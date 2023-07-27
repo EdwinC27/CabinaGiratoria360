@@ -37,7 +37,7 @@ export class EliminarCarpetaComponent implements OnInit {
       if (this.responseData == "Carpeta eliminada correctamente") {
         this.showImage = false;
 
-        this.showPopup("Evento eliminado correctamente");
+        this.showPopup("Evento eliminado correctamente, redireccionando ....");
 
         this.mensajeEliminacion = "Evento eliminado correctamente";
         this.cdr.detectChanges(); // Detectar cambios para actualizar el HTML
