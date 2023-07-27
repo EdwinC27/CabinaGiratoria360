@@ -9,6 +9,6 @@ export const environment = {
   APIUrlTraerUsuiarios: "users?user=",
   APIusuarios: "usuario=",
 
-
-  URLPaginaPublica:
+  URLPaginaPublicaUsuario: "/usuario/",
+  URLPaginaPublica: ""
 }
