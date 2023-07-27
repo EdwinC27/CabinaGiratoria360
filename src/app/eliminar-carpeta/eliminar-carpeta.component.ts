@@ -44,7 +44,7 @@ export class EliminarCarpetaComponent implements OnInit {
 
         setTimeout(() => {
           this.regresar()
-        }, 3500);
+        }, 2000);
       }
     }, (error) => {
       this.showPopup(error);
@@ -76,7 +76,7 @@ export class EliminarCarpetaComponent implements OnInit {
 
     setTimeout(() => {
       this.hidePopup(popupContainer);
-    }, 3000);
+    }, 2000);
   }
 
   hidePopup(popupContainer: any) {
