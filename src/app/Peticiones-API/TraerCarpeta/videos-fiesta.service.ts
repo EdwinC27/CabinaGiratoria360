@@ -9,7 +9,7 @@ import { AES, enc } from 'crypto-js';
 })
 export class MostrarVideosService {
   secretKey = environment.ClaveDeCifrado;
-  
+
   constructor(private http: HttpClient) { }
 
   respuesta: any;
@@ -18,10 +18,7 @@ export class MostrarVideosService {
   urlFinal = this.urlBase + this.urlTraer;
 
   getPeticionVideos(nombreFiesta: string, currentUser: any) {
-    const nombreFiestaDesemcriptado = this.decryptValue(nombreFiesta);
-    const nombreUsuarioDesemcriptado = this.decryptValue(currentUser);
-
-    const url = this.urlFinal + nombreFiestaDesemcriptado + "&" + environment.APIusuarios + nombreUsuarioDesemcriptado;;
+    const url = this.urlFinal + nombreFiesta + "&" + environment.APIusuarios + currentUser;
     return this.http.get(url);
   }
 
