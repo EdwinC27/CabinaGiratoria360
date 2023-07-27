@@ -8,19 +8,15 @@ import { environment } from 'src/environments/environmet';
   providedIn: 'root'
 })
 export class PeticionAddImagen {
-  currentUser: string | null = "";
-
-  constructor(private http: HttpClient) {
-    this.currentUser = localStorage.getItem('currentUser');
-  }
+  constructor(private http: HttpClient) { }
 
   urlBase = environment.APIUrlBase;
   urlimagne = environment.APIUrlAgregarImagen;
   urlComplit = this.urlBase + this.urlimagne;
   url = "";
 
-  addImagen(formData: FormData, nombreFiesta: string) {
-    this.url =  this.urlComplit + nombreFiesta + "&" + environment.APIusuarios + this.currentUser;
+  addImagen(formData: FormData, nombreFiesta: string, currentUser: any) {
+    this.url =  this.urlComplit + nombreFiesta + "&" + environment.APIusuarios + currentUser;
     this.http.post(this.url, formData).subscribe(
         (response) => {
             console.log('Imagen subida con éxito');

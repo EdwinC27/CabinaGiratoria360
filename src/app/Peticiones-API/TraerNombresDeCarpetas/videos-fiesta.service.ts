@@ -7,19 +7,17 @@ import { environment } from 'src/environments/environmet';
   providedIn: 'root'
 })
 export class MostrarCarpetasService {
-  currentUser: string | null = "";
-
-  constructor(private http: HttpClient) {
-    this.currentUser = localStorage.getItem('currentUser');
-  }
+  constructor(private http: HttpClient) { }
 
   respuesta: any;
   urlBase = environment.APIUrlBase;
   urlTraer = environment.APIUrlTraerCarpetas;
   urlFinal = "" ;
 
-  getMostrarCarpetas(): Observable<string[]> {
-    this.urlFinal = this.urlBase + this.urlTraer + "?" + environment.APIusuarios + this.currentUser;
+  getMostrarCarpetas(currentUser: any): Observable<string[]> {
+    this.urlFinal = this.urlBase + this.urlTraer + "?" + environment.APIusuarios + currentUser;
+
+    console.log(this.urlFinal)
 
     return this.http.get<any>(this.urlFinal).pipe(
       map((response) => {

@@ -20,7 +20,7 @@ export class EliminarCarpetaComponent implements OnInit {
   currentUser: string | null;
 
   constructor(private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarCarpeta: PeticionEliminarCarpeta, private cdr: ChangeDetectorRef,  private renderer: Renderer2) {
-    this.currentUser = localStorage.getItem('currentUser');
+    this.currentUser = sessionStorage.getItem('currentUser');
    }
 
   ngOnInit(): void {
@@ -32,7 +32,7 @@ export class EliminarCarpetaComponent implements OnInit {
   eliminar() {
     this.showImage = true;
 
-    this.peticionEliminarCarpeta.getEliminarFiesta(this.textnombreFiesta).subscribe((message) => {
+    this.peticionEliminarCarpeta.getEliminarFiesta(this.textnombreFiesta, this.currentUser).subscribe((message) => {
       this.responseData = message;
       if (this.responseData == "Carpeta eliminada correctamente") {
         this.showImage = false;

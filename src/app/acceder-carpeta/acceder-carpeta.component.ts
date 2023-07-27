@@ -30,7 +30,7 @@ export class AccederCarpetaComponent implements OnInit{
   currentUser: string | null;
 
   constructor (private nombreFiesta: NombreFiestaService, private fileService: FileService, private mostrarVideosService: MostrarVideosService, private cdr: ChangeDetectorRef, private router: Router) {
-    this.currentUser = localStorage.getItem('currentUser');
+    this.currentUser = sessionStorage.getItem('currentUser');
   }
 
   showNextVideo() {
@@ -57,7 +57,7 @@ export class AccederCarpetaComponent implements OnInit{
   }
 
   peticion(): void {
-    this.mostrarVideosService.getInfo(this.textnombreFiesta).subscribe(
+    this.mostrarVideosService.getInfo(this.textnombreFiesta, this.currentUser).subscribe(
       () => {
         this.url = this.mostrarVideosService.respuesta;
         this.mostrarVideos();

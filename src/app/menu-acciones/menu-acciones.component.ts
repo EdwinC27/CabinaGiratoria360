@@ -44,7 +44,7 @@ export class MenuAccionesComponent implements OnInit {
   currentUser: string | null;
 
   constructor(private fraseService: FraseService, private fileService: FileService, private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarArchivos: PeticionEliminarArchivos, private mostrarCarpetasService: MostrarCarpetasService, private cdr: ChangeDetectorRef, private renderer: Renderer2, private http: HttpClient, private peticionAddImagen: PeticionAddImagen, private peticionCrearCarpeta: PeticionCrearCarpeta) {
-    this.currentUser = localStorage.getItem('currentUser');
+    this.currentUser = sessionStorage.getItem('currentUser');
   }
 
   async seleccionarArchivo(event: any) {
@@ -83,7 +83,7 @@ export class MenuAccionesComponent implements OnInit {
 
     this.eliminarCache();
 
-    this.mostrarCarpetasService.getMostrarCarpetas().subscribe((carpeta) => {
+    this.mostrarCarpetasService.getMostrarCarpetas(this.currentUser).subscribe((carpeta) => {
       this.carpetas = carpeta;
     }, (error) => {
       this.showPopup(error);
@@ -107,9 +107,9 @@ export class MenuAccionesComponent implements OnInit {
 
         this.fraseService.establecerFraseCompartida(this.inputMensage)
         this.nombreFiesta.establecerNombreFiesta(this.inputText)
-        this.peticionAddImagen.addImagen(formData, this.nombreFiesta.obtenerNombreFiesta());
+        this.peticionAddImagen.addImagen(formData, this.nombreFiesta.obtenerNombreFiesta(), this.currentUser);
 
-        this.peticionCrearCarpeta.getCrearFiesta(this.nombreFiesta.obtenerNombreFiesta(), this.fraseService.obtenerFraseCompartida()).subscribe((message) => {
+        this.peticionCrearCarpeta.getCrearFiesta(this.nombreFiesta.obtenerNombreFiesta(), this.fraseService.obtenerFraseCompartida(), this.currentUser).subscribe((message) => {
           this.responseData = message;
 
           this.showImage = true;

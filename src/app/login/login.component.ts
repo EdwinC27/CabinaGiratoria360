@@ -20,15 +20,19 @@ export class LoginComponent implements OnInit {
   isAuthenticated: boolean = false;
 
   ngOnInit(): void {
-    localStorage.clear()
+    sessionStorage.clear()
   }
 
   onSubmit(username: string, password: string) {
     this.authService.login(username, password).subscribe((isAuthenticated: boolean) => {
-      if (isAuthenticated) {
-        localStorage.setItem('currentUser', username);
+      if (isAuthenticated && username) {
+        sessionStorage.setItem('currentUser', username);
+
         this.router.navigate(['/menu']);
+
       } else {
+        sessionStorage.removeItem('currentUser');
+
         this.credencialesErronias = true;
         this.user = "";
         this.contrasena = "";

@@ -7,24 +7,20 @@ import { environment } from 'src/environments/environmet';
   providedIn: 'root'
 })
 export class MostrarVideosService {
-  currentUser: string | null = "";
-
-  constructor(private http: HttpClient) {
-    this.currentUser = localStorage.getItem('currentUser');
-  }
+  constructor(private http: HttpClient) { }
 
   respuesta: any;
   urlBase = environment.APIUrlBase;
   urlTraer = environment.APIUrlTraerVideo;
   urlFinal = this.urlBase + this.urlTraer;
 
-  getPeticionVideos(nombreFiesta: string) {
-    const url = this.urlFinal + nombreFiesta + "&" + environment.APIusuarios + this.currentUser;;
+  getPeticionVideos(nombreFiesta: string, currentUser: any) {
+    const url = this.urlFinal + nombreFiesta + "&" + environment.APIusuarios + currentUser;;
     return this.http.get(url);
   }
 
-  getInfo(nombreFiesta: string) {
-    return this.getPeticionVideos(nombreFiesta).pipe(
+  getInfo(nombreFiesta: string, currentUser: any) {
+    return this.getPeticionVideos(nombreFiesta, currentUser).pipe(
       map((response) => {
         this.respuesta = response;
 

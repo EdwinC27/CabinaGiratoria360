@@ -11,17 +11,17 @@ export class PeticionEliminarCarpeta {
   currentUser: string | null = "";
 
   constructor(private http: HttpClient) {
-    this.currentUser = localStorage.getItem('currentUser');
+    this.currentUser = sessionStorage.getItem('currentUser');
   }
-  
+
   urlBase = environment.APIUrlBase;
   urlEliminar = environment.APIUrlEliminarCarpeta
   urlComplit = this.urlBase + this.urlEliminar
   url = "";
 
-  getEliminarFiesta(nombreFiesta: string): Observable<string> {
+  getEliminarFiesta(nombreFiesta: string, currentUser: any): Observable<string> {
     this.url = this.urlComplit + nombreFiesta;
-    this.url = this.urlComplit + nombreFiesta + "&" + environment.APIusuarios + this.currentUser;
+    this.url = this.urlComplit + nombreFiesta + "&" + environment.APIusuarios + currentUser;
 
     return this.http.get<any>(this.url).pipe(
       map((response) => {

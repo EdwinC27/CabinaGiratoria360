@@ -9,22 +9,18 @@ import { FraseService } from 'src/app/Frase/frase.service';
   providedIn: 'root'
 })
 export class PeticionCrearCarpeta {
-  currentUser: string | null = "";
-
-  constructor(private http: HttpClient) {
-    this.currentUser = localStorage.getItem('currentUser');
-  }
+  constructor(private http: HttpClient) { }
 
   urlBase = environment.APIUrlBase;
   urlCrear = environment.APIUrlCrearCarpeta;
   urlComplit = this.urlBase + this.urlCrear;
   url = "";
 
-  getCrearFiesta(nombreFiesta: string, frase: string): Observable<string> {
+  getCrearFiesta(nombreFiesta: string, frase: string, currentUser: any): Observable<string> {
     console.log(frase)
     if(frase == "") frase = "www.rockolasguadalajara.com"
 
-    this.url = this.urlComplit + nombreFiesta + "&archivo=" + frase + "&" + environment.APIusuarios + this.currentUser;;
+    this.url = this.urlComplit + nombreFiesta + "&archivo=" + frase + "&" + environment.APIusuarios +  currentUser;;
 
     return this.http.get<any>(this.url).pipe(
       map((response) => {
