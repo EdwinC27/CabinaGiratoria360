@@ -14,13 +14,13 @@ export class MostrarVideosService {
   urlTraer = environment.APIUrlTraerVideo;
   urlFinal = this.urlBase + this.urlTraer;
 
-  getPeticionVideos(nombreFiesta: string) {
-    const url = this.urlFinal + nombreFiesta;
+  getPeticionVideos(nombreFiesta: string, currentUser: any) {
+    const url = this.urlFinal + nombreFiesta + "&" + environment.APIusuarios + currentUser;;
     return this.http.get(url);
   }
 
-  getInfo(nombreFiesta: string) {
-    return this.getPeticionVideos(nombreFiesta).pipe(
+  getInfo(nombreFiesta: string, currentUser: any) {
+    return this.getPeticionVideos(nombreFiesta, currentUser).pipe(
       map((response) => {
         this.respuesta = response;
 

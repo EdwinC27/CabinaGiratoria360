@@ -17,16 +17,20 @@ export class AccederCarpetaComponent implements OnInit {
   currentPage = 1;
   videosPerPage = 5;
 
+  usuario: any;
+
   constructor(private mostrarVideosService: MostrarVideosService, private router: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.evento = this.router.snapshot.paramMap.get("evento");
+    this.usuario = this.router.snapshot.paramMap.get("usuario");
+
     this.updateVideosAndPagination();
     this.interval = setInterval(() => this.updateVideosAndPagination(), 180000); // 180,000 ms = 3 minuto
   }
 
   updateVideosAndPagination(): void {
-    this.mostrarVideosService.getInfo(this.evento).subscribe(
+    this.mostrarVideosService.getInfo(this.evento, this.usuario).subscribe(
       () => {
         this.url = this.mostrarVideosService.respuesta;
         this.videoUrls = Object.values(this.url.videos).map((video: any) => Object.values(video)[0]);

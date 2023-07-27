@@ -4,7 +4,7 @@ import { AccederCarpetaComponent } from './acceder-carpeta/acceder-carpeta.compo
 
 const routes: Routes = [
   {
-    path: "evento/:evento",
+    path: "evento/:evento/usuario/:usuario",
     component: AccederCarpetaComponent
   }
 ];
