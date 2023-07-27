@@ -6,13 +6,16 @@ import { MostrarVideosService } from '../Peticiones-API/TraerCarpeta/videos-fies
 
 import * as QRCode from 'qrcode';
 import { Router } from '@angular/router';
+import { AES, enc } from 'crypto-js';
 
 @Component({
   selector: 'app-acceder-carpeta',
   templateUrl: './acceder-carpeta.component.html',
   styleUrls: ['./acceder-carpeta.component.css']
 })
-export class AccederCarpetaComponent implements OnInit{
+export class AccederCarpetaComponent implements OnInit {
+  secretKey = environment.ClaveDeCifrado;
+
   frase: string = " ";
   logo: any;
   qrCodeImage: string | undefined;
@@ -27,7 +30,7 @@ export class AccederCarpetaComponent implements OnInit{
 
   videoActual: number = 0;
 
-  currentUser: string | null;
+  currentUser: any = " ";
 
   constructor (private nombreFiesta: NombreFiestaService, private fileService: FileService, private mostrarVideosService: MostrarVideosService, private cdr: ChangeDetectorRef, private router: Router) {
     this.currentUser = sessionStorage.getItem('currentUser');
@@ -81,7 +84,10 @@ export class AccederCarpetaComponent implements OnInit{
   }
 
   generateQRCode(): void {
-    const qrCodeData = environment.URLPaginaPublica + this.textnombreFiesta + environment.URLPaginaPublicaUsuario + this.currentUser;
+    const nombreFiestaEncriptado = this.encryptValue(this.textnombreFiesta);
+    const nombreUsuarioEncriptado = this.encryptValue(this.currentUser);
+
+    const qrCodeData = environment.URLPaginaPublica + nombreFiestaEncriptado + environment.URLPaginaPublicaUsuario + nombreUsuarioEncriptado;
 
     QRCode.toDataURL(qrCodeData, (error, url) => {
       if (error) {
@@ -94,5 +100,10 @@ export class AccederCarpetaComponent implements OnInit{
 
   setActiveIndex(indice: number): void {
     this.videoActual = indice;
+  }
+
+  encryptValue(value: string): string {
+    const encryptedValue = AES.encrypt(value, this.secretKey).toString();
+    return encryptedValue;
   }
 }

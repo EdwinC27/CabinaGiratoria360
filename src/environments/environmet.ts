@@ -10,5 +10,7 @@ export const environment = {
   APIusuarios: "usuario=",
 
   URLPaginaPublicaUsuario: "/usuario/",
-  URLPaginaPublica: "http://cabina-giratoria-360-publico-benjamin.s3-website.us-east-2.amazonaws.com/#/evento/"
+  URLPaginaPublica: "http://cabina-giratoria-360-publico-benjamin.s3-website.us-east-2.amazonaws.com/#/evento/",
+
+  ClaveDeCifrado: ""
 }

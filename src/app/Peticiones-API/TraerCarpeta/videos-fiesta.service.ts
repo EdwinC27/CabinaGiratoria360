@@ -8,8 +8,6 @@ import { AES, enc } from 'crypto-js';
   providedIn: 'root'
 })
 export class MostrarVideosService {
-  secretKey = 'my-secret-key';
-
   constructor(private http: HttpClient) { }
 
   respuesta: any;
@@ -18,10 +16,8 @@ export class MostrarVideosService {
   urlFinal = this.urlBase + this.urlTraer;
 
   getPeticionVideos(nombreFiesta: string, currentUser: any) {
-    const nombreFiestaEncriptado = this.encryptValue(nombreFiesta);
-    const nombreUsuarioEncriptado = this.encryptValue(currentUser);
 
-    const url = this.urlFinal + nombreFiestaEncriptado + "&" + environment.APIusuarios + nombreUsuarioEncriptado;;
+    const url = this.urlFinal + nombreFiesta + "&" + environment.APIusuarios + currentUser;;
     return this.http.get(url);
   }
 
@@ -37,9 +33,5 @@ export class MostrarVideosService {
     );
   }
 
-  encryptValue(value: string): string {
-    const encryptedValue = AES.encrypt(value, this.secretKey).toString();
-    return encryptedValue;
-  }
 }
 
