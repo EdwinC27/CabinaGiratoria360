@@ -8,8 +8,8 @@ import { AES, enc } from 'crypto-js';
   providedIn: 'root'
 })
 export class MostrarVideosService {
-  secretKey = 'n%bd3432234skfhg34weirg27r239734';
-
+  secretKey = environment.ClaveDeCifrado;
+  
   constructor(private http: HttpClient) { }
 
   respuesta: any;
