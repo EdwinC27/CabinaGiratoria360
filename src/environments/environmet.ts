@@ -1,5 +1,5 @@
 export const environment = {
-  APIUrlBase: ,
+  APIUrlBase: "http://3.136.19.3:8080/api/",
   APIUrlEliminarCarpeta: "carpeta/eliminar?carpeta=",
   APIUrlCrearCarpeta: "carpeta/crear?carpeta=",
   APIUrlTraerVideo: "videos?fiesta=",
@@ -10,5 +10,5 @@ export const environment = {
   APIusuarios: "usuario=",
 
   URLPaginaPublicaUsuario: "/usuario/",
-  URLPaginaPublica: ""
+  URLPaginaPublica: "http://cabina-giratoria-360-publico-benjamin.s3-website.us-east-2.amazonaws.com/#/evento/"
 }
