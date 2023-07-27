@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs';
 import { environment } from 'src/environments/environmet';
+import { AES, enc } from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MostrarVideosService {
+  secretKey = 'n%bd3432234skfhg34weirg27r239734';
+
   constructor(private http: HttpClient) { }
 
   respuesta: any;
@@ -15,7 +18,10 @@ export class MostrarVideosService {
   urlFinal = this.urlBase + this.urlTraer;
 
   getPeticionVideos(nombreFiesta: string, currentUser: any) {
-    const url = this.urlFinal + nombreFiesta + "&" + environment.APIusuarios + currentUser;;
+    const nombreFiestaDesemcriptado = this.decryptValue(nombreFiesta);
+    const nombreUsuarioDesemcriptado = this.decryptValue(currentUser);
+
+    const url = this.urlFinal + nombreFiestaDesemcriptado + "&" + environment.APIusuarios + nombreUsuarioDesemcriptado;;
     return this.http.get(url);
   }
 
@@ -30,6 +36,11 @@ export class MostrarVideosService {
         throw new Error('La carpeta no existe');
       })
     );
+  }
+
+  decryptValue(encryptedValue: string): string {
+    const decryptedValue = AES.decrypt(encryptedValue, this.secretKey).toString(enc.Utf8);
+    return decryptedValue;
   }
 }
 
