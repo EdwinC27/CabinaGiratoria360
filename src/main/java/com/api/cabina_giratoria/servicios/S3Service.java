@@ -4,17 +4,16 @@ import com.amazonaws.services.s3.model.*;
 import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3;
 
+import com.amazonaws.util.IOUtils;
 import net.minidev.json.JSONArray;
 
-import org.apache.commons.codec.binary.Base64;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 
 import net.minidev.json.JSONObject;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -22,10 +21,9 @@ import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.io.ByteArrayInputStream;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 @Service
 public class S3Service {
@@ -41,7 +39,7 @@ public class S3Service {
 
     public ResponseEntity<JSONObject> listFiles(String nombreFiesta, String carpetaUsuario) {
         // Existe la carpeta
-        if(validaciones.folderExists(nombreFiesta)) {
+        if (validaciones.folderExists(nombreFiesta)) {
             JSONObject errorResponse = new JSONObject();
             errorResponse.put("Error", "La carpeta no existe");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
@@ -51,7 +49,7 @@ public class S3Service {
         JSONObject responseJson = new JSONObject();
 
         /*
-        if(!validaciones.isConvertibleToInt(numeroFiesta)) {
+        if (!validaciones.isConvertibleToInt(numeroFiesta)) {
             listOfFiles.put("Error", "Elemento ingresado no es un numero");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(listOfFiles);
         }
@@ -139,7 +137,7 @@ public class S3Service {
 
     public ResponseEntity<JSONObject> createFolder(String folderName, String fileName, String carpetaUsuario) {
         // Existe la carpeta
-        if(validaciones.folderExists(folderName)) {
+        if (validaciones.folderExists(folderName)) {
             JSONObject errorResponse = new JSONObject();
             errorResponse.put("Error", "La carpeta ya existe");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
@@ -196,7 +194,7 @@ public class S3Service {
 
     public ResponseEntity<JSONObject> deleteFolder(String folderName, String carpetaUsuario) {
         // Existe la carpeta
-        if(validaciones.folderExists(folderName)) {
+        if (validaciones.folderExists(folderName)) {
             JSONObject errorResponse = new JSONObject();
             errorResponse.put("Error", "La carpeta no existe");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
@@ -277,5 +275,70 @@ public class S3Service {
         }
 
         return ResponseEntity.ok(listOfFolders);
+    }
+
+    public ResponseEntity<byte[]> downloadFolder(String nombreFiesta, String carpetaUsuario) throws IOException {
+        // Obtener la lista de objetos dentro de la carpeta
+        ListObjectsV2Request request = new ListObjectsV2Request()
+                .withBucketName(bucketName)
+                .withPrefix(carpetaUsuario + "/" + nombreFiesta + "/");
+        ListObjectsV2Result response = amazonS3.listObjectsV2(request);
+        List<S3ObjectSummary> objectSummaries = response.getObjectSummaries();
+
+        // Crear una carpeta temporal para almacenar los archivos descargados
+        File tempFolder = new File(System.getProperty("java.io.tmpdir"), carpetaUsuario + "_" + nombreFiesta);
+        tempFolder.mkdirs();
+
+        // Descargar cada archivo dentro de la carpeta
+        for (S3ObjectSummary s3Object : objectSummaries) {
+            String fileKey = s3Object.getKey();
+            String fileName = fileKey.substring(fileKey.lastIndexOf("/") + 1);
+            S3Object s3Object1 = amazonS3.getObject(bucketName, fileKey);
+
+            try (InputStream objectData = s3Object1.getObjectContent()) {
+                File outputFile = new File(tempFolder, fileName);
+                downloadObject(s3Object1, outputFile);
+            } catch (IOException e) {
+                // Manejar el error si la descarga falla
+                e.printStackTrace();
+                // Puedes decidir si deseas continuar descargando otros archivos o detener la descarga en caso de error.
+            }
+        }
+
+        // Comprimir los archivos descargados en un archivo zip
+        String zipFileName = tempFolder.getName() + ".zip";
+        File zipFile = new File(tempFolder.getParent(), zipFileName);
+        ZipUtils.zipDirectory(tempFolder, zipFile);
+
+        // Eliminar la carpeta temporal con los archivos descargados
+        FileUtils.deleteDirectory(tempFolder);
+
+        // Leer el archivo zip y convertirlo a un arreglo de bytes para enviar en la respuesta
+        try (InputStream inputStream = new FileInputStream(zipFile)) {
+            byte[] zipBytes = IOUtils.toByteArray(inputStream);
+
+            // Configurar las cabeceras de respuesta para que el navegador descargue el archivo zip
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            headers.setContentDisposition(ContentDisposition.builder("attachment").filename(zipFile.getName()).build());
+
+            // Devolver la respuesta con el archivo zip para que el usuario pueda descargarlo
+            return new ResponseEntity<>(zipBytes, headers, HttpStatus.OK);
+        } catch (IOException e) {
+            // Manejar el error si ocurre algún problema al leer o enviar el archivo zip
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    public void downloadObject(S3Object s3Object, File outputFile) throws IOException {
+        try (InputStream objectData = s3Object.getObjectContent();
+             OutputStream fileOutputStream = new FileOutputStream(outputFile)) {
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = objectData.read(buffer)) != -1) {
+                fileOutputStream.write(buffer, 0, bytesRead);
+            }
+        }
     }
 }

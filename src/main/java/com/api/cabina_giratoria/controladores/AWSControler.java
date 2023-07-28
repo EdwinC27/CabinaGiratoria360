@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 
 @RestController
 @RequestMapping(EndPoints.BASE)
@@ -62,5 +64,9 @@ public class AWSControler {
     @PostMapping(EndPoints.SUBIR_IMAGEN)
     public ResponseEntity<JSONObject> uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("carpeta") String nombreFiesta, @RequestParam(value = "usuario") String usuario) {
         return s3Service.subirImagen(file, nombreFiesta, usuario);
+    }
+    @GetMapping(EndPoints.DESCARGAR_CARPETAS)
+    public ResponseEntity<byte[]> downloadFolder (@RequestParam("carpeta") String nombreFiesta, @RequestParam(value = "usuario") String usuario) throws IOException {
+        return s3Service.downloadFolder(nombreFiesta, usuario);
     }
 }
