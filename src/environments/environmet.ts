@@ -8,6 +8,7 @@ export const environment = {
   APIUrlAgregarImagen: "upload?carpeta=",
   APIUrlTraerUsuiarios: "users?user=",
   APIusuarios: "usuario=",
+  APIUrlDescargarCarpeta: "carpeta/descargar",
 
   URLPaginaPublicaUsuario: "/usuario/",
   URLPaginaPublica: "http://cabina-giratoria-360-publico-benjamin.s3-website.us-east-2.amazonaws.com/#/evento/",
