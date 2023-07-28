@@ -5,9 +5,10 @@ import { Router } from '@angular/router';
 import { NombreFiestaService } from '../NombreFiesta/Nombre.Fiesta.Service';
 import { PeticionEliminarArchivos } from '../Peticiones-API/EliminarArchivos/eliminarArchivos';
 import { MostrarCarpetasService } from '../Peticiones-API/TraerNombresDeCarpetas/videos-fiesta.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { PeticionAddImagen } from '../Peticiones-API/SubirImagen/subirImagen';
 import { PeticionCrearCarpeta } from '../Peticiones-API/CrearCarpeta/crear';
+import { PeticionDescargarCarpeta } from '../Peticiones-API/DescargarCarpeta/descargarCarpeta';
 
 @Component({
   selector: 'app-menu-acciones',
@@ -43,7 +44,7 @@ export class MenuAccionesComponent implements OnInit {
 
   currentUser: string | null;
 
-  constructor(private fraseService: FraseService, private fileService: FileService, private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarArchivos: PeticionEliminarArchivos, private mostrarCarpetasService: MostrarCarpetasService, private cdr: ChangeDetectorRef, private renderer: Renderer2, private http: HttpClient, private peticionAddImagen: PeticionAddImagen, private peticionCrearCarpeta: PeticionCrearCarpeta) {
+  constructor(private fraseService: FraseService, private fileService: FileService, private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarArchivos: PeticionEliminarArchivos, private mostrarCarpetasService: MostrarCarpetasService, private cdr: ChangeDetectorRef, private renderer: Renderer2, private http: HttpClient, private peticionAddImagen: PeticionAddImagen, private peticionCrearCarpeta: PeticionCrearCarpeta, private peticionDescargarCarpeta: PeticionDescargarCarpeta) {
     this.currentUser = sessionStorage.getItem('currentUser');
   }
 
@@ -130,6 +131,11 @@ export class MenuAccionesComponent implements OnInit {
       this.nombreFiesta.establecerNombreFiesta(this.selectedOptionCarpeta)
       this.router.navigate(['/eliminar']);
     }
+
+    if (selectedOption === "Descargar evento") {
+      this.peticionDescargarCarpeta.onDownloadFolder(this.selectedOptionCarpeta, sessionStorage.getItem('currentUser'));
+    }
+
     /*
     if (selectedOption === "Limpiar cache") {
       this.showImage = true;
@@ -185,7 +191,7 @@ export class MenuAccionesComponent implements OnInit {
       return true;
     }
     if (
-      (this.selectedOption === 'Acceder a evento' || this.selectedOption === 'Eliminar evento') &&
+      (this.selectedOption === 'Acceder a evento' || this.selectedOption === 'Eliminar evento' || this.selectedOption === 'Descargar evento') &&
       this.selectedOptionCarpeta !== 'Seleccionar'
     ) {
       return false;
