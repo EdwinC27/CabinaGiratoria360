@@ -9,6 +9,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { PeticionAddImagen } from '../Peticiones-API/SubirImagen/subirImagen';
 import { PeticionCrearCarpeta } from '../Peticiones-API/CrearCarpeta/crear';
 import { PeticionDescargarCarpeta } from '../Peticiones-API/DescargarCarpeta/descargarCarpeta';
+import { TraerLogo } from '../Peticiones-API/TraerLogoUsuario/getLogo.service';
 
 @Component({
   selector: 'app-menu-acciones',
@@ -31,7 +32,7 @@ export class MenuAccionesComponent implements OnInit {
   responseCarpetas: any;
   carpetas: any;
 
-  logoRuta = "../../assets/img/logo.jpeg";
+  logoRuta = "";
 
   // mostrar cosas
   isPopupVisible: boolean = false;
@@ -44,7 +45,7 @@ export class MenuAccionesComponent implements OnInit {
 
   currentUser: string | null;
 
-  constructor(private fraseService: FraseService, private fileService: FileService, private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarArchivos: PeticionEliminarArchivos, private mostrarCarpetasService: MostrarCarpetasService, private cdr: ChangeDetectorRef, private renderer: Renderer2, private http: HttpClient, private peticionAddImagen: PeticionAddImagen, private peticionCrearCarpeta: PeticionCrearCarpeta, private peticionDescargarCarpeta: PeticionDescargarCarpeta) {
+  constructor(private fraseService: FraseService, private fileService: FileService, private nombreFiesta: NombreFiestaService, private router: Router, private peticionEliminarArchivos: PeticionEliminarArchivos, private mostrarCarpetasService: MostrarCarpetasService, private cdr: ChangeDetectorRef, private renderer: Renderer2, private http: HttpClient, private peticionAddImagen: PeticionAddImagen, private peticionCrearCarpeta: PeticionCrearCarpeta, private peticionDescargarCarpeta: PeticionDescargarCarpeta, private logo: TraerLogo) {
     this.currentUser = sessionStorage.getItem('currentUser');
   }
 
@@ -81,6 +82,15 @@ export class MenuAccionesComponent implements OnInit {
     if (this.currentUser == null) {
       this.router.navigate(['/login']);
     }
+
+    this.logo.getInfo(this.currentUser).subscribe(
+      () => {
+        this.logoRuta = this.logo.respuesta.logo;
+       },
+      (error) => {
+        console.log(error);
+      }
+    )
 
     this.eliminarCache();
 
