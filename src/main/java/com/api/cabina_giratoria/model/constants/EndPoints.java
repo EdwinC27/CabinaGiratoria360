@@ -10,6 +10,7 @@ public class EndPoints {
     public static final String ELIMINAR_ARCHIVOS = "/archivos/eliminar";
     public static final String SUBIR_IMAGEN = "/upload";
     public static final String USERS = "/users";
+    public static final String LOGO = "/logo";
 
 
     private EndPoints() {

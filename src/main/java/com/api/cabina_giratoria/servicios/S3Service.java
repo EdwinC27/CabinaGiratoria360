@@ -5,6 +5,7 @@ import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3;
 
 import com.amazonaws.util.IOUtils;
+import com.api.cabina_giratoria.model.constants.EndPoints;
 import net.minidev.json.JSONArray;
 
 import org.apache.tomcat.util.http.fileupload.FileUtils;
@@ -14,6 +15,8 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 
 import net.minidev.json.JSONObject;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -36,6 +39,38 @@ public class S3Service {
 
     @Value("${aws.bucketName}")
     String bucketName;
+
+    public ResponseEntity<JSONObject> getLogo(@RequestParam(value = "usuario") String usuario) {
+        JSONObject responseJson = new JSONObject();
+
+        String prefix = usuario + "/";
+
+        ListObjectsV2Request request = new ListObjectsV2Request()
+                .withBucketName(bucketName)
+                .withPrefix(prefix);
+
+        ListObjectsV2Result response = amazonS3.listObjectsV2(request);
+
+        List<S3ObjectSummary> objectSummaries = response.getObjectSummaries();
+        objectSummaries.sort(Comparator.comparing(S3ObjectSummary::getLastModified).reversed());
+
+
+        for (S3ObjectSummary s3Object : objectSummaries) {
+            String fileKey = s3Object.getKey();
+            if (!fileKey.equals(prefix)) {
+                String fileExtension = obtenerExtension(fileKey);
+
+                if (fileExtension.equals(".jpeg") || fileExtension.equals(".png") || fileExtension.equals(".jpg") || fileExtension.equals(".git") || fileExtension.equals(".svg")) {
+                    String fileUrl = generatePreSignedUrl(bucketName, fileKey);  // Generar la URL prefirmada para el archivo
+
+                    responseJson.put("logo", fileUrl);
+                }
+            }
+        }
+
+        return ResponseEntity.ok(responseJson);
+    }
+
 
     public ResponseEntity<JSONObject> listFiles(String nombreFiesta, String carpetaUsuario) {
         // Existe la carpeta

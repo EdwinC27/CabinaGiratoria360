@@ -27,6 +27,19 @@ public class AWSControler {
         this.s3Service = s3Service;
     }
 
+    @GetMapping(EndPoints.LOGO)
+    public ResponseEntity<JSONObject> getLogoPrincipal(@RequestParam(value = "usuario") String usuario) {
+        ResponseEntity<JSONObject> respuestaVideos = s3Service.getLogo(usuario);
+
+        if (respuestaVideos.getBody().isEmpty()) {
+            JSONObject errorResponse = new JSONObject();
+            errorResponse.put("Error", "Carpeta Vacia");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+        }
+
+        return respuestaVideos;
+    }
+
     @GetMapping(EndPoints.VIDEOS)
     public ResponseEntity<JSONObject> getVideos(@RequestParam(value = "fiesta") String nombreFiesta, @RequestParam(value = "usuario") String usuario) {
         ResponseEntity<JSONObject> respuestaVideos = s3Service.listFiles(nombreFiesta, usuario);
