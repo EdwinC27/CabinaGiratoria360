@@ -264,17 +264,50 @@ public class S3Service {
 
         ListObjectsV2Result response = amazonS3.listObjectsV2(request);
 
-        JSONObject listOfFolders = new JSONObject();
         for (String commonPrefix : response.getCommonPrefixes()) {
             String folderName = commonPrefix.substring(carpeta.length(), commonPrefix.length() - 1);
 
             if (!folderName.isEmpty()) {
                 String displayFolderName = folderName.substring(folderName.lastIndexOf("/") + 1);
+
+                // Get the creation date of the folder directly from the object summary
+                S3ObjectSummary objectSummary = amazonS3.listObjects(bucketName, commonPrefix).getObjectSummaries().get(0);
+                Date creationDate = objectSummary.getLastModified();
+
+
+                // Check if the folder is older than 10 days and delete it
+                if (isFolderOlderThanTenDays(creationDate)) {
+                    deleteFolder(displayFolderName, carpetaUsuario);
+                }
+            }
+        }
+
+
+        ListObjectsV2Result response2 = amazonS3.listObjectsV2(request);
+        JSONObject listOfFolders = new JSONObject();
+
+        for (String commonPrefix : response2.getCommonPrefixes()) {
+            String folderName = commonPrefix.substring(carpeta.length(), commonPrefix.length() - 1);
+
+            if (!folderName.isEmpty()) {
+                String displayFolderName = folderName.substring(folderName.lastIndexOf("/") + 1);
+
                 listOfFolders.put(displayFolderName, "carpeta"); // Generar la URL de la carpeta
             }
         }
 
         return ResponseEntity.ok(listOfFolders);
+    }
+
+    private boolean isFolderOlderThanTenDays(Date creationDate) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(creationDate);
+        calendar.add(Calendar.DAY_OF_MONTH, 10); // Adding 10 days to the creation date
+
+        Date tenDaysAgo = calendar.getTime();
+        Date currentDate = new Date();
+
+        return currentDate.after(tenDaysAgo);
     }
 
     public ResponseEntity<byte[]> downloadFolder(String nombreFiesta, String carpetaUsuario) throws IOException {
