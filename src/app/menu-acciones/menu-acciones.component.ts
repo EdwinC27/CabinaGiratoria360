@@ -133,7 +133,21 @@ export class MenuAccionesComponent implements OnInit {
     }
 
     if (selectedOption === "Descargar evento") {
-      this.peticionDescargarCarpeta.onDownloadFolder(this.selectedOptionCarpeta, sessionStorage.getItem('currentUser'));
+      this.showImage = true;
+      this.peticionDescargarCarpeta.onDownloadFolder(this.selectedOptionCarpeta, sessionStorage.getItem('currentUser'))
+        .subscribe(
+          (response: any) => {
+            // Aquí puedes manejar la respuesta si es necesario
+          },
+          (error: any) => {
+            console.error('Error al descargar el archivo:', error);
+            this.showImage = false;
+            alert('Error al descargar el archivo');
+          },
+          () => {
+            this.showImage = false;
+          }
+        );
     }
 
     /*
