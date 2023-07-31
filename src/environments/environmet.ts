@@ -1,5 +1,5 @@
 export const environment = {
-  APIUrlBase: "http://localhost:8080/api/",
+  APIUrlBase: "http://3.136.19.3:8080/api/",
   APIUrlEliminarCarpeta: "carpeta/eliminar?carpeta=",
   APIUrlCrearCarpeta: "carpeta/crear?carpeta=",
   APIUrlTraerVideo: "videos?fiesta=",

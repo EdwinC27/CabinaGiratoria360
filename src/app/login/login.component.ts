@@ -12,6 +12,10 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router, private inicioSesionUser: InicioSesionUser) {}
 
+  correo: string = "mailto:edwin.a.castillo.27@gmail.com";
+  linkedin: string = "https://www.linkedin.com/in/edwin-alejandro-castillo-arroyo-276226243/";
+  rutaLogo: string = "../../assets/img/logo.png";
+
   credencialesErronias: boolean = false;
 
   user: string = "";

@@ -63,3 +63,79 @@ input[type="submit"]:disabled {
   margin-left: -2%;
 }
 
+/* Inicio de Contacto Index iconos */
+.buttons_iconos {
+  width: 700px;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.buttons_iconos a {
+  text-decoration: none;
+  font-size: 20px;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  background: #314652;
+  color: #f1f1f1;
+  border-radius: 50%;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
+  transition: all .4s ease-in-out;
+}
+
+.buttons_iconos a:hover {
+  transform: scale(1.2);
+}
+
+@media screen and (min-width: 1006px) {
+.buttons_iconos {
+      width: 60%;
+      margin-top: 100px;
+      margin-left: 20%;
+      margin-right: 20%;
+      margin-bottom: 130px;
+}
+}
+
+@media screen and (max-width: 1005px) {
+.buttons_iconos {
+      width: 100%;
+      margin-top: 110px;
+      margin-left: -25px;
+      margin-right: -25px;
+      margin-bottom: 70px;
+}
+}
+
+@media screen and (max-width: 745px) {
+.buttons_iconos {
+    height: 100px;
+      margin-top: 140px;
+}
+
+.acortar_icono_medio_one {
+    margin-left: 0px;
+    margin-right: 5px;
+}
+
+.acortar_icono_medio_two {
+    margin-left: 5px;
+    margin-right: 0px;
+}
+
+.acortar_icono_right {
+    margin-right: 0px;
+}
+
+.acortar_icono_left {
+    margin-left: 30px;
+}
+}
+/* Fin de Contacto Index iconos */
+
+.logoPrincipal {
+  width: 100%;
+  margin-bottom: 20px;
+}

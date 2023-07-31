@@ -1,5 +1,7 @@
 <section>
   <div class="form-container">
+    <img [src]="rutaLogo" alt="Logo Principal" class="logoPrincipal"> <br>
+
     <h2 style="margin-bottom: 40px;">Inicio de sesión</h2>
     <!-- Utiliza ngSubmit para vincular el evento de envío del formulario con el método onSubmit del componente. -->
     <form (ngSubmit)="onSubmit(username.value, password.value)">
@@ -23,3 +25,10 @@
     </form>
   </div>
 </section>
+
+<footer>
+  <section class="buttons_iconos">
+        <a target="_blank" [href] = "correo" class="fa fa-envelope acortar_icono_medio_two"></a>
+        <a target="_blank" [href] = "linkedin" class="fa fa-linkedin acortar_icono_right"></a>
+    </section>
+</footer>
