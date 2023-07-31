@@ -17,8 +17,6 @@ export class MostrarCarpetasService {
   getMostrarCarpetas(currentUser: any): Observable<string[]> {
     this.urlFinal = this.urlBase + this.urlTraer + "?" + environment.APIusuarios + currentUser;
 
-    console.log(this.urlFinal)
-
     return this.http.get<any>(this.urlFinal).pipe(
       map((response) => {
         const carpetas = Object.keys(response);
