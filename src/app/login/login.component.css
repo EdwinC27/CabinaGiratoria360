@@ -78,7 +78,7 @@ input[type="submit"]:disabled {
   height: 60px;
   line-height: 60px;
   text-align: center;
-  background: #314652;
+  background-color: rgb(222, 54, 225);
   color: #f1f1f1;
   border-radius: 50%;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
