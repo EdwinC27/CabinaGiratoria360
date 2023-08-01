@@ -19,7 +19,7 @@
     </div>
 
     <div class="conteCarrouselController" style="margin-left: 10px;">
-      <a *ngFor="let url of videoUrls; let i = index" href="#itemCarrousel-{{ i }}" [ngClass]="{'punto-activo': i === videoActual}" (click)="setActiveIndex(i)" style="margin-right: 40px;"></a>
+      <a *ngFor="let url of videoUrls; let i = index" [ngClass]="{'punto-activo': i === videoActual}" style="margin-right: 40px;"></a>
     </div>
   </div>
 </div>
