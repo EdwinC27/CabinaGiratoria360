@@ -3,9 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/PRACTICAS/android/CabinaGiratoria/app/src/main/res/drawable/edittext_border.xml" value="0.112" />
         <entry key="..\:/PRACTICAS/android/CabinaGiratoria/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1315" />
-        <entry key="..\:/PRACTICAS/android/CabinaGiratoria/app/src/main/res/layout/activity_grabar_video.xml" value="0.20416666666666666" />
+        <entry key="..\:/PRACTICAS/android/CabinaGiratoria/app/src/main/res/layout/activity_encontar_video.xml" value="0.16032608695652173" />
+        <entry key="..\:/PRACTICAS/android/CabinaGiratoria/app/src/main/res/layout/activity_encontrar_last_video.xml" value="0.1" />
+        <entry key="..\:/PRACTICAS/android/CabinaGiratoria/app/src/main/res/layout/activity_grabar_video.xml" value="0.1" />
+        <entry key="..\:/PRACTICAS/android/CabinaGiratoria/app/src/main/res/layout/activity_inicio.xml" value="0.15677083333333333" />
+        <entry key="..\:/PRACTICAS/android/CabinaGiratoria/app/src/main/res/layout/activity_login.xml" value="0.24719101123595505" />
         <entry key="..\:/PRACTICAS/android/CabinaGiratoria/app/src/main/res/layout/activity_main.xml" value="0.18" />
+        <entry key="..\:/PRACTICAS/android/CabinaGiratoria/app/src/main/res/layout/activity_main2.xml" value="0.17074275362318841" />
+        <entry key="..\:/PRACTICAS/android/CabinaGiratoria/app/src/main/res/layout/activity_mostrar_last_video.xml" value="0.17074275362318841" />
+        <entry key="..\:/PRACTICAS/android/CabinaGiratoria/app/src/main/res/layout/activity_procesando_video.xml" value="0.17074275362318841" />
       </map>
     </option>
   </component>
