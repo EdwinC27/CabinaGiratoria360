@@ -1,6 +1,8 @@
 package com.example.cabinagiratoria;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -33,6 +35,9 @@ public class LoginActivity extends AppCompatActivity {
         if (username.equals("usuario") && password.equals("contraseña")) {
             // Autenticación exitosa
             Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(this, EscogerEventoActivity.class);
+            startActivity(intent);
         } else {
             Toast.makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
         }
