@@ -17,8 +17,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
+import com.example.cabinagiratoria.Model.MP4Utils;
 import com.example.cabinagiratoria.Model.Video;
 
+import java.io.File;
 import java.util.List;
 
 public class GrabarVideoActivity extends AppCompatActivity {
@@ -41,8 +43,11 @@ public class GrabarVideoActivity extends AppCompatActivity {
         Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
         takeVideoIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, DURATION_LIMIT_SECONDS);
 
+        File urlVideo = Video.createVideoFile("");
+        MP4Utils.setSelectedFileVideo(urlVideo.getPath());
+
         // Generar una URI de archivo segura utilizando FileProvider
-        Uri videoUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", Video.createVideoFile(""));
+        Uri videoUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", urlVideo);
 
         takeVideoIntent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri);
 
