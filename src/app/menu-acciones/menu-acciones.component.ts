@@ -220,7 +220,7 @@ export class MenuAccionesComponent implements OnInit {
     ) {
       return false;
     }
-    if (this.selectedOption === 'Crear evento' && this.inputText !== '' && this.selectedFile !== null) {
+    if (this.selectedOption === 'Crear evento' && this.inputText !== '' && this.selectedFile !== null && this.inputMensage !== '') {
       return false;
     }
     if (this.selectedOption === 'Limpiar cache') {
