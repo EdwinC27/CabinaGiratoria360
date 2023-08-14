@@ -19,6 +19,7 @@ import androidx.core.content.FileProvider;
 
 import com.example.cabinagiratoria.Model.MP4Utils;
 import com.example.cabinagiratoria.Model.Video;
+import com.example.cabinagiratoria.servicios.ProcesarVideo;
 
 import java.io.File;
 import java.util.List;
@@ -68,6 +69,9 @@ public class GrabarVideoActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
+            ProcesarVideo procesarVideo = new ProcesarVideo();
+            procesarVideo.crearVideoFinal();
+
             Toast.makeText(this, "Video creado y guardado correctamente", Toast.LENGTH_SHORT).show();
 
             // Abrir otro Activity
