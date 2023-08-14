@@ -70,7 +70,7 @@ public class GrabarVideoActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
             ProcesarVideo procesarVideo = new ProcesarVideo();
-            procesarVideo.crearVideoFinal();
+            procesarVideo.crearVideoFinal(this);
 
             Toast.makeText(this, "Video creado y guardado correctamente", Toast.LENGTH_SHORT).show();
 

@@ -1,5 +1,8 @@
 package com.example.cabinagiratoria.servicios;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
 import android.util.Log;
 
 import com.arthenica.mobileffmpeg.ExecuteCallback;
@@ -7,12 +10,13 @@ import com.arthenica.mobileffmpeg.FFmpeg;
 import com.example.cabinagiratoria.Model.MP3Utils;
 import com.example.cabinagiratoria.Model.MP4Utils;
 import com.example.cabinagiratoria.Model.Video;
+import com.example.cabinagiratoria.MostrarVideo;
 
 import java.io.File;
 import java.util.concurrent.CompletableFuture;
 
 public class ProcesarVideo {
-    public void crearVideoFinal() {
+    public void crearVideoFinal(Context context) {
         CompletableFuture<Void> idaFuture = ida();
         CompletableFuture<Void> vueltaFuture = vuelta();
 
@@ -34,6 +38,12 @@ public class ProcesarVideo {
                         MP4Utils.setSelectedFileWithAudio(cambiarVideoPorVideoConAudio());
 
                         eliminarVideos();
+
+                        // Agregar un temporizador para esperar 2 segundos antes de abrir la nueva actividad
+                        new Handler().postDelayed(() -> {
+                            Intent intent = new Intent(context, MostrarVideo.class);
+                            context.startActivity(intent);
+                        }, 2000);
                     }
                 }
             });
