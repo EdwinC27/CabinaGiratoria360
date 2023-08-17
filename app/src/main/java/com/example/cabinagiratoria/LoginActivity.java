@@ -4,11 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import okhttp3.OkHttpClient;
+import com.example.cabinagiratoria.Peticiones.ApiClient;
 
 import java.io.IOException;
 
@@ -32,15 +33,32 @@ public class LoginActivity extends AppCompatActivity {
         String username = editTextUsername.getText().toString();
         String password = editTextPassword.getText().toString();
 
-        if (username.equals("usuario") && password.equals("contraseña")) {
-            // Autenticación exitosa
-            Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(this, EscogerEventoActivity.class);
-            startActivity(intent);
-        } else {
-            Toast.makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
-        }
+        ApiClient apiClient = new ApiClient(this);
+        apiClient.hacerPeticionAPI(username, password, new ApiClient.ApiResponseListener() {
+            @Override
+            public void onResponse(boolean response) {
+                if (response) {
+                    Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+
+                    mandarOtraActivity();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                Log.d("Error: ", error);
+                Toast.makeText(LoginActivity.this, "Ocurrio un error al iniciar sesion", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
+
+    public void mandarOtraActivity() {
+        Intent intent = new Intent(this, EscogerEventoActivity.class);
+        startActivity(intent);
+    }
 }
