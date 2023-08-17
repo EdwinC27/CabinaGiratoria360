@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.cabinagiratoria.Peticiones.ApiClient;
+import com.example.cabinagiratoria.Peticiones.ApiClientValidarUsuario;
 
 import java.io.IOException;
 
@@ -34,8 +34,8 @@ public class LoginActivity extends AppCompatActivity {
         String password = editTextPassword.getText().toString();
 
 
-        ApiClient apiClient = new ApiClient(this);
-        apiClient.hacerPeticionAPI(username, password, new ApiClient.ApiResponseListener() {
+        ApiClientValidarUsuario apiClient = new ApiClientValidarUsuario(this);
+        apiClient.hacerPeticionAPI(username, password, new ApiClientValidarUsuario.ApiResponseListener() {
             @Override
             public void onResponse(boolean response) {
                 if (response) {

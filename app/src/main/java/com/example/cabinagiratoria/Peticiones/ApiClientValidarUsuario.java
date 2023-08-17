@@ -14,13 +14,13 @@ import com.android.volley.toolbox.Volley;
 
 import java.io.UnsupportedEncodingException;
 
-public class ApiClient {
+public class ApiClientValidarUsuario {
 
     private static final String API_URL = "http://3.128.181.152:8080/api/users?user=";
     private RequestQueue requestQueue;
 
 
-    public ApiClient(Context context) {
+    public ApiClientValidarUsuario(Context context) {
         requestQueue = Volley.newRequestQueue(context);
     }
 
