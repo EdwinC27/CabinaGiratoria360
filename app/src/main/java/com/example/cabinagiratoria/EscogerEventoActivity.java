@@ -12,23 +12,30 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.cabinagiratoria.Model.MP3Utils;
+import com.example.cabinagiratoria.Peticiones.ApiClientValidadCarpetas;
 
 public class EscogerEventoActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
     private static final int REQUEST_CODE_SELECT_MP3 = 2;
     private EditText editTextEvento;
+    String nombreUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_escoger_evento);
         Button buttonSubirMP3 = findViewById(R.id.buttonSubirMP3);
+
+        if (getIntent().hasExtra("nombreUsuario")) {
+            nombreUsuario = getIntent().getStringExtra("nombreUsuario");
+        }
 
         // Obtener referencias a los elementos de la interfaz de usuario
         editTextEvento = findViewById(R.id.textNombreEvento);
@@ -56,12 +63,36 @@ public class EscogerEventoActivity extends AppCompatActivity {
 
         if (MP3Utils.getSelectedFileAudio() == null) {
             Toast.makeText(this, "Falta escoger una cancion ", Toast.LENGTH_SHORT).show();
-        } else if (text.isEmpty()){
-            Toast.makeText(this, "Falta escoger una evento ", Toast.LENGTH_SHORT).show();
-        } else {
-            Intent intent = new Intent(this, GrabarVideoActivity.class);
-            startActivity(intent);
         }
+
+        if (text.isEmpty()){
+            Toast.makeText(this, "Falta escoger una evento ", Toast.LENGTH_SHORT).show();
+        }
+
+        ApiClientValidadCarpetas apiClientValidadCarpetas = new ApiClientValidadCarpetas(this);
+        apiClientValidadCarpetas.hacerPeticionAPI(nombreUsuario, new ApiClientValidadCarpetas.ApiResponseListener() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("*******************Exito******************: ", response);
+
+                if (!response.contains(text)) {
+                    Toast.makeText(EscogerEventoActivity.this, "No se encontro la carpeta", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                mandarOtraActivity();
+            }
+
+            @Override
+            public void onError(String error) {
+                Log.d("Error: ", error);
+                Toast.makeText(EscogerEventoActivity.this, "Ocurrio un al validar la carpeta", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void mandarOtraActivity() {
+        Intent intent = new Intent(this, GrabarVideoActivity.class);
+        startActivity(intent);
     }
 
     // Manejar la respuesta del usuario sobre los permisos solicitados

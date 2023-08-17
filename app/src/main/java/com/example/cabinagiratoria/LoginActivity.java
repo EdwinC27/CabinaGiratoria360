@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (response) {
                     Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
 
-                    mandarOtraActivity();
+                    mandarOtraActivity(username);
                 } else {
                     Toast.makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
                 }
@@ -57,8 +57,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    public void mandarOtraActivity() {
+    public void mandarOtraActivity(String usuario) {
         Intent intent = new Intent(this, EscogerEventoActivity.class);
+        intent.putExtra("nombreUsuario", usuario);
         startActivity(intent);
     }
 }
