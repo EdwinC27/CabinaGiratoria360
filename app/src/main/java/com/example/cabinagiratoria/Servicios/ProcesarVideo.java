@@ -1,4 +1,4 @@
-package com.example.cabinagiratoria.servicios;
+package com.example.cabinagiratoria.Servicios;
 
 import android.content.Context;
 import android.content.Intent;

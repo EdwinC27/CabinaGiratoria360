@@ -19,7 +19,7 @@ import androidx.core.content.FileProvider;
 
 import com.example.cabinagiratoria.Model.MP4Utils;
 import com.example.cabinagiratoria.Model.Video;
-import com.example.cabinagiratoria.servicios.ProcesarVideo;
+import com.example.cabinagiratoria.Servicios.ProcesarVideo;
 
 import java.io.File;
 import java.util.List;
