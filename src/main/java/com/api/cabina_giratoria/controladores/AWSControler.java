@@ -82,4 +82,8 @@ public class AWSControler {
     public ResponseEntity<byte[]> downloadFolder (@RequestParam("carpeta") String nombreFiesta, @RequestParam(value = "usuario") String usuario) throws IOException {
         return s3Service.downloadFolder(nombreFiesta, usuario);
     }
-}
+
+    @PostMapping(EndPoints.SUBIR_VIDEO)
+    public ResponseEntity<JSONObject> uploadVideo(@RequestParam("file") MultipartFile file, @RequestParam("carpeta") String nombreFiesta, @RequestParam(value = "usuario") String usuario) {
+        return s3Service.uploadVideo(file, nombreFiesta, usuario);
+    }}

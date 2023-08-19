@@ -409,4 +409,24 @@ public class S3Service {
             }
         }
     }
+
+    public ResponseEntity<JSONObject> uploadVideo(MultipartFile file, String folderName, String carpetaUsuario) {
+        try {
+            ObjectMetadata metadata = new ObjectMetadata();
+            metadata.setContentType("video/mp4");
+
+            String folderKey = carpetaUsuario + "/" + folderName + "/"; // Agregar la ruta completa de la carpeta
+
+            // Subir el video a Amazon S3
+            amazonS3.putObject(new PutObjectRequest(bucketName, folderKey + file.getOriginalFilename(), file.getInputStream(), metadata));
+
+            JSONObject correctResponse = new JSONObject();
+            correctResponse.put("Exito", "Video subido correctamente");
+            return ResponseEntity.status(HttpStatus.OK).body(correctResponse);
+        } catch (Exception e) {
+            JSONObject errorResponse = new JSONObject();
+            errorResponse.put("Error", "No se pudo subir el video");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+        }
+    }
 }
