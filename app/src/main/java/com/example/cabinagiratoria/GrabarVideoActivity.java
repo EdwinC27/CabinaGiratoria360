@@ -27,6 +27,8 @@ import java.util.List;
 public class GrabarVideoActivity extends AppCompatActivity {
     static final int REQUEST_VIDEO_CAPTURE = 1;
     static final int DURATION_LIMIT_SECONDS = 13;
+    String nombreUsuario;
+    String nombreCarpeta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,13 @@ public class GrabarVideoActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(GrabarVideoActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(GrabarVideoActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(GrabarVideoActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 1000);
             Toast.makeText(this, "La aplicacion no cuenta con permisos",  Toast.LENGTH_SHORT).show();
+        }
+
+        if (getIntent().hasExtra("nombreUsuario")) {
+            nombreUsuario = getIntent().getStringExtra("nombreUsuario");
+        }
+        if (getIntent().hasExtra("nombreCarpeta")) {
+            nombreCarpeta = getIntent().getStringExtra("nombreCarpeta");
         }
     }
 
@@ -70,7 +79,7 @@ public class GrabarVideoActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
             ProcesarVideo procesarVideo = new ProcesarVideo();
-            procesarVideo.crearVideoFinal(this);
+            procesarVideo.crearVideoFinal(this, nombreUsuario, nombreCarpeta);
 
             Toast.makeText(this, "Video creado y guardado correctamente", Toast.LENGTH_SHORT).show();
 

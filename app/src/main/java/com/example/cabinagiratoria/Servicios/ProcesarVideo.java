@@ -16,7 +16,7 @@ import java.io.File;
 import java.util.concurrent.CompletableFuture;
 
 public class ProcesarVideo {
-    public void crearVideoFinal(Context context) {
+    public void crearVideoFinal(Context context, String nombreUsuario, String nombreCarpeta) {
         CompletableFuture<Void> idaFuture = ida();
         CompletableFuture<Void> vueltaFuture = vuelta();
 
@@ -42,6 +42,8 @@ public class ProcesarVideo {
                         // Agregar un temporizador para esperar 2 segundos antes de abrir la nueva actividad
                         new Handler().postDelayed(() -> {
                             Intent intent = new Intent(context, MostrarVideo.class);
+                            intent.putExtra("nombreUsuario", nombreUsuario);
+                            intent.putExtra("nombreCarpeta", nombreCarpeta);
                             context.startActivity(intent);
                         }, 2000);
                     }
@@ -137,7 +139,7 @@ public class ProcesarVideo {
     }
 
     private static void eliminarVideos() {
-        Video.eliminarVideo(MP4Utils.getSelectedFileVideo());
+        //Video.eliminarVideo(MP4Utils.getSelectedFileVideo());
         Video.eliminarVideo(MP4Utils.getSelectedFileProcess());
         Video.eliminarVideo(MP4Utils.getSelectedFileFinal());
         Video.eliminarVideo(MP4Utils.getSelectedFileRever());

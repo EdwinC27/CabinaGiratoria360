@@ -63,35 +63,35 @@ public class EscogerEventoActivity extends AppCompatActivity {
 
         if (MP3Utils.getSelectedFileAudio() == null) {
             Toast.makeText(this, "Falta escoger una cancion ", Toast.LENGTH_SHORT).show();
-        }
-
-        if (text.isEmpty()){
+        } else if (text.isEmpty()){
             Toast.makeText(this, "Falta escoger una evento ", Toast.LENGTH_SHORT).show();
-        }
+        } else {
+            ApiClientValidadCarpetas apiClientValidadCarpetas = new ApiClientValidadCarpetas(this);
+            apiClientValidadCarpetas.hacerPeticionAPI(nombreUsuario, new ApiClientValidadCarpetas.ApiResponseListener() {
+                @Override
+                public void onResponse(String response) {
+                    Log.d("*******************Exito******************: ", response);
 
-        ApiClientValidadCarpetas apiClientValidadCarpetas = new ApiClientValidadCarpetas(this);
-        apiClientValidadCarpetas.hacerPeticionAPI(nombreUsuario, new ApiClientValidadCarpetas.ApiResponseListener() {
-            @Override
-            public void onResponse(String response) {
-                Log.d("*******************Exito******************: ", response);
-
-                if (!response.contains(text)) {
-                    Toast.makeText(EscogerEventoActivity.this, "No se encontro la carpeta", Toast.LENGTH_SHORT).show();
-                    return;
+                    if (!response.contains(text)) {
+                        Toast.makeText(EscogerEventoActivity.this, "No se encontro la carpeta", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    mandarOtraActivity(text);
                 }
-                mandarOtraActivity();
-            }
 
-            @Override
-            public void onError(String error) {
-                Log.d("Error: ", error);
-                Toast.makeText(EscogerEventoActivity.this, "Ocurrio un al validar la carpeta", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onError(String error) {
+                    Log.d("Error: ", error);
+                    Toast.makeText(EscogerEventoActivity.this, "Ocurrio un al validar la carpeta", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
-    public void mandarOtraActivity() {
+    public void mandarOtraActivity(String nombreCarpeta) {
         Intent intent = new Intent(this, GrabarVideoActivity.class);
+        intent.putExtra("nombreUsuario", nombreUsuario);
+        intent.putExtra("nombreCarpeta", nombreCarpeta);
         startActivity(intent);
     }
 
