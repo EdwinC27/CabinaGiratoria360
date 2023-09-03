@@ -1,5 +1,5 @@
 export const environment = {
-  APIUrlBase: "http://3.128.181.152:8080/api/",
+  APIUrlBase: "http://3.133.85.94:8080/api/",
   APIUrlEliminarCarpeta: "carpeta/eliminar?carpeta=",
   APIUrlCrearCarpeta: "carpeta/crear?carpeta=",
   APIUrlTraerVideo: "videos?fiesta=",
@@ -12,7 +12,7 @@ export const environment = {
   APIUrlLogo: "logo/?usuario=",
 
   URLPaginaPublicaUsuario: "/usuario/",
-  URLPaginaPublica: "http://cabina-giratoria-publico.s3-website.us-east-2.amazonaws.com/#/evento/",
+  URLPaginaPublica: "http://cabina-giratoria.s3-website.us-east-2.amazonaws.com/#/evento/",
 
   ClaveDeCifrado: ""
 }
