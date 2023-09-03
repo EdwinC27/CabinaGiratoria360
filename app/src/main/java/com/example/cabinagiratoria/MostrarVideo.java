@@ -1,13 +1,17 @@
 package com.example.cabinagiratoria;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.media.MediaPlayer;
 import android.os.Environment;
 
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -80,6 +84,14 @@ public class MostrarVideo extends AppCompatActivity {
                 }
             }, 2000);
         }
+
+        Button btnCompartir = findViewById(R.id.btnCompartir);
+        btnCompartir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mandarVideoWhatsapp(rutaVideoAudio);
+            }
+        });
     }
 
 
@@ -121,5 +133,24 @@ public class MostrarVideo extends AppCompatActivity {
                 runOnUiThread(() -> Toast.makeText(MostrarVideo.this, responseBody, Toast.LENGTH_SHORT).show());
             }
         });
+    }
+
+    public void mandarVideoWhatsapp (String rutaVideo) {
+        File videoFile = new File(rutaVideo);
+        Uri videoUri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".fileprovider", videoFile);
+
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("video/*");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, videoUri);
+        shareIntent.setPackage("com.whatsapp"); // Esto especifica que solo se abrirá WhatsApp
+
+        // Agregar permisos de lectura al Uri
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        try {
+            startActivity(shareIntent);
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(this, "WhatsApp no está instalado en tu dispositivo.", Toast.LENGTH_SHORT).show();
+        }
     }
 }
