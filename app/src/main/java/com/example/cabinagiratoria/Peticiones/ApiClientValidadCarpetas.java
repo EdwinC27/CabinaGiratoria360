@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 public class ApiClientValidadCarpetas {
 
-    private static final String API_URL = "http://3.128.181.152:8080/api/carpeta/?usuario="; // Reemplaza esto con la URL de la API que deseas usar
+    private static final String API_URL = "http://3.133.85.94:8080/api/carpeta/?usuario="; // Reemplaza esto con la URL de la API que deseas usar
     private RequestQueue requestQueue;
 
     public ApiClientValidadCarpetas(Context context) {

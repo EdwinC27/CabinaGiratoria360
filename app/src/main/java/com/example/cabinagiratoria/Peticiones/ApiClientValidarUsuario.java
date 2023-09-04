@@ -16,7 +16,7 @@ import java.io.UnsupportedEncodingException;
 
 public class ApiClientValidarUsuario {
 
-    private static final String API_URL = "http://3.128.181.152:8080/api/users?user=";
+    private static final String API_URL = "http://3.133.85.94:8080/api/users?user=";
     private RequestQueue requestQueue;
 
 

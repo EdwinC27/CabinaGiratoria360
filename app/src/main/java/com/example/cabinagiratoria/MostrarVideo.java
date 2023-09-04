@@ -97,7 +97,7 @@ public class MostrarVideo extends AppCompatActivity {
 
     private void subirVideo(String carpetaUsuario, String nombreUsuario, String rutaVideo) {
         // String video = MP4Utils.getSelectedFileProcess();
-        final String API_URL = "http://3.128.181.152:8080/api/upload/video";
+        final String API_URL = "http://3.133.85.94:8080/api/upload/video";
 
         File videoFile = new File(rutaVideo);
 
