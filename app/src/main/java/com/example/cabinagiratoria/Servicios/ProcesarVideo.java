@@ -139,7 +139,7 @@ public class ProcesarVideo {
     }
 
     private static void eliminarVideos() {
-        //Video.eliminarVideo(MP4Utils.getSelectedFileVideo());
+        Video.eliminarVideo(MP4Utils.getSelectedFileVideo());
         Video.eliminarVideo(MP4Utils.getSelectedFileProcess());
         Video.eliminarVideo(MP4Utils.getSelectedFileFinal());
         Video.eliminarVideo(MP4Utils.getSelectedFileRever());
