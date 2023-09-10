@@ -21,6 +21,11 @@ import android.widget.Toast;
 import com.example.cabinagiratoria.Model.MP3Utils;
 import com.example.cabinagiratoria.Peticiones.ApiClientValidadCarpetas;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Iterator;
+
 public class EscogerEventoActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
     private static final int REQUEST_CODE_SELECT_MP3 = 2;
@@ -70,13 +75,29 @@ public class EscogerEventoActivity extends AppCompatActivity {
             apiClientValidadCarpetas.hacerPeticionAPI(nombreUsuario, new ApiClientValidadCarpetas.ApiResponseListener() {
                 @Override
                 public void onResponse(String response) {
-                    Log.d("*******************Exito******************: ", response);
+                    try {
+                        boolean carpetaEncontrada = false;
 
-                    if (!response.contains(text)) {
-                        Toast.makeText(EscogerEventoActivity.this, "No se encontro la carpeta", Toast.LENGTH_SHORT).show();
-                        return;
+                        JSONObject jsonResponse = new JSONObject(response);
+                        Iterator<String> keys = jsonResponse.keys();
+
+                        while (keys.hasNext()) {
+                            String key = keys.next();
+
+                            if (text.equals(key)) {
+                                mandarOtraActivity(text);
+                                carpetaEncontrada = true;
+                            }
+                        }
+
+                        if (!carpetaEncontrada) {
+                            Toast.makeText(EscogerEventoActivity.this, "No se encontro la carpeta", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(EscogerEventoActivity.this, "Ocurrio un al verificar la carpeta", Toast.LENGTH_SHORT).show();
                     }
-                    mandarOtraActivity(text);
                 }
 
                 @Override
