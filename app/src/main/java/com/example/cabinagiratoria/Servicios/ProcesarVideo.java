@@ -11,12 +11,16 @@ import com.example.cabinagiratoria.Model.MP3Utils;
 import com.example.cabinagiratoria.Model.MP4Utils;
 import com.example.cabinagiratoria.Model.Video;
 import com.example.cabinagiratoria.MostrarVideo;
+import com.example.cabinagiratoria.CreandoVideoActivity;
 
 import java.io.File;
 import java.util.concurrent.CompletableFuture;
 
 public class ProcesarVideo {
     public void crearVideoFinal(Context context, String nombreUsuario, String nombreCarpeta) {
+        Intent intent = new Intent(context, CreandoVideoActivity.class);
+        context.startActivity(intent);
+
         CompletableFuture<Void> idaFuture = ida();
         CompletableFuture<Void> vueltaFuture = vuelta();
 

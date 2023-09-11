@@ -81,7 +81,7 @@ public class GrabarVideoActivity extends AppCompatActivity {
             ProcesarVideo procesarVideo = new ProcesarVideo();
             procesarVideo.crearVideoFinal(this, nombreUsuario, nombreCarpeta);
 
-            Toast.makeText(this, "Video creado y guardado correctamente", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Video creado y guardado correctamente", Toast.LENGTH_SHORT).show();
 
             // Abrir otro Activity
             // Intent intent = new Intent(this, ProcesandoVideo.class);
