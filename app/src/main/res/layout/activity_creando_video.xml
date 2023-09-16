@@ -8,10 +8,13 @@
 
     <ImageView
         android:id="@+id/gifImageView"
-        android:layout_width="409dp"
-        android:layout_height="728dp"
+        android:layout_width="417dp"
+        android:layout_height="239dp"
         android:layout_centerInParent="true"
-        android:src="@drawable/cargando" />
+        android:src="@drawable/cargando"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="-8dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
