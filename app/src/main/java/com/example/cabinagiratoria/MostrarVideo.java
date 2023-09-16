@@ -130,7 +130,7 @@ public class MostrarVideo extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String responseBody = response.body().string();
-                runOnUiThread(() -> Toast.makeText(MostrarVideo.this, responseBody, Toast.LENGTH_SHORT).show());
+                //runOnUiThread(() -> Toast.makeText(MostrarVideo.this, responseBody, Toast.LENGTH_SHORT).show());
             }
         });
     }
