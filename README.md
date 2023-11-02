@@ -1,5 +1,7 @@
 # Cabina Giratorio 360
-Este proyecto tiene como objetivo presentar una solución para el software de una Cabina Giratoria 360. El repositorio cuenta con varias ramas, cada una diseñada para un uso en específico.
+Este proyecto tiene como objetivo ofrecer una solución de software para una Cabina Giratoria 360. El repositorio cuenta con varias ramas, cada una diseñada para un uso específico.
+
+En la actualidad, estamos trabajando en las ramas de **API-AWS**, **FrontEnd-Público-AWS** y **FrontEnd-Privado-AWS**, ya que estamos en proceso de migrar a la plataforma de AWS en lugar de Dropbox para nuestro alojamiento en la nube.
 
 ## Ramas
 
